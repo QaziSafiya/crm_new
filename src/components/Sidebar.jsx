@@ -22,7 +22,7 @@ export default function Sidebar() {
         <div className={`side-bar${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
             <div className="flex p-1rem jc-center">
                 <Link to="/">
-                    <img src={Logo} height={24} alt="iTaxEasy" />
+                    <img src={Logo} height={48} alt="iTaxEasy" />
                 </Link>
             </div>
             <nav className="side-nav">

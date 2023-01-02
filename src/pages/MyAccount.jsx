@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { EMAIL_RGX, MOBILE_RGX, PINCODE_RGX } from "../components/lib/validation.js";
+import { EMAIL_RGX, MOBILE_RGX, PINCODE_RGX } from "../lib/validation.js";
 import Sidebar from "../components/Sidebar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import { BASE_URL } from "../constants.js";
