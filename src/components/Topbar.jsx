@@ -27,7 +27,7 @@ export default function Topbar() {
                 <button onClick={toggleSidebar} className="button icon-button secondary-icon small">
                     <MenuIcon />
                 </button>
-                <h1 className="title">ItaxEasy</h1>
+                <h1 className="title">BillShill</h1>
             </div>
             <HoverMenu icon={<AccountIcon />} tooltip="Account">
                 <ul className="list-menu">
