@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { SET_THEME } from "../store/actions.js";
 import { StoreContext } from "../store/store-context.js";
 
 export default function useTheme() {
@@ -9,8 +10,11 @@ export default function useTheme() {
     }, [state.theme]);
 
     useEffect(() => {
+        const theme = localStorage.getItem('theme');
+
         dispatch({
-            
+            type: SET_THEME,
+            payload: theme
         })
     }, []);
 }

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import PrivateRoute from './components/PrivateRoute.jsx'
-import useTheme from './hooks/useTheme.jsx'
+import useTheme from './hooks/useTheme.js'
 import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import MyAccount from './pages/MyAccount.jsx'
