@@ -25,7 +25,6 @@ export default function MyAccount() {
                 {
                     method: 'POST',
                     headers: new Headers({
-                        'Content-type': 'application/json',
                         'Authorization': `Bearer ${token}`,
                     }),
                     body: data

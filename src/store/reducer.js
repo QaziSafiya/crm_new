@@ -1,4 +1,4 @@
-import { AUTH_USER, LOGOUT, TOGGLE_SIDEBAR } from "./actions.js";
+import { AUTH_USER, LOGOUT, SET_THEME, TOGGLE_SIDEBAR } from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     switch(type) {
@@ -8,6 +8,8 @@ export default function reducer(state, { type, payload }) {
             return { ...state, auth: { ...state.auth, currentUser: null, token: null } };
         case TOGGLE_SIDEBAR:
             return { ...state, sidebarOpen: !state.sidebarOpen };
+        case SET_THEME:
+            return { ...state, theme: payload };
         default:
             return state;
     }
