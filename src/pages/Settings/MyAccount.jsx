@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { EMAIL_RGX, MOBILE_RGX, PINCODE_RGX } from "../lib/validation.js";
-import Sidebar from "../components/Sidebar.jsx";
-import Topbar from "../components/Topbar.jsx";
-import { BASE_URL } from "../constants.js";
-import useAuth from "../hooks/useAuth.js";
+import { EMAIL_RGX, MOBILE_RGX, PINCODE_RGX } from "../../lib/validation.js";
+import Sidebar from "../../components/Sidebar.jsx";
+import Topbar from "../../components/Topbar.jsx";
+import { BASE_URL } from "../../constants.js";
+import useAuth from "../../hooks/useAuth.js";
 
 export default function MyAccount() {
     const { currentUser, token } = useAuth();
@@ -21,13 +21,15 @@ export default function MyAccount() {
             setError('');
 
             const response = await fetch(
-                `${BASE_URL}/users/update-profile`,
+                `${BASE_URL}/users/update`,
                 {
                     method: 'POST',
                     headers: new Headers({
                         'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
                     }),
-                    body: data
+                    body: JSON.stringify(data),
+                    redirect: "follow"
                 }
             );
 
@@ -48,6 +50,7 @@ export default function MyAccount() {
             <div className="main">
                 <Topbar />
                 <div className="inner-container">
+                    <h6 className="text-secondary">My Account</h6>
                     <div className="section">
                         <form className="form flex dir-col g-1rem" onSubmit={handleSubmit(onSubmit)}>
                             {

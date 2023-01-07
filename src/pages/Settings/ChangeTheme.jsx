@@ -1,19 +1,13 @@
-import { useContext } from "react";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
-import { SET_THEME } from "../../store/actions.js";
-import { StoreContext } from "../../store/store-context.js";
+import useTheme from "../../hooks/useTheme.js";
 
 export default function ChangeTheme() {
-    const [state, dispatch] = useContext(StoreContext)
+    const [theme, setTheme] = useTheme();
 
     const handleChange = e => {
         const theme = e.target.value;
-        dispatch({
-            type: SET_THEME,
-            payload: theme
-        });
-        localStorage.setItem('theme', theme);
+        setTheme(theme);
     };
 
     return (
@@ -25,7 +19,7 @@ export default function ChangeTheme() {
                 <div className="section">
                     <div className="field">
                         <label htmlFor="theme" className="label">Theme</label>
-                        <select onChange={handleChange} value={state.theme} className="select" name="theme" id="theme">
+                        <select onChange={handleChange} value={theme} className="select" name="theme" id="theme">
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
                         </select>

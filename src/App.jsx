@@ -4,7 +4,7 @@ import PrivateRoute from './components/PrivateRoute.jsx'
 import useTheme from './hooks/useTheme.js'
 import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
-import MyAccount from './pages/MyAccount.jsx'
+import MyAccount from './pages/Settings/MyAccount.jsx'
 import ChangePassword from './pages/Settings/ChangePassword.jsx'
 import ChangeTheme from './pages/Settings/ChangeTheme.jsx'
 import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
@@ -26,7 +26,7 @@ function App() {
             <Users />
           </PrivateRoute>
         } />
-        <Route path='/my-account' element={
+        <Route path='/settings/my-account' element={
           <PrivateRoute>
             <MyAccount />
           </PrivateRoute>

@@ -9,7 +9,6 @@ import useMultiStateForm from "../../hooks/useMultiStepForm.jsx"
 function SendOTPForm({ setOtpId, nextStep }) {
     const { token, currentUser } = useAuth();
 
-    const [email, setEmail] = useState(currentUser.email);
     const [sending, setSending] = useState(false);
     const [error, setError] = useState('');
 
@@ -17,15 +16,21 @@ function SendOTPForm({ setOtpId, nextStep }) {
         e.preventDefault();
         try {
             setSending(true);
-            // const response = await fetch(`${BASE_URL}/email/otp`, {
-            //     method: 'POST',
-            //     body: {
-            //         email,
-            //         type: 'FORGET'
-            //     }
-            // });
-            // console.log(response);
-            setOtpId(1);
+            console.log(currentUser.email)
+            const response = await fetch(`${BASE_URL}/email/otp`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    email: currentUser.email,
+                    type: 'FORGET'
+                }),
+                redirect: "follow"
+            });
+            const { data: { otp_id } } = await response.json();
+            console.log(otp_id);
+            setOtpId(otp_id);
             nextStep();
         } catch(e) {
             console.error(e);
@@ -44,8 +49,7 @@ function SendOTPForm({ setOtpId, nextStep }) {
                     name="email" 
                     id="email" 
                     className="input"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    value={currentUser.email}
                     disabled={true}
                 />
             </div>
@@ -65,7 +69,7 @@ function SendOTPForm({ setOtpId, nextStep }) {
     )
 }
 
-function ConfirmOTPForm({ nextStep }) {
+function ConfirmOTPForm({ otpId, nextStep }) {
     const { token, currentUser } = useAuth();
 
     const [otp, setOtp] = useState('');
@@ -76,14 +80,25 @@ function ConfirmOTPForm({ nextStep }) {
         e.preventDefault();
         try {
             setConfirming(true);
-            // const response = await fetch(`${BASE_URL}/email/otp`, {
-            //     method: 'POST',
-            //     body: {
-            //         email,
-            //         type: 'FORGET'
-            //     }
-            // });
-            // console.log(response);
+            const response = await fetch(`${BASE_URL}/email/verify-forgot-pass`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    email: currentUser.email,
+                    otp,
+                    verification_key: otpId
+                }),
+                redirect: "follow"
+            });
+            
+            if(!response.ok) {
+                throw new Error("Incorrect OTP");
+            }
+
+            const json = await response.json();
+console.log(json)
             nextStep();
         } catch(e) {
             console.error(e);
@@ -134,14 +149,19 @@ function ChangePasswordForm({ nextStep }) {
         e.preventDefault();
         try {
             setUpdating(true);
-            // const response = await fetch(`${BASE_URL}/email/otp`, {
-            //     method: 'POST',
-            //     body: {
-            //         email,
-            //         type: 'FORGET'
-            //     }
-            // });
-            // console.log(response);
+            const response = await fetch(`${BASE_URL}/users/update-password`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }),
+                body: JSON.stringify({
+                    password
+                }),
+                redirect: "follow"
+            });
+
+            console.log(response);
         } catch(e) {
             console.error(e);
             setError(e.message);
@@ -197,7 +217,7 @@ export default function ChangePassword() {
     const { step } = useMultiStateForm({
         steps: (next, prev) => [
             <SendOTPForm setOtpId={setOtpId} nextStep={next} />,
-            <ConfirmOTPForm nextStep={next} />,
+            <ConfirmOTPForm otpId={otpId} nextStep={next} />,
             <ChangePasswordForm />
         ]
     });

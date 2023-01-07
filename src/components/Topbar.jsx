@@ -35,7 +35,7 @@ export default function Topbar() {
                         <Link className="list-menu-item" to='/roles'>Manage Roles</Link>
                     </li>
                     <li>
-                        <Link className="list-menu-item" to='/my-account'>My Account</Link>
+                        <Link className="list-menu-item" to='/settings/my-account'>My Account</Link>
                     </li>
                     <li>
                         <button

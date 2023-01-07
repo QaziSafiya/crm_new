@@ -1,20 +1,16 @@
-import { useContext, useEffect } from "react";
-import { SET_THEME } from "../store/actions.js";
-import { StoreContext } from "../store/store-context.js";
+import { useEffect, useState } from "react";
 
 export default function useTheme() {
-    const [state, dispatch] = useContext(StoreContext);
+    const [theme, setTheme] = useState(() => localStorage.getItem('theme'));
+
+    const updateTheme = theme => {
+        localStorage.setItem('theme', theme);
+        setTheme(theme);
+    };
 
     useEffect(() => {
-        document.documentElement.setAttribute('data-theme', state.theme);
-    }, [state.theme]);
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
 
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-
-        dispatch({
-            type: SET_THEME,
-            payload: theme
-        })
-    }, []);
+    return [theme, updateTheme];
 }
