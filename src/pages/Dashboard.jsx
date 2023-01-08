@@ -1,4 +1,5 @@
 import Footer from "../components/Footer.jsx";
+import CloseCircleIcon from "../components/icons/CloseCircleIcon.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import useDashboard from "../hooks/useDashboard.js";
@@ -21,7 +22,12 @@ export default function Dashboard() {
                                 </div>
                             )
                             : error
-                                ? <div className="error-message">{error}</div>
+                                ? (
+                                    <div className="error-message">
+                                        <CloseCircleIcon />
+                                        {error}
+                                    </div>
+                                )
                                 : (
                                     <div className="flex g-1rem flex-wrap">
                                         <div className="card">

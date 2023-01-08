@@ -1,3 +1,4 @@
+import CloseCircleIcon from "../../components/icons/CloseCircleIcon.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 import useHomescreen from "../../hooks/useHomeScreen.js";
@@ -22,7 +23,12 @@ export default function UpdateHomepage() {
                                 </div>
                             )
                             : error
-                                ? <div className="error-message">{error}</div>
+                                ? (
+                                    <div className="error-message">
+                                        <CloseCircleIcon />
+                                        {error}
+                                    </div>
+                                )
                                 : (
                                     <div className="flex dir-col g-1rem">
                                         <UpdateUpper data={data?.upper} />

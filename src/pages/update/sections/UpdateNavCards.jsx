@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import CloseCircleIcon from "../../../components/icons/CloseCircleIcon.jsx";
 import EditIcon from "../../../components/icons/EditIcon.jsx";
 import { BASE_URL } from "../../../constants.js";
 
@@ -7,7 +8,6 @@ import useAuth from '../../../hooks/useAuth.js';
 const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
     const { token } = useAuth();
 
-    const [content, setContent] = useState(card.content);
     const [editedContent, setEditedContent] = useState(card.content);
     const [editing, setEditing] = useState(false);
     const [updating, setUpdating] = useState(false);
@@ -63,7 +63,7 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
     };
 
     const cancelEdit = () => {
-        setEditedContent(content);
+        setEditedContent(card.content);
         setEditing(false);
     };
 
@@ -76,7 +76,7 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
                 !editing
                     ? (
                         <div className="flex jc-between ai-center">
-                            {content}
+                            {card.content}
                             <button onClick={() => setEditing(true)} className="button has-icon is-outlined is-small">
                                 <EditIcon />
                                 Edit
@@ -87,7 +87,12 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
                         <div className="flex dir-col g-0_5rem">
                             {
                                 error
-                                    ? <div className="error-message">{error}</div>
+                                    ? (
+                                        <div className="error-message">
+                                            <CloseCircleIcon />
+                                            {error}
+                                        </div>
+                                    )
                                     : null
                             }
                             <input

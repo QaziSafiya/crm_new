@@ -5,6 +5,7 @@ import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 import { BASE_URL } from "../../constants.js";
 import useAuth from "../../hooks/useAuth.js";
+import CloseCircleIcon from "../../components/icons/CloseCircleIcon.jsx";
 
 export default function MyAccount() {
     const { currentUser, token } = useAuth();
@@ -55,7 +56,12 @@ export default function MyAccount() {
                         <form className="form flex dir-col g-1rem" onSubmit={handleSubmit(onSubmit)}>
                             {
                                 error
-                                    ? <div className="error-message">{error}</div>
+                                    ? (
+                                        <div className="error-message">
+                                            <CloseCircleIcon />
+                                            {error}
+                                        </div>
+                                    )
                                     : null
                             }
                             {
@@ -77,7 +83,12 @@ export default function MyAccount() {
                                     />
                                     {
                                         errors.first_name
-                                            ? <div className="error-message">{errors.first_name.message}</div>
+                                            ? (
+                                                <div className="error-message">
+                                                    <CloseCircleIcon />
+                                                    {errors.first_name.message}
+                                                </div>
+                                            )
                                             : null
                                     }
                                 </div>
@@ -96,7 +107,12 @@ export default function MyAccount() {
                                     />
                                     {
                                         errors.last_name
-                                            ? <div className="error-message">{errors.last_name.message}</div>
+                                            ? (
+                                                <div className="error-message">
+                                                    <CloseCircleIcon />
+                                                    {errors.last_name.message}
+                                                </div>
+                                            )
                                             : null
                                     }
                                 </div>
@@ -120,7 +136,12 @@ export default function MyAccount() {
                                 />
                                 {
                                     errors.email
-                                        ? <div className="error-message">{errors.email.message}</div>
+                                        ? (
+                                            <div className="error-message">
+                                                <CloseCircleIcon />
+                                                {errors.email.message}
+                                            </div>
+                                        )
                                         : null
                                 }
                             </div>
@@ -143,7 +164,12 @@ export default function MyAccount() {
                                 />
                                 {
                                     errors.pincode
-                                        ? <div className="error-message">{errors.pincode.message}</div>
+                                        ? (
+                                            <div className="error-message">
+                                                <CloseCircleIcon />
+                                                {errors.pincode.message}
+                                            </div>
+                                        )
                                         : null
                                 }
                             </div>
@@ -166,7 +192,12 @@ export default function MyAccount() {
                                 />
                                 {
                                     errors.phone
-                                        ? <div className="error-message">{errors.phone.message}</div>
+                                        ? (
+                                            <div className="error-message">
+                                                <CloseCircleIcon />
+                                                {errors.phone.message}
+                                            </div>
+                                        )
                                         : null
                                 }
                             </div>

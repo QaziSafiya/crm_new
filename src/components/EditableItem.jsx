@@ -6,7 +6,7 @@ import EditIcon from "./icons/EditIcon.jsx";
 export default function EditableItem({ name, value, param, endpoint }) {
     const { token } = useAuth();
 
-    const [currentValue, setCurrentValue] = useState(value);
+    const [editedValue, setEditedValue] = useState(value);
     const [editing, setEditing] = useState(false);
     const [updating, setUpdating] = useState(false);
     const [error, setError] = useState('');
@@ -22,7 +22,7 @@ export default function EditableItem({ name, value, param, endpoint }) {
                         'Authorization': `Bearer ${token}`
                     }),
                     body: JSON.stringify({
-                        [param]: currentValue
+                        [param]: editedValue
                     })
                 }
             );
@@ -40,6 +40,7 @@ export default function EditableItem({ name, value, param, endpoint }) {
     const cancelEdit = () => {
         setEditing(false);
         setError('');
+        setEditedValue(value);
     };
 
     return (
@@ -63,8 +64,8 @@ export default function EditableItem({ name, value, param, endpoint }) {
                     <input
                         type="text"
                         className="input" 
-                        value={currentValue}
-                        onChange={e => setCurrentValue(e.target.value)}
+                        value={editedValue}
+                        onChange={e => setEditedValue(e.target.value)}
                     />
                     {
                         error

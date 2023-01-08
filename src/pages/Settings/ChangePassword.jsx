@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer.jsx";
+import CloseCircleIcon from "../../components/icons/CloseCircleIcon.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 import { BASE_URL } from "../../constants.js";
@@ -196,7 +197,12 @@ function ChangePasswordForm({ nextStep }) {
             </div>
             {
                 error
-                    ? <div className="error-message">{error}</div>
+                    ? (
+                        <div className="error-message">
+                            <CloseCircleIcon />
+                            {error}
+                        </div>
+                    )
                     : null
             }
             <button className="button is-primary">
