@@ -13,16 +13,18 @@ export default function ChangeTheme() {
     return (
         <div className="container">
             <Sidebar />
-            <div className="inner-container">
+            <div className="main">
                 <Topbar />
-                <h6 className="text-secondary">Change Theme</h6>
-                <div className="section">
-                    <div className="field">
-                        <label htmlFor="theme" className="label">Theme</label>
-                        <select onChange={handleChange} value={theme} className="select" name="theme" id="theme">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                        </select>
+                <div className="inner-container">
+                    <h6 className="text-secondary">Change Theme</h6>
+                    <div className="section">
+                        <div className="field">
+                            <label htmlFor="theme" className="label">Theme</label>
+                            <select onChange={handleChange} value={theme} className="select" name="theme" id="theme">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>

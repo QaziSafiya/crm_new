@@ -169,3 +169,8 @@ a, a:hover {
 .w-425px {
   width: 425px;
 }
+
+.w-max-content {
+  width: max-content;
+}
+

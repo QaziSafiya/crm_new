@@ -3,7 +3,7 @@ import { BASE_URL } from "../constants.js";
 import useAuth from "../hooks/useAuth.js";
 import EditIcon from "./icons/EditIcon.jsx";
 
-export default function EditableItem({ name, value, param, endpoint }) {
+export default function EditableItem({ name, value, param, endpoint, setUpper }) {
     const { token } = useAuth();
 
     const [editedValue, setEditedValue] = useState(value);
@@ -13,7 +13,7 @@ export default function EditableItem({ name, value, param, endpoint }) {
 
     const handleUpdate = async () => {
         try {
-            const { status } = await fetch(
+            const response = await fetch(
                 `${BASE_URL}/${endpoint}`,
                 {
                     method: 'POST',
@@ -26,12 +26,18 @@ export default function EditableItem({ name, value, param, endpoint }) {
                     })
                 }
             );
+
+            if(!response.ok) {
+                throw new Error(`Could not update ${name}`)
+            }
+
+            const { data: { upper } } = await response.json();
             
-            console.log(status);
+            setUpper(upper);
             setEditing(false);
         } catch(e) {
             console.error(e);
-            setError(`Could not update ${name}`);
+            setError(e.message);
         } finally {
             setUpdating(false);
         }
@@ -46,16 +52,18 @@ export default function EditableItem({ name, value, param, endpoint }) {
     return (
         !editing
             ? (
-                <div className="flex jc-between ai-center g-1rem">
+                <div className="flex dir-col jc-between ai-top g-0_5rem">
                     <span className="text-large text-secondary">{name}</span>
-                    {value}
-                    <button
-                        className="button has-icon is-outlined is-small" 
-                        onClick={() => setEditing(editing => !editing)}
-                    >
-                        <EditIcon />
-                        Edit
-                    </button>
+                    <div className="flex jc-between ai-center g-1rem">
+                        {value}
+                        <button
+                            className="button has-icon is-outlined is-small" 
+                            onClick={() => setEditing(editing => !editing)}
+                        >
+                            <EditIcon />
+                            Edit
+                        </button>
+                    </div>
                 </div>
             )
             : (

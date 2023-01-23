@@ -2,6 +2,7 @@
     --bg-color: rgb(248, 248, 251);
     --fg-color: #000000;
     --primary-color: rgb(1, 28, 75);
+    --primary-color-rgb: 1, 28, 75;
     --on-primary-color: #ffffff;
     --elevation-color: #ffffff;
     --on-elevation-color: #000000;
@@ -12,16 +13,27 @@
     --secondary-color: rgba(108, 117, 125);
     --danger-color: #ff0000;
     --on-danger-color: #ffffff;
+    --on-danger-light-color: #ff0000;
     --danger-color-light: #fde6e6;
-    --border-color: #d3d3d3;
-    --input-bg: #f5f8fa;
+    --success-color: #00ff00;
+    --on-success-color: #ffffff;
+    --on-success-light-color: #00a300;
+    --success-color-light: #b9ffb9;
+    --border-color: #a3a3a3;
+    --input-bg: #ffffff;
     --input-color: #5e6278;
+    --label-text: var(--primary-color);
+    --ribbon-color: #5e6278;
+    --on-ribbon-color: var(--on-primary-color);
+    --scroll-bar-bg-color: #d3d3d3;
+    --scroll-bar-thumb-color: #797979;
 }
 
 :root[data-theme="dark"] {
     --bg-color: rgb(43, 43, 43);
     --fg-color: #ffffff;
-    --primary-color: rgb(0, 72, 197);
+    --primary-color: rgb(59, 102, 175);
+    --primary-color-rgb: 59, 102, 175;
     --on-primary-color: #ffffff;
     --elevation-color: rgb(31, 31, 31);
     --on-elevation-color: #ffffff;
@@ -30,18 +42,28 @@
     --on-sidebar-color: #ffffff;
     --secondary-color: rgba(108, 117, 125);
     --link-color: #ffffff;
-    --danger-color: #ff0000;
-    --on-danger-color: #ffffff;
-    --danger-color-light: #fde6e6;
     --border-color: #383838;
     --input-bg: #252525;
     --input-color: #ffffff;
+    --label-text: var(--secondary-color);
+    --ribbon-color: #222222;
+    --scroll-bar-bg-color: var(--elevation-color);
+    --scroll-bar-thumb-color: var(--primary-color);
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--fg-color);
     font-family: 'Poppins', sans-serif;
+}
+
+.side-bar::-webkit-scrollbar, .inner-container::-webkit-scrollbar {
+    background-color: var(--scroll-bar-bg-color);
+    width: .25rem;
+}
+
+.side-bar::-webkit-scrollbar-thumb, .inner-container::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-bar-thumb-color);
 }
 
 a {
@@ -56,32 +78,32 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: .1em;
 }
 
-h1 {
+h1, .h1 {
     font-size: 3.4rem;
     font-weight: 700;
 }
 
-h2 {
+h2, .h2 {
     font-size: 3rem;
     font-weight: 600;
 }
 
-h3 {
+h3, .h3 {
     font-size: 2.6rem;
     font-weight: 500;
 }
 
-h4 {
+h4, .h4 {
     font-size: 2.2rem;
     font-weight: 400;
 }
 
-h5 {
+h5, .h5 {
     font-size: 1.8rem;
     font-weight: 200;
 }
 
-h6 {
+h6, .h6 {
     font-size: 1.4rem;
     font-weight: 100;
 }
@@ -112,12 +134,20 @@ h6 {
     color: var(--primary-color);
 }
 
+.text-danger {
+    color: var(--danger-color);
+}
+
 .text-on-primary {
     color: var(--on-primary-color);
 }
 
 .text-secondary {
     color: var(--secondary-color);
+}
+
+.text-label {
+    color: var(--label-text);
 }
 
 /* @Input and Textarea */
@@ -134,13 +164,19 @@ h6 {
   width: 100%;
 }
 
+.input:focus, .textarea:focus, .select:focus {
+    box-shadow: 0 0 .01em .2em rgba(var(--primary-color-rgb), .25);
+    border-color: var(--primary-color);
+}
+
 .input, .textarea {
   appearance: none;
 }
 
-.input::placeholder {
+.input::placeholder, .textarea::placeholder {
     font-weight: 500;
     font-size: 1rem;
+    color: var(--secondary-color);
 }
 
 .textarea {
@@ -244,7 +280,7 @@ h6 {
   border-radius: 50%;
 }
 
-.icon-button.small {
+.icon-button.is-small {
     width: 2rem;
     height: 2rem;
 }
@@ -253,8 +289,17 @@ h6 {
     color: var(--secondary-color);
 }
 
-.icon-button:hover, .button.has-icon:hover {
+.icon-button:hover {
   background-color: rgba(71, 71, 71, 0.1);
+}
+
+.tool-button.active {
+    color: var(--primary-color);
+    background-color: rgba(71, 71, 71, 0.1);
+}
+
+.button.has-icon:hover {
+    filter: saturate(.5);
 }
 
 .button.is-small {
@@ -277,6 +322,12 @@ h6 {
   padding: 1rem;
 }
 
+.button.is-secondary {
+  background-color: var(--secondary-color);
+  color: var(--on-secondary-color);
+  padding: 1rem;
+}
+
 .button.is-outlined {
     border: 1px solid var(--border-color);
     color: var(--secondary-color);
@@ -293,6 +344,31 @@ h6 {
   background-color: var(--success-color);
   color: var(--on-success-color);
   padding: 1rem;
+}
+
+.pagination-button {
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.pagination-button:not(:disabled):hover {
+    background-color: rgba(71, 71, 71, 0.1);
+}
+
+.pagination-button:disabled {
+    color: var(--secondary-color);
+    cursor: default;
+}
+
+.reveal-button {
+    color: var(--primary-color);
+}
+
+.reveal-button:hover {
+    background-color: rgba(71, 71, 71, 0.1);
 }
 
 /* @Cards */
@@ -321,11 +397,12 @@ h6 {
     flex: 0 1 280px;
     background-color: var(--sidebar-color);
     color: var(--on-sidebar-color);
-    border-top-right-radius: 2rem;
-    border-bottom-right-radius: 2rem;
     overflow: auto;
     transition: 300ms ease;
+    scrollbar-color: var(--primary-color) var(--elevation-color);
+    scrollbar-width: .25rem;
 }
+  
 
 .side-bar:not(.open) {
     flex-basis: 0;
@@ -355,8 +432,10 @@ h6 {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 0 2rem;
+    padding: 0 2rem 2rem;
     overflow-y: auto;
+    scrollbar-color: var(--primary-color) var(--elevation-color);
+    scrollbar-width: .25rem;
 }
 
 .login-container {
@@ -376,6 +455,7 @@ h6 {
 }
 
 .section {
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -383,6 +463,18 @@ h6 {
     padding: 1rem;
     border-radius: .5rem;
     box-shadow: 0 .1em .2rem .1rem var(--elevation-shadow-color);
+    overflow: hidden;
+}
+
+.scrollable {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
+}
+
+.editor-section {
+    height: 100vh;
 }
 
 /* @Table */
@@ -391,14 +483,22 @@ h6 {
     background-color: var(--elevation-color);
 }
 
-.users-table, .users-table th, .users-table td {
+.users-table thead {
+    background-color: var(--elevation-color);
+    color: var(--fg-color);
+}
+
+.users-table, .users-table thead {
     border: 1px solid var(--border-color);
+}
+
+.users-table, .users-table td {
     border-collapse: collapse;
 }
 
 .users-table th {
     font-weight: 600;
-    padding: .5rem 1rem;
+    padding: 1rem;
 }
 
 .users-table td {
@@ -410,11 +510,31 @@ h6 {
     gap: 1rem;
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: var(--ribbon-color);
+    color: var(--on-ribbon-color);
+}
+
+td {
+    padding: 1rem;
+}
+
+th {
+   text-align: left; 
+   padding: 1rem;
+}
+
 /* @Nav */
 .side-nav {
     display: flex;
     flex-direction: column;
     padding: .5rem;
+    height: 100%;
 }
 
 .nav-link {
@@ -460,6 +580,9 @@ h6 {
     display: flex;
     flex-direction: column;
     transition: height 300ms ease;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: .5rem;
+    overflow: hidden;
 }
 
 .menu-items:not(.visible) {
@@ -470,6 +593,9 @@ h6 {
 }
 
 .hover-menu-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
 }
 
@@ -502,6 +628,35 @@ h6 {
     background-color: rgba(223, 223, 223, 0.3);
 }
 
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: top;
+}
+
+.tab {
+    color: var(--secondary-color);
+    position: relative;
+    padding: .5rem .5rem 1rem;
+}
+
+.tab.active {
+    color: var(--primary-color);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: .2rem;
+    width: 2rem;
+    background-color: var(--primary-color);
+    border-radius: 2rem;
+}
+
 /* @Alerts and Messages */
 
 .error-message {
@@ -511,7 +666,18 @@ h6 {
     padding: .5rem 1rem;
     background-color: var(--danger-color-light);
     border: 1px solid var(--danger-color);
-    color: var(--danger-color);
+    color: var(--on-danger-light-color);
+    border-radius: .5rem;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem 1rem;
+    background-color: var(--success-color-light);
+    border: 1px solid var(--success-color);
+    color: var(--on-success-light-color);
     border-radius: .5rem;
 }
 
@@ -543,5 +709,22 @@ h6 {
 @keyframes spin {
     100% {
         transform: rotate(360deg);
+    }
+}
+
+.responsive-menu-toggle {
+    display: none;
+}
+
+@media only screen and (max-width: 425px) {
+    .side-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 99999;
+    }
+    .responsive-menu-toggle {
+        display: flex;
     }
 }

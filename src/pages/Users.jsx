@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import CloseCircleIcon from "../components/icons/CloseCircleIcon.jsx";
+import ViewIcon from "../components/icons/ViewIcon.jsx";
+import Pagination from "../components/Pagination.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import useUsers from "../hooks/useUsers.js";
 
 export default function Users() {
-    const [search] = useSearchParams();
+    const [search, setSearch] = useSearchParams();
     const pageNo = search.get('page') || 0;
     const { users, loading, error, totalPages, currentPage } = useUsers(pageNo);
 
@@ -45,6 +47,7 @@ export default function Users() {
                                                         <th>Mobile No.</th>
                                                         <th>Pincode</th>
                                                         <th>User Type</th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -58,27 +61,23 @@ export default function Users() {
                                                                     <td>{user.phone}</td>
                                                                     <td>{user.pincode}</td>
                                                                     <td>{user.userType}</td>
+                                                                    <td>
+                                                                        <Link to={`/user/${user.id}`} className="button has-icon reveal-button is-small">
+                                                                            <ViewIcon />
+                                                                            Details
+                                                                        </Link>
+                                                                    </td>
                                                                 </tr>
                                                             )
                                                         })
                                                     }
                                                 </tbody>
                                             </table>
-                                            <div className="pagination">
-                                                {
-                                                    currentPage > 0
-                                                        ? (<Link className="text-bold" to={`?page=${currentPage - 1}`}>Prev</Link>)
-                                                        : (<span className="text-secondary text-bold">Prev</span>)
-                                                }
-                                                <span className="text-secondary">
-                                                    ({currentPage} / {totalPages})
-                                                </span>
-                                                {
-                                                    currentPage < totalPages
-                                                        ? (<Link className="text-bold" to={`?page=${currentPage + 1}`}>Next</Link>)
-                                                        : (<span className="text-secondary text-bold">Next</span>)
-                                                }
-                                            </div>
+                                            <Pagination 
+                                                totalPages={totalPages} 
+                                                currentPage={currentPage} 
+                                                setSearch={setSearch} 
+                                            />
                                         </>
                                     )
                     }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { EMAIL_RGX, MOBILE_RGX, PINCODE_RGX } from "../../lib/validation.js";
 import Sidebar from "../../components/Sidebar.jsx";
@@ -6,9 +6,14 @@ import Topbar from "../../components/Topbar.jsx";
 import { BASE_URL } from "../../constants.js";
 import useAuth from "../../hooks/useAuth.js";
 import CloseCircleIcon from "../../components/icons/CloseCircleIcon.jsx";
+import { StoreContext } from "../../store/store-context.js";
+import { UPDATE_USER } from "../../store/actions.js";
+import CheckCircleIcon from "../../components/icons/CheckCircleIcon.jsx";
 
 export default function MyAccount() {
     const { currentUser, token } = useAuth();
+
+    const [_, dispatch] = useContext(StoreContext);
 
     const { register, formState: { errors }, handleSubmit } = useForm();
 
@@ -35,6 +40,11 @@ export default function MyAccount() {
             );
 
             const { message } = await response.json();
+            
+            dispatch({
+                type: UPDATE_USER,
+                payload: data
+            })
 
             setSuccess(message);
         } catch(e) {
@@ -66,7 +76,12 @@ export default function MyAccount() {
                             }
                             {
                                 success
-                                    ? <div className="success-message">{success}</div>
+                                    ? (
+                                        <div className="success-message">
+                                            <CheckCircleIcon />
+                                            {success}
+                                        </div>
+                                    )
                                     : null
                             }
                             <div className="flex flex-wrap g-1rem">
@@ -116,34 +131,6 @@ export default function MyAccount() {
                                             : null
                                     }
                                 </div>
-                            </div>
-                            <div className="field">
-                                <label htmlFor="email" className="label">Email</label>
-                                <input 
-                                    className="input" 
-                                    type="email" 
-                                    id="email"
-                                    {
-                                        ...register('email', {
-                                            required: 'Email cannot be blank',
-                                            value: currentUser.email,
-                                            pattern: {
-                                                value: EMAIL_RGX,
-                                                message: 'Email is not valid'
-                                            }
-                                        })
-                                    }
-                                />
-                                {
-                                    errors.email
-                                        ? (
-                                            <div className="error-message">
-                                                <CloseCircleIcon />
-                                                {errors.email.message}
-                                            </div>
-                                        )
-                                        : null
-                                }
                             </div>
                             <div className="field">
                                 <label htmlFor="pincode" className="label">Pincode</label>

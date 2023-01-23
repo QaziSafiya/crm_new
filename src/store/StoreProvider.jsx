@@ -9,6 +9,7 @@ export default function StoreProvider({ children }) {
             token: null,
             pending: true,
         },
+        user: {},
         dashboard: {
             data: {},
             loading: true,

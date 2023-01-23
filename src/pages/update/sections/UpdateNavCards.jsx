@@ -27,8 +27,10 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
                     ...navCard,
                     cards: cards.map(_card => {
                         if(_card.heading !== card.heading) {
-                            return card;
+                            return _card;
                         }
+
+                        console.log(_card.heading, card.heading);
 
                         return {
                             ...card,
@@ -37,8 +39,6 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
                     })
                 }
             });
-
-            console.log(newNavCards);
 
             const response = await fetch(`${BASE_URL}/users/updateNavcard`, {
                 method: 'POST',
@@ -51,9 +51,11 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards }) => {
                 })
             });
 
-            const { navcards } = await response.json();
+            const { data: { navcards } } = await response.json();
 
             setNavCards(navcards);
+
+            setEditing(false);
         } catch(e) {
             console.error(e);
             setError(e.message);

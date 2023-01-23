@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer.jsx";
+import CheckCircleIcon from "../../components/icons/CheckCircleIcon.jsx";
 import CloseCircleIcon from "../../components/icons/CloseCircleIcon.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
@@ -29,7 +30,13 @@ function SendOTPForm({ setOtpId, nextStep }) {
                 }),
                 redirect: "follow"
             });
-            const { data: { otp_id } } = await response.json();
+            const { message, data } = await response.json();
+
+            if(!response.ok) {
+                throw new Error(message);
+            }
+            
+            const { otp_id } = data;
             console.log(otp_id);
             setOtpId(otp_id);
             nextStep();
@@ -56,7 +63,12 @@ function SendOTPForm({ setOtpId, nextStep }) {
             </div>
             {
                 error
-                    ? <div className="error-message">{error}</div>
+                    ? (
+                        <div className="error-message">
+                            <CloseCircleIcon />
+                            {error}
+                        </div>
+                    )
                     : null
             }
             <button className="button is-primary">
@@ -124,7 +136,12 @@ console.log(json)
             </div>
             {
                 error
-                    ? <div className="error-message">{error}</div>
+                    ? (
+                        <div className="error-message">
+                            <CloseCircleIcon />
+                            {error}
+                        </div>
+                    )
                     : null
             }
             <button className="button is-primary">
@@ -145,6 +162,7 @@ function ChangePasswordForm({ nextStep }) {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [updating, setUpdating] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleForm = async e => {
         e.preventDefault();
@@ -162,7 +180,13 @@ function ChangePasswordForm({ nextStep }) {
                 redirect: "follow"
             });
 
-            console.log(response);
+            const { message } = await response.json();
+
+            if(!response.ok) {
+                throw new Error(message);
+            }
+
+            setSuccess(message);
         } catch(e) {
             console.error(e);
             setError(e.message);
@@ -201,6 +225,16 @@ function ChangePasswordForm({ nextStep }) {
                         <div className="error-message">
                             <CloseCircleIcon />
                             {error}
+                        </div>
+                    )
+                    : null
+            }
+            {
+                success
+                    ? (
+                        <div className="success-message">
+                            <CheckCircleIcon />
+                            {success}
                         </div>
                     )
                     : null

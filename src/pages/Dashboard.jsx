@@ -30,12 +30,12 @@ export default function Dashboard() {
                                 )
                                 : (
                                     <div className="flex g-1rem flex-wrap">
-                                        <div className="card">
+                                        <div className="card g-1rem">
                                             <div className="card-header">
-                                                <h3 className="title">Total Users</h3>
+                                                <h6>Total Users</h6>
                                             </div>
                                             <div className="card-body">
-                                                <span className="text-large">{data.usersCount}</span>
+                                                <h5>{data.usersCount}</h5>
                                             </div>
                                         </div>
                                     </div>

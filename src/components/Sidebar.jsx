@@ -12,24 +12,60 @@ import ReportsIcon from "./icons/ReportsIcon.jsx";
 import WindowIcon from "./icons/WindowIcon.jsx";
 import GlobeIcon from "./icons/GlobeIcon.jsx";
 import SettingsIcon from "./icons/SettingsIcon.jsx";
-import { useContext, useRef } from "react";
+import { useContext } from "react";
 import { StoreContext } from "../store/store-context.js";
+import ProtectedMenu from "./ProtectedMenu.jsx";
+import ToolIcon from "./icons/ToolIcon.jsx";
+import PasswordIcon from "./icons/PasswordIcon.jsx";
+import AccountIcon from "./icons/AccountIcon.jsx";
+import { TOGGLE_SIDEBAR } from "../store/actions.js";
+import CloseIcon from "./icons/CloseIcon.jsx";
+import TransactionIcon from "./icons/TransactionIcon.jsx";
+import ArrowRightIcon from "./icons/ArrowRightIcon.jsx";
+import ArrowLeftIcon from "./icons/ArrowLeftIcon.jsx";
+import CashTransactionIcon from "./icons/CashTransactionIcon.jsx";
+import EditIcon from "./icons/EditIcon.jsx";
 
 export default function Sidebar() {
-    const [state] = useContext(StoreContext);
+    const [state, dispatch] = useContext(StoreContext);
+
+    const toggleSidebar = () => {
+        dispatch({
+            type: TOGGLE_SIDEBAR
+        })
+    };
 
     return (
         <div className={`side-bar${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
-            <div className="flex p-1rem jc-center">
+            <div className="flex p-1rem jc-center ai-center">
+                <button onClick={toggleSidebar} className="button icon-button small responsive-menu-toggle">
+                    <CloseIcon />
+                </button>
                 <Link to="/">
                     <img src={Logo} height={48} alt="iTaxEasy" />
                 </Link>
             </div>
             <nav className="side-nav">
                 <SideNavLink to='/' icon={<DashboardIcon />} title='Dashboard' />
-                <SideNavLink to='/users' icon={<UserIcon />} title='Users' />
+                <ProtectedMenu>
+                    <Menu icon={<UserIcon />} title="Users">
+                        <SideNavLink to='/users' icon={<GlobeIcon />} title='All Users' />
+                        <SideNavLink to='/users' icon={<GlobeIcon />} title='Active Users' />
+                        <SideNavLink to='/users' icon={<GlobeIcon />} title='Non Active Users' />
+                    </Menu>
+                </ProtectedMenu>
+                {
+                    state.auth.currentUser.userType === 'normal'
+                        ? (
+                            <Menu icon={<UserIcon />} title="Customers">
+                                <SideNavLink to='/customers' icon={<GlobeIcon />} title='All Customers' />
+                                <SideNavLink to='/add-customer' icon={<EditIcon />} title='Add Customer' />
+                            </Menu>
+                        )
+                        : null
+                }
                 <Menu icon={<BankIcon />} title="Easy GST Return">
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR1" />
+                    <SideNavLink icon={<GlobeIcon />} to='/gst/gstr1' title="GSTR1" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR2A" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR2B" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR3" />
@@ -42,30 +78,46 @@ export default function Sidebar() {
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2A" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Sehej" />
                 </Menu> 
-                <Menu icon={<RupeeIcon />} title="Finance">
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Invoice" />
+                <Menu icon={<BankIcon />} title="Easy Investment">
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Mutual Fund" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="SIP" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Sell of Share" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Purchase of Share" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Profit" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Loss" />
                 </Menu> 
-                <Menu icon={<BillIcon />} title="Transactions">
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Recipt" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Payment" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Cash" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Bank" />
+                <SideNavLink icon={<BillIcon />} to='/' title="Invoice" />
+                <Menu icon={<RupeeIcon />} title="Finance">
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Car Loan" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Business Loan" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Home Loan" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Loan against Property" />
+                    <SideNavLink icon={<GlobeIcon />} to='/payments' title="Payment" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Working Capital" />
+                </Menu> 
+                <Menu icon={<TransactionIcon />} title="Transactions">
+                    <SideNavLink icon={<ArrowRightIcon />} to='/' title="Recipt" />
+                    <SideNavLink icon={<ArrowLeftIcon />} to='/' title="Payment" />
+                    <SideNavLink icon={<CashTransactionIcon />} to='/' title="Cash" />
+                    <SideNavLink icon={<BankIcon />} to='/' title="Bank" />
                 </Menu> 
                 <Menu icon={<ReportsIcon />} title="Reports">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />
                 </Menu> 
-                <Menu icon={<WindowIcon />} title="Web Front">
-                    <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
-                    <SideNavLink icon={<GlobeIcon />} to='/edit/footer' title="Footer" />
-                    <SideNavLink icon={<GlobeIcon />} to='/edit/blog' title="Blog" />
-                </Menu> 
+                <ProtectedMenu>
+                    <Menu icon={<WindowIcon />} title="Web Settings">
+                        <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
+                        <SideNavLink icon={<GlobeIcon />} to='/update/footer' title="Footer" />
+                        <SideNavLink icon={<GlobeIcon />} to='/blog' title="Blog" />
+                    </Menu> 
+                </ProtectedMenu>
                 <Menu icon={<SettingsIcon />} title="Settings">
-                    <SideNavLink icon={<GlobeIcon />} to='/settings/my-account' title="My Account" />
+                    <SideNavLink icon={<AccountIcon />} to='/settings/my-account' title="My Account" />
                     <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" />
-                    <SideNavLink icon={<GlobeIcon />} to='/settings/change-theme' title="Theme" />
-                    <SideNavLink icon={<GlobeIcon />} to='/settings/change-password' title="Change Password" />
+                    <SideNavLink icon={<ToolIcon />} to='/settings/change-theme' title="Theme" />
+                    <SideNavLink icon={<PasswordIcon />} to='/settings/change-password' title="Change Password" />
                 </Menu> 
             </nav>
         </div>
