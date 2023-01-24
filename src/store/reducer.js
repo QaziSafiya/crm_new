@@ -1,4 +1,4 @@
-import { AUTH_USER, LOGOUT, SET_DASHBOARD_DATA, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER } from "./actions.js";
+import { AUTH_USER, CLOSE_SIDEBAR, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER } from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     switch(type) {
@@ -10,6 +10,10 @@ export default function reducer(state, { type, payload }) {
             return { ...state, auth: { ...state.auth, currentUser: null, token: null } };
         case TOGGLE_SIDEBAR:
             return { ...state, sidebarOpen: !state.sidebarOpen };
+        case OPEN_SIDEBAR:
+            return { ...state, sidebarOpen: true };
+        case CLOSE_SIDEBAR:
+            return { ...state, sidebarOpen: false };
         case SET_DASHBOARD_DATA:
             return { ...state, dashboard: { ...state.dashboard, data: payload, loading: false } };
         case SET_USER_DETAILS:

@@ -26,13 +26,16 @@ import UpdateCustomer from './pages/UpdateCustomer.jsx'
 import UpdateFooter from './pages/update/UpdateFooter.jsx'
 import Blog from './pages/blog/index.jsx'
 import NewPost from './pages/blog/NewPost.jsx'
-import GSTR1 from './pages/gst/gstr1.jsx'
+import GSTR1 from './pages/gst/gstr1/gstr1.jsx'
 import { useContext, useEffect } from 'react'
 import { StoreContext } from './store/store-context.js'
 import { AUTH_USER } from './store/actions.js'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import UpdatePost from './pages/blog/UpdatePost.jsx'
 import Post from './pages/blog/Post.jsx'
+import Ledger from './pages/gst/gstr1/ledger.jsx'
+import InwardSupplies from './pages/gst/inward.jsx'
+import OutwardSupplies from './pages/gst/outward.jsx'
 
 const ITAX_URL = 'http://localhost:3000';
 
@@ -191,6 +194,21 @@ function App() {
           <Route path='/gst/gstr1' element={
             <PrivateRoute>
               <GSTR1 />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/gstr1/ledger' element={
+            <PrivateRoute>
+              <Ledger />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/inward-supplies' element={
+            <PrivateRoute>
+              <InwardSupplies />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/outward-supplies' element={
+            <PrivateRoute>
+              <OutwardSupplies />
             </PrivateRoute>
           } />
           <Route path='/login' element={<Login />} />

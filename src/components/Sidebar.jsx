@@ -18,15 +18,18 @@ import ProtectedMenu from "./ProtectedMenu.jsx";
 import ToolIcon from "./icons/ToolIcon.jsx";
 import PasswordIcon from "./icons/PasswordIcon.jsx";
 import AccountIcon from "./icons/AccountIcon.jsx";
-import { TOGGLE_SIDEBAR } from "../store/actions.js";
+import { CLOSE_SIDEBAR, OPEN_SIDEBAR, TOGGLE_SIDEBAR } from "../store/actions.js";
 import CloseIcon from "./icons/CloseIcon.jsx";
 import TransactionIcon from "./icons/TransactionIcon.jsx";
 import ArrowRightIcon from "./icons/ArrowRightIcon.jsx";
 import ArrowLeftIcon from "./icons/ArrowLeftIcon.jsx";
 import CashTransactionIcon from "./icons/CashTransactionIcon.jsx";
 import EditIcon from "./icons/EditIcon.jsx";
+import BarGraphIcon from "./icons/BarGraphIcon.jsx";
+import PercentageIcon from "./icons/PercentageIcon.jsx";
+import { useEffect } from "react";
 
-export default function Sidebar() {
+export default function Sidebar({ open }) {
     const [state, dispatch] = useContext(StoreContext);
 
     const toggleSidebar = () => {
@@ -34,6 +37,16 @@ export default function Sidebar() {
             type: TOGGLE_SIDEBAR
         })
     };
+
+    useEffect(() => {
+        if(open == null) {
+            return;
+        }
+
+        dispatch({
+            type: open ? OPEN_SIDEBAR : CLOSE_SIDEBAR
+        });
+    }, [open]);
 
     return (
         <div className={`side-bar${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
@@ -72,13 +85,13 @@ export default function Sidebar() {
                     <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR4" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR7" />
                 </Menu> 
-                <Menu icon={<BankIcon />} title="ITR">
+                <Menu icon={<PercentageIcon />} title="ITR">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-16" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2A" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Sehej" />
                 </Menu> 
-                <Menu icon={<BankIcon />} title="Easy Investment">
+                <Menu icon={<BarGraphIcon />} title="Easy Investment">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Mutual Fund" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="SIP" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Sell of Share" />

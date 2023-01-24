@@ -95,6 +95,9 @@ export default function Login() {
                         }
                     </button>
                 </form>
+                <p className="text-secondary">
+                    &copy; ITaxEasy Pvt Ltd
+                </p>
             </div>
         </div>
     )

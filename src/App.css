@@ -477,6 +477,10 @@ h6, .h6 {
     height: 100vh;
 }
 
+.bar {
+    padding: 1rem;
+}
+
 /* @Table */
 
 .users-table {
@@ -527,6 +531,10 @@ td {
 th {
    text-align: left; 
    padding: 1rem;
+}
+
+.bordered {
+    border: 1px solid var(--border-color);
 }
 
 /* @Nav */
