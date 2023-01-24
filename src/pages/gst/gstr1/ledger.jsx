@@ -10,7 +10,7 @@ export default function Ledger() {
                 <Topbar />
                 <div className="inner-container">
                     <div className="flex jc-end ai-center flex-wrap g-1rem">
-                        <div className="flex g-1rem">
+                        <div className="flex g-1rem flex-wrap">
                             <button className="button is-primary is-small ">Get Ledger From GSTIN</button>
                             <button className="button is-primary is-small">Download Excel/PDF From GSTIN</button>
                             <button className="button is-primary is-small">Import From Previous Year</button>
