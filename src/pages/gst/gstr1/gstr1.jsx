@@ -1,15 +1,57 @@
+import { Box, Modal } from "@mui/material";
 import { Link } from "react-router-dom";
 import CashTransactionIcon from "../../../components/icons/CashTransactionIcon.jsx";
 import CheckCircleIcon from "../../../components/icons/CheckCircleIcon.jsx";
 import RupeeIcon from "../../../components/icons/RupeeIcon.jsx";
+import CloseCircleIcon from "../../../components/icons/CloseCircleIcon.jsx";
+import useAuth from "../../../hooks/useAuth.js"
 import Sidebar from "../../../components/Sidebar.jsx";
 import Topbar from "../../../components/Topbar.jsx";
+import React, { useState } from 'react'
+import axios from "axios";
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+};
+
 
 export default function GSTR1() {
     const handleSubmit = e => {
         e.preventDefault();
     };
+    const { token } = useAuth();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [signinIn, setSigningIn] = useState(false);
+    const [error, setError] = useState('');
 
+    const handleLogin = (e) => {
+        e.preventDefault();
+        axios.post('https://api.itaxeasy.com/gsp/gst/tax-payer/generate-otp', {
+            headers: {
+                Authorization: `Bearer ${token}`
+              },
+            gstin: "23BNJPS3408M1ZP",
+            gst_portal_username: "newsethielectri"
+            
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    };
+
+    console.log(token)
     return (
         <div className="container">
             <Sidebar open={false} />
@@ -22,7 +64,7 @@ export default function GSTR1() {
                             <Link to="/gst/inward-supplies" className="button is-primary is-small">Inward Supplies Credit (GSTR-2)</Link>
                         </div>
                         <div className="flex dir-col g-1rem">
-                            <button className="button is-primary is-small">GST Login</button>
+                            <button className="button is-primary is-small" onClick={handleOpen}>GST Login</button>
                             <button className="button is-primary is-small">Import Data</button>
                         </div>
                     </div>
@@ -132,6 +174,49 @@ export default function GSTR1() {
                     </form>
                 </div>
             </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div className="login-box">
+                        <form className="flex dir-col g-1rem" onSubmit={handleLogin}>
+                            <h5>Login</h5>
+                            <div className="field">
+                                <label htmlFor="email" className="label">Email</label>
+                                <input
+                                    type="email"
+                                    className="input"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Email"
+                                    autoComplete="username"
+                                />
+                            </div>
+                            <div className="field">
+                                <label htmlFor="password" className="label">Password</label>
+                                <input
+                                    type="password"
+                                    className="input"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Password"
+                                    autoComplete="current-password"
+                                />
+                            </div>
+
+                            <button className="button is-primary">
+                                login
+                            </button>
+                        </form>
+                        <p className="text-secondary">
+                            &copy; ITaxEasy Pvt Ltd
+                        </p>
+                    </div>
+                </Box>
+            </Modal>
         </div>
     )
 }
