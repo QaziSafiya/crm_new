@@ -9,6 +9,7 @@ import Sidebar from "../../../components/Sidebar.jsx";
 import Topbar from "../../../components/Topbar.jsx";
 import React, { useState } from 'react'
 import axios from "axios";
+import { BASE_URL } from "../../../constants.js";
 
 const style = {
     position: 'absolute',
@@ -33,22 +34,27 @@ export default function GSTR1() {
     const [signinIn, setSigningIn] = useState(false);
     const [error, setError] = useState('');
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        axios.post('https://api.itaxeasy.com/gsp/gst/tax-payer/generate-otp', {
-            headers: {
-                Authorization: `Bearer ${token}`
-              },
-            gstin: "23BNJPS3408M1ZP",
-            gst_portal_username: "newsethielectri"
-            
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (err) {
-                console.log(err);
+        try {
+            const response = await fetch(`${BASE_URL}/gsp/gst/tax-payer/generate-otp`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                }),
+                body: JSON.stringify({
+                    gstin: "23BNJPS3408M1ZP",
+                    gst_portal_username: "newsethielectri"
+                })
             });
+    
+            const data = await response.json();
+    
+            console.log(data);
+        } catch(e) {
+            console.error(e);
+        }
     };
 
     console.log(token)
