@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import Sidebar from "../../../components/Sidebar.jsx";
 import Topbar from "../../../components/Topbar.jsx";
 
 export default function Ledger() {
+
+    useEffect(()=>{
+        
+    },[])
 
     return (
         <div className="container">
