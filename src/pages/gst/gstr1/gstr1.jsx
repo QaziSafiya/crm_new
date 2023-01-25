@@ -11,6 +11,13 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { BASE_URL } from "../../../constants.js";
 import { useRef } from "react";
+import ArrowLeftIcon from "../../../components/icons/ArrowLeftIcon.jsx";
+import ArrowRightIcon from "../../../components/icons/ArrowRightIcon.jsx";
+import PasswordIcon from "../../../components/icons/PasswordIcon.jsx";
+import UploadIcon from "../../../components/icons/UploadIcon.jsx";
+import DownloadIcon from "../../../components/icons/DownloadIcon.jsx";
+import BookIcon from "../../../components/icons/BookIcon.jsx";
+import FileTransferIcon from "../../../components/icons/FileTransferIcon.jsx";
 
 const style = {
     position: 'absolute',
@@ -109,12 +116,24 @@ export default function GSTR1() {
                 <div className="inner-container">
                     <div className="flex jc-between ai-center flex-wrap g-1rem">
                         <div className="flex dir-col g-1rem">
-                            <Link to="/gst/outward-supplies" className="button is-primary is-small ">Outward Supplies Liability (GSTR-1)</Link>
-                            <Link to="/gst/inward-supplies" className="button is-primary is-small">Inward Supplies Credit (GSTR-2)</Link>
+                            <Link to="/gst/outward-supplies" className="button is-primary is-small has-icon">
+                                <ArrowLeftIcon />
+                                Outward Supplies Liability (GSTR-1)
+                            </Link>
+                            <Link to="/gst/inward-supplies" className="button is-primary is-small has-icon">
+                                <ArrowRightIcon />
+                                Inward Supplies Credit (GSTR-2)
+                            </Link>
                         </div>
                         <div className="flex dir-col g-1rem">
-                            <button className="button is-primary is-small" onClick={handleOpen}>GST Login</button>
-                            <button className="button is-primary is-small">Import Data</button>
+                            <button className="button is-primary is-small has-icon" onClick={handleOpen}>
+                                <PasswordIcon />
+                                GST Login
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <DownloadIcon />
+                                Import Data
+                            </button>
                         </div>
                     </div>
                     <form onSubmit={handleSubmit}>
@@ -242,10 +261,22 @@ export default function GSTR1() {
                             </div>
                             <div className="flex p-1rem jc-between">
                                 <div className="flex g-1rem flex-wrap">
-                                    <Link to="/gst/gstr1/ledger" className="button is-primary is-small ">Ledger</Link>
-                                    <button className="button is-primary is-small ">Liability</button>
-                                    <button className="button is-primary is-small ">Credit</button>
-                                    <button className="button is-primary is-small ">File Return</button>
+                                    <Link to="/gst/gstr1/ledger" className="button is-primary is-small has-icon">
+                                        <BookIcon />
+                                        Ledger
+                                    </Link>
+                                    <button className="button is-primary is-small has-icon">
+                                        <RupeeIcon />
+                                        Liability
+                                    </button>
+                                    <button className="button is-primary is-small has-icon">
+                                        <RupeeIcon />
+                                        Credit
+                                    </button>
+                                    <button className="button is-primary is-small has-icon">
+                                        <FileTransferIcon />
+                                        File Return
+                                    </button>
                                 </div>
                                 <button className="button is-primary has-icon is-small">
                                     <CheckCircleIcon />
@@ -328,8 +359,6 @@ export default function GSTR1() {
                                         required
                                     />
                                 </div>
-
-
                                 {
                                     error
                                         ? (
