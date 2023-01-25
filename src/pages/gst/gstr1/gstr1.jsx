@@ -107,7 +107,6 @@ export default function GSTR1() {
         }
     }
 
-    console.log(otpRef.current.value)
     return (
         <div className="container">
             <Sidebar open={false} />
@@ -131,7 +130,7 @@ export default function GSTR1() {
                                 GST Login
                             </button>
                             <button className="button is-primary is-small has-icon">
-                                <DownloadIcon />
+                                <UploadIcon />
                                 Import Data
                             </button>
                         </div>

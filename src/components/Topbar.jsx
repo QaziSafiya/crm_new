@@ -5,6 +5,7 @@ import { StoreContext } from "../store/store-context.js";
 import HoverMenu from "./HoverMenu.jsx";
 import AccountIcon from "./icons/AccountIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
+import ThemeButton from "./ThemeButton.jsx";
 
 export default function Topbar() {
     const [state, dispatch] = useContext(StoreContext);
@@ -29,22 +30,25 @@ export default function Topbar() {
                 </button>
                 <h1 className="title">BillShill</h1>
             </div>
-            <HoverMenu icon={<AccountIcon />} tooltip="Account">
-                <ul className="list-menu">
-                    <li>
-                        <Link className="list-menu-item" to='/roles'>Manage Roles</Link>
-                    </li>
-                    <li>
-                        <Link className="list-menu-item" to='/settings/my-account'>My Account</Link>
-                    </li>
-                    <li>
-                        <button
-                            onClick={handleSignOut}
-                            className="flex button list-menu-item w-100pc jc-start"
-                        >Log out</button>
-                    </li>
-                </ul>
-            </HoverMenu>
+            <div className="flex g-1rem ai-center">
+                <ThemeButton />
+                <HoverMenu icon={<AccountIcon />} tooltip="Account">
+                    <ul className="list-menu">
+                        <li>
+                            <Link className="list-menu-item" to='/roles'>Manage Roles</Link>
+                        </li>
+                        <li>
+                            <Link className="list-menu-item" to='/settings/my-account'>My Account</Link>
+                        </li>
+                        <li>
+                            <button
+                                onClick={handleSignOut}
+                                className="flex button list-menu-item is-small w-100pc jc-start"
+                            >Log out</button>
+                        </li>
+                    </ul>
+                </HoverMenu>
+            </div>
         </div>
     )
 }

@@ -1,3 +1,6 @@
+import HandshakeIcon from "../../components/icons/HandshakeIcon.jsx";
+import UploadIcon from "../../components/icons/UploadIcon.jsx";
+import ViewIcon from "../../components/icons/ViewIcon.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 
@@ -12,12 +15,21 @@ export default function OutwardSupplies() {
                     <h6 className="text-secondary">Outward Supplies</h6>
                     <div className="flex jc-between ai-center flex-wrap g-1rem">
                         <div className="flex g-1rem ai-center flex-wrap">
-                            <button className="button is-primary is-small ">Import Excel/Tally Data</button>
-                            <button className="button is-primary is-small">Tally Reconcillation</button>
+                            <button className="button is-primary is-small has-icon">
+                                <UploadIcon />
+                                Import Excel/Tally Data
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <HandshakeIcon />
+                                Tally Reconcillation
+                            </button>
                             <span className="text-secondary">Return not submitted</span>
                         </div>
                         <div className="flex g-1rem flex-wrap">
-                            <button className="button is-primary is-small ">Display Form</button>
+                            <button className="button is-primary is-small has-icon">
+                                <ViewIcon />
+                                Display Form
+                            </button>
                             <div className="flex g-1rem ai-center">
                                 <label htmlFor="period">Period</label>
                                 <select name="b" id="period" className="select w-max-content">

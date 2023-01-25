@@ -11,6 +11,7 @@
     --on-sidebar-color: #ffffff;
     --link-color: var(var(--primary-color));
     --secondary-color: rgba(108, 117, 125);
+    --on-secondary-color: #ffffff;
     --danger-color: #ff0000;
     --on-danger-color: #ffffff;
     --on-danger-light-color: #ff0000;
@@ -322,6 +323,10 @@ h6, .h6 {
   padding: 1rem;
 }
 
+.button.is-primary:focus {
+    box-shadow: 0 0 .01em .2em rgba(var(--primary-color-rgb), .25);
+}
+
 .button.is-secondary {
   background-color: var(--secondary-color);
   color: var(--on-secondary-color);
@@ -534,7 +539,11 @@ th {
 }
 
 .bordered {
-    border: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.bordered:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
 }
 
 /* @Nav */

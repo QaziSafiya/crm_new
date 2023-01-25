@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import DownloadIcon from "../../../components/icons/DownloadIcon.jsx";
+import SearchIcon from "../../../components/icons/SearchIcon.jsx";
 import Sidebar from "../../../components/Sidebar.jsx";
 import Topbar from "../../../components/Topbar.jsx";
 
@@ -16,9 +18,18 @@ export default function Ledger() {
                 <div className="inner-container">
                     <div className="flex jc-end ai-center flex-wrap g-1rem">
                         <div className="flex g-1rem flex-wrap">
-                            <button className="button is-primary is-small ">Get Ledger From GSTIN</button>
-                            <button className="button is-primary is-small">Download Excel/PDF From GSTIN</button>
-                            <button className="button is-primary is-small">Import From Previous Year</button>
+                            <button className="button is-primary is-small has-icon">
+                                <SearchIcon />
+                                Get Ledger From GSTIN
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <DownloadIcon />
+                                Download Excel/PDF From GSTIN
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <DownloadIcon />
+                                Import From Previous Year
+                            </button>
                         </div>
                     </div>
                     <div className="section p-0">

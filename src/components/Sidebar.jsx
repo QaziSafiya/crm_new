@@ -129,7 +129,6 @@ export default function Sidebar({ open }) {
                 <Menu icon={<SettingsIcon />} title="Settings">
                     <SideNavLink icon={<AccountIcon />} to='/settings/my-account' title="My Account" />
                     <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" />
-                    <SideNavLink icon={<ToolIcon />} to='/settings/change-theme' title="Theme" />
                     <SideNavLink icon={<PasswordIcon />} to='/settings/change-password' title="Change Password" />
                 </Menu> 
             </nav>
