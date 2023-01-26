@@ -53,19 +53,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Tax Liability Register</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
                                             <button className="button is-secondary is-small">GET</button>
@@ -74,19 +74,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Input Tax Credit Ledger</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>
@@ -96,19 +96,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Cash Ledger</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>
@@ -141,19 +141,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Software</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>

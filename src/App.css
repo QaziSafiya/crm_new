@@ -195,8 +195,8 @@ h6, .h6 {
   width: 100%;
 }
 
-.input.is-large {
-  height: 3rem;
+.input.is-small {
+  height: 2.5rem;
 }
 
 .input:disabled {

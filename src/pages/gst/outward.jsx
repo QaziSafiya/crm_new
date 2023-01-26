@@ -67,19 +67,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -90,19 +90,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -113,19 +113,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
 
@@ -137,19 +137,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
 
@@ -161,19 +161,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -184,19 +184,19 @@ export default function OutwardSupplies() {
                                             </button>
                                         </th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
                                     
