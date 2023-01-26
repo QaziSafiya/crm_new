@@ -1,4 +1,4 @@
-import { Box, Modal } from "@mui/material";
+import { Alert, Box, Modal } from "@mui/material";
 import { Link } from "react-router-dom";
 import CashTransactionIcon from "../../../components/icons/CashTransactionIcon.jsx";
 import CheckCircleIcon from "../../../components/icons/CheckCircleIcon.jsx";
@@ -34,7 +34,7 @@ export default function GSTR1() {
     const handleClose = () => setOpen(false);
     const [signinIn, setSigningIn] = useState(false);
     const [error, setError] = useState('');
-    const [showhide, setShowHide] = useState(false);
+    const [showhide, setShowHide] = useState("login");
     const otpRef = useRef("");
 
     const handleLogin = async (e) => {
@@ -64,7 +64,7 @@ export default function GSTR1() {
         } finally {
 
             setSigningIn(false);
-            setShowHide(true)
+            setShowHide("verify")
         }
 
     };
@@ -96,11 +96,67 @@ export default function GSTR1() {
         } finally {
 
             setSigningIn(false);
-            setShowHide(false)
+            setShowHide("Howdy")
+            window._loginauthkey = "gstloginAuth"
         }
     }
 
-    console.log(otpRef.current.value)
+    const handleLadgers = async (e) => {
+        e.preventDefault();
+
+        console.log("run")
+
+        if (window._loginauthkey = "gstloginAuth") {
+            // const responce = await axios(`${BASE_URL}/taxes/get-itc-chash-ledgers?gstin=23BNJPS3408M1ZP&from=20/05/2022&to=30/10/2022`,{
+            //     headers: new Headers({
+            //         'Authorization': `Bearer ${token}`,
+            //         'Content-Type': 'application/json',
+            //     }),
+            // })
+
+            //     .then(function (response) {
+            //     // handle success
+            //     console.log(response);
+            // })
+            //         .catch(function (error) {
+            //             // handle error
+            //             console.log(error);
+            //         })
+            try {
+                setSigningIn(true);
+
+                setError('');
+                const response = await fetch(`${BASE_URL}/taxes/get-itc-chash-ledgers?gstin=23BNJPS3408M1ZP&from=20/05/2022&to=30/10/2022`, {
+                    method: 'get',
+                    headers: new Headers({
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    }),
+
+                });
+
+                const data = await response.json();
+
+                console.log(data);
+            } catch (e) {
+                console.error(e);
+                setError(e.message);
+            } finally {
+
+
+            }
+
+
+
+
+
+
+        } else {
+            alert("not"),
+                <Alert severity="error">Please Login With GST Account!</Alert>
+        }
+    }
+
     return (
         <div className="container">
             <Sidebar open={false} />
@@ -113,7 +169,8 @@ export default function GSTR1() {
                             <Link to="/gst/inward-supplies" className="button is-primary is-small">Inward Supplies Credit (GSTR-2)</Link>
                         </div>
                         <div className="flex dir-col g-1rem">
-                            <button className="button is-primary is-small" onClick={handleOpen}>GST Login</button>
+
+                            {showhide === "Howdy" ? <button className="button is-primary is-small" >Howdy!</button> : <button className="button is-primary is-small" onClick={handleOpen}>GST Login</button>}
                             <button className="button is-primary is-small">Import Data</button>
                         </div>
                     </div>
@@ -134,7 +191,7 @@ export default function GSTR1() {
                                     <option value="gstr3b">GSTR3B</option>
                                     <option value="gstr4">GSTR4</option>
                                 </select>
-                                <select name="d" className="select w-max-content">
+                                <select name="d" className="select w-max-content" onChange={handleLadgers}>
                                     <option value="January">January </option>
                                     <option value="February">February </option>
                                     <option value="March">March </option>
@@ -171,9 +228,9 @@ export default function GSTR1() {
                                             <th>Ledger Balance</th>
                                             <th>IGST</th>
                                             <th>CGST</th>
-                                            <th>SGST</th>                                            
+                                            <th>SGST</th>
                                             <th>CESS</th>
-                                          
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -263,7 +320,7 @@ export default function GSTR1() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    {showhide === false ?
+                    {showhide === "login" && (
                         <div className="login-box">
                             <form className="flex dir-col g-1rem" onSubmit={handleLogin}>
                                 <h5>Login</h5>
@@ -312,7 +369,10 @@ export default function GSTR1() {
                                 &copy; ITaxEasy Pvt Ltd
                             </p>
                         </div>
-                        :
+                    )
+
+                    }
+                    {showhide === "verify" && (
                         <div className="login-box">
                             <form className="flex dir-col g-1rem" onSubmit={handleVerify}>
                                 <p>Verify OTP Given Your Mobile</p>
@@ -352,7 +412,12 @@ export default function GSTR1() {
                                 &copy; ITaxEasy Pvt Ltd
                             </p>
                         </div>
-                    }
+                    )}
+
+
+
+
+
                 </Box>
             </Modal>
         </div>
