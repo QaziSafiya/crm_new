@@ -10,6 +10,14 @@ export default function StoreProvider({ children }) {
             pending: true,
         },
         user: {},
+        gst: {
+            party_name: '',
+            isLoggedIn: false,
+            gstin: null,
+            username: null,
+            month: 1,
+            year: new Date().getFullYear()
+        },
         dashboard: {
             data: {},
             loading: true,

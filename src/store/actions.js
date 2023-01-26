@@ -13,3 +13,9 @@ export const OPEN_SIDEBAR = 'open-sidebar';
 export const SET_DASHBOARD_DATA = 'set-dashboard-data';
 
 export const SET_USER_DETAILS = 'set-user-details';
+
+export const GST_LOGIN = 'gst-login';
+
+export const SET_GST_MONTH = 'set-gst-month';
+
+export const SET_GST_YEAR = 'set-gst-year';

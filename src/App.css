@@ -661,6 +661,33 @@ th {
     background-color: rgba(223, 223, 223, 0.3);
 }
 
+/* @Modal */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-overlay:not(.open) {
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.modal {
+    flex: 0 1 425px;
+    background-color: var(--elevation-color);
+    box-shadow: 0 .1rem 1rem .25rem rgba(0,0,0,.05);
+    border-radius: 1rem;
+}
+
 .tabs {
     display: flex;
     flex-wrap: wrap;
@@ -761,3 +788,18 @@ th {
         display: flex;
     }
 }
+
+@media print {
+    body * {
+      visibility: hidden;
+    }
+    #section-to-print, #section-to-print * {
+      visibility: visible;
+    }
+    #section-to-print {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+}
+  

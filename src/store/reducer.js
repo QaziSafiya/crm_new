@@ -1,4 +1,4 @@
-import { AUTH_USER, CLOSE_SIDEBAR, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER } from "./actions.js";
+import { AUTH_USER, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER } from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     switch(type) {
@@ -18,6 +18,21 @@ export default function reducer(state, { type, payload }) {
             return { ...state, dashboard: { ...state.dashboard, data: payload, loading: false } };
         case SET_USER_DETAILS:
             return { ...state, user: payload };
+        case GST_LOGIN:
+            return {
+                ...state,
+                gst: {
+                    ...state.gst,
+                    party_name: payload.party_name,
+                    isLoggedIn: true,
+                    gstin: payload.gstin,
+                    username: payload.username
+                },
+            };
+        case SET_GST_MONTH:
+            return { ...state, gst: { ...state.gst, month: payload }, };
+        case SET_GST_YEAR:
+            return { ...state, gst: { ...state.gst, year: payload }, };
         default:
             return state;
     }

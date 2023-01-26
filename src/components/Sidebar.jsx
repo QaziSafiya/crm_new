@@ -77,14 +77,7 @@ export default function Sidebar({ open }) {
                         )
                         : null
                 }
-                <Menu icon={<BankIcon />} title="Easy GST Return">
-                    <SideNavLink icon={<GlobeIcon />} to='/gst/gstr1' title="GSTR1" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR2A" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR2B" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR3" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR4" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="GSTR7" />
-                </Menu> 
+                <SideNavLink icon={<BankIcon />} to='/gst/gstr1' title="Easy GST Return" />
                 <Menu icon={<PercentageIcon />} title="ITR">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-16" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2" />
