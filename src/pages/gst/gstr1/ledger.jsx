@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import DownloadIcon from "../../../components/icons/DownloadIcon.jsx";
+import SearchIcon from "../../../components/icons/SearchIcon.jsx";
 import Sidebar from "../../../components/Sidebar.jsx";
 import Topbar from "../../../components/Topbar.jsx";
 
@@ -16,9 +18,18 @@ export default function Ledger() {
                 <div className="inner-container">
                     <div className="flex jc-end ai-center flex-wrap g-1rem">
                         <div className="flex g-1rem flex-wrap">
-                            <button className="button is-primary is-small ">Get Ledger From GSTIN</button>
-                            <button className="button is-primary is-small">Download Excel/PDF From GSTIN</button>
-                            <button className="button is-primary is-small">Import From Previous Year</button>
+                            <button className="button is-primary is-small has-icon">
+                                <SearchIcon />
+                                Get Ledger From GSTIN
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <DownloadIcon />
+                                Download Excel/PDF From GSTIN
+                            </button>
+                            <button className="button is-primary is-small has-icon">
+                                <DownloadIcon />
+                                Import From Previous Year
+                            </button>
                         </div>
                     </div>
                     <div className="section p-0">
@@ -42,19 +53,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Tax Liability Register</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
                                             <button className="button is-secondary is-small">GET</button>
@@ -63,19 +74,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Input Tax Credit Ledger</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>
@@ -85,19 +96,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Cash Ledger</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>
@@ -130,19 +141,19 @@ export default function Ledger() {
                                     <tr>
                                         <th>Software</th>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
                                         <td>
-                                            <input type="text" className="input" />
+                                            <input type="text" className="input is-small" />
                                         </td>
 
                                         <td>

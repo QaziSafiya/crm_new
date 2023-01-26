@@ -6,7 +6,6 @@ import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import MyAccount from './pages/Settings/MyAccount.jsx'
 import ChangePassword from './pages/Settings/ChangePassword.jsx'
-import ChangeTheme from './pages/Settings/ChangeTheme.jsx'
 import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
 import Users from './pages/Users.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
@@ -149,11 +148,6 @@ function App() {
           <Route path='/settings/change-password' element={
             <PrivateRoute>
               <ChangePassword />
-            </PrivateRoute>
-          } />
-          <Route path='/settings/change-theme' element={
-            <PrivateRoute>
-              <ChangeTheme />
             </PrivateRoute>
           } />
           <Route path='/update/homepage' element={

@@ -7,6 +7,8 @@ import { AUTH_USER } from "../store/actions.js";
 import { StoreContext } from "../store/store-context.js";
 
 import Logo from '../assets/logo.png';
+import ViewIcon from "../components/icons/ViewIcon.jsx";
+import HideIcon from "../components/icons/HideIcon.jsx";
 
 export default function Login() {
     const { currentUser } = useAuth();
@@ -15,6 +17,8 @@ export default function Login() {
 
     const [signinIn, setSigningIn] = useState(false);
     const [error, setError] = useState('');
+
+    const [hidePassword, setHidePassword] = useState(true);
 
     const handleLogin = async e => {
         e.preventDefault();
@@ -68,14 +72,23 @@ export default function Login() {
                     </div>
                     <div className="field">
                         <label htmlFor="password" className="label">Password</label>
-                        <input 
-                            type="password" 
-                            className="input" 
-                            name="password" 
-                            id="password" 
-                            placeholder="Password"
-                            autoComplete="current-password"
-                        />
+                        <div className="input-container">
+                            <span onClick={() => setHidePassword(!hidePassword)} className="input-icon">
+                                {
+                                    hidePassword
+                                        ? <HideIcon />
+                                        : <ViewIcon />
+                                }
+                            </span>
+                            <input 
+                                type={hidePassword ? 'password' : 'text'}
+                                className="input" 
+                                name="password" 
+                                id="password" 
+                                placeholder="Password"
+                                autoComplete="current-password"
+                            />
+                        </div>
                     </div>
                     {
                         error

@@ -21,22 +21,21 @@ export default function HoverMenu({ icon, tooltip, children }) {
 
     return (
         <div className="hover-menu-wrapper">
+            <button
+                onClick={() => setOpen(true)}
+                title={tooltip} 
+                className="button icon-button secondary-icon"
+            >
+                {icon}
+            </button>
             {
-                !open
+                open
                     ? (
-                        <button
-                            onClick={() => setOpen(true)}
-                            title={tooltip} 
-                            className="button icon-button secondary-icon"
-                        >
-                            {icon}
-                        </button>
-                    )
-                    : (
                         <div ref={menuRef} className='hover-menu'>
                             {children}
                         </div>
                     )
+                    : null
             }
         </div>
     )
