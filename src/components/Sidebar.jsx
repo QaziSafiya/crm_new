@@ -78,13 +78,13 @@ export default function Sidebar({ open }) {
                         : null
                 }
                 <SideNavLink icon={<BankIcon />} to='/gst/gstr1' title="Easy GST Return" />
-                <Menu icon={<PercentageIcon />} title="ITR">
+                <Menu icon={<PercentageIcon />} title="ITR" upcoming>
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-16" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2A" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Sehej" />
                 </Menu> 
-                <Menu icon={<BarGraphIcon />} title="Easy Investment">
+                <Menu icon={<BarGraphIcon />} title="Easy Investment" upcoming>
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Mutual Fund" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="SIP" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Sell of Share" />
@@ -92,7 +92,7 @@ export default function Sidebar({ open }) {
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Profit" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Loss" />
                 </Menu> 
-                <SideNavLink icon={<BillIcon />} to='/' title="Invoice" />
+                <SideNavLink icon={<BillIcon />} to='https://invoice.itaxeasy.com' title="Invoice" external />
                 <Menu icon={<RupeeIcon />} title="Finance">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Car Loan" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Business Loan" />
@@ -101,13 +101,13 @@ export default function Sidebar({ open }) {
                     <SideNavLink icon={<GlobeIcon />} to='/payments' title="Payment" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Working Capital" />
                 </Menu> 
-                <Menu icon={<TransactionIcon />} title="Transactions">
+                <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
                     <SideNavLink icon={<ArrowRightIcon />} to='/' title="Recipt" />
                     <SideNavLink icon={<ArrowLeftIcon />} to='/' title="Payment" />
                     <SideNavLink icon={<CashTransactionIcon />} to='/' title="Cash" />
                     <SideNavLink icon={<BankIcon />} to='/' title="Bank" />
                 </Menu> 
-                <Menu icon={<ReportsIcon />} title="Reports">
+                <Menu icon={<ReportsIcon />} title="Reports" upcoming>
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />

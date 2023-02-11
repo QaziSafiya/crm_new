@@ -257,13 +257,12 @@ export default function GSTR1() {
                                             ? (
                                                 <>
                                                     <option value="monthly">Monthly</option>
-                                                    <option value="quarterly">Quarterly</option>
+                                                    
                                                 </>
                                             )
-                                            : (
-                                                <option value="yearly">Yearly</option>
-                                            )
+                                            : null
                                     }
+                                    <option value="quarterly">Quarterly</option>
                                 </select>
                                 <select name="c" className="select w-max-content">
                                     {
@@ -325,21 +324,12 @@ export default function GSTR1() {
                                             <th>IGST</th>
                                             <th>CGST</th>
                                             <th>SGST</th>
-                                            <th>UTGST</th>
-                                            <th>Total</th>
                                             <th>CESS</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th>Electronic Liability Register</th>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
                                             <td>
                                                 <input type="text" className="input is-small" />
                                             </td>
@@ -367,12 +357,6 @@ export default function GSTR1() {
                                             <td>
                                                 <input type="text" className="input is-small" />
                                             </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
                                         </tr>
                                         <tr>
                                             <th>Electronic Credit Ledger</th>
@@ -388,21 +372,9 @@ export default function GSTR1() {
                                             <td>
                                                 <input type="text" className="input is-small" />
                                             </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <th>TCS</th>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
-                                            <td>
-                                                <input type="text" className="input is-small" />
-                                            </td>
+                                            <th>TDS/TCS</th>
                                             <td>
                                                 <input type="text" className="input is-small" />
                                             </td>

@@ -28,7 +28,7 @@ import NewPost from './pages/blog/NewPost.jsx'
 import GSTR1 from './pages/gst/gstr1/gstr1.jsx'
 import { useContext, useEffect } from 'react'
 import { StoreContext } from './store/store-context.js'
-import { AUTH_USER } from './store/actions.js'
+import { AUTH_FROM_REDIRECT, AUTH_USER } from './store/actions.js'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import UpdatePost from './pages/blog/UpdatePost.jsx'
 import Post from './pages/blog/Post.jsx'
@@ -51,13 +51,18 @@ function App() {
         return;
       }
 
-      const { data, token } = e.data;
+      console.log(e.data)
+
+      const { data, token, redirect } = e.data;
+
+      console.log('RECIEVED TOKEN');
 
       dispatch({
-        type: AUTH_USER,
+        type: AUTH_FROM_REDIRECT,
         payload: {
           user: data,
-          token
+          token,
+          redirect,
         }
       });
     }

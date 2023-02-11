@@ -415,7 +415,7 @@ h6, .h6 {
 }
 
 .side-bar {
-    flex: 0 1 280px;
+    flex: 0 1 320px;
     background-color: var(--sidebar-color);
     color: var(--on-sidebar-color);
     overflow: auto;
@@ -577,6 +577,7 @@ th {
     padding: .5rem 1rem;
     color: var(--on-primary-color);
     height: 3rem;
+    white-space: nowrap;
 }
 
 .nav-link svg {
@@ -736,9 +737,19 @@ th {
     gap: .5rem;
     padding: .5rem 1rem;
     background-color: var(--success-color-light);
-    border: 1px solid var(--success-color);
+    border: 1px solid var(--on-success-light-color);
     color: var(--on-success-light-color);
     border-radius: .5rem;
+}
+
+.upcoming {
+    display: inline-block;
+    padding: .25rem .5rem;
+    background-color: #ffffff;
+    color: var(--sidebar-color);
+    border-radius: 1rem;
+    font-size: .5rem;
+    text-transform: uppercase;
 }
 
 /* @Spinner */

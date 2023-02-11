@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import ArrowDownIcon from "./icons/ArrowDownIcon.jsx";
 import ArrowUpIcon from "./icons/ArrowUpIcon.jsx";
 
-export default function Menu({ title, icon, children }) {
+export default function Menu({ title, icon, children, upcoming = false }) {
     const [open, setOpen] = useState(false);
 
     const containerRef = useRef();
@@ -10,15 +10,22 @@ export default function Menu({ title, icon, children }) {
     return (
         <>
             <div className="menu">
-                <button onClick={() => setOpen(!open)} className="button menu-trigger">
+                <button onClick={() => setOpen(!open)} className="button menu-trigger" disabled={upcoming}>
                     <div className="inline-flex g-2rem ai-center">
                         {icon}
-                        {title}
+                        <div className="inline-flex g-0_5rem jc-center ai-center">
+                            {title}
+                            {upcoming ? (
+                                <span className="upcoming">upcoming</span>
+                            ) : null}
+                        </div>
                     </div>
                     {
-                        open
-                            ? <ArrowUpIcon />
-                            : <ArrowDownIcon />
+                        upcoming
+                            ? null
+                            : open
+                                ? <ArrowUpIcon />
+                                : <ArrowDownIcon />
                     }
                 </button>
                 <div
