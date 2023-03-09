@@ -36,7 +36,7 @@ import Ledger from './pages/gst/gstr1/ledger.jsx'
 import InwardSupplies from './pages/gst/inward.jsx'
 import OutwardSupplies from './pages/gst/outward.jsx'
 
-const ITAX_URL = 'http://localhost:3000';
+const ITAX_URL = 'https://itaxeasy.com';
 
 export const queryClient = new QueryClient();
 
@@ -69,10 +69,14 @@ function App() {
   };
 
   const handleOnLoad = () => {
-    window.opener.postMessage('loaded', '*');
+    window.opener?.postMessage('loaded', '*');
   };
 
   useEffect(() => {
+    if(!window.opener) {
+      return;
+    }
+
     window.addEventListener('message', messageHandler);
     
     return () => window.removeEventListener('message', messageHandler);

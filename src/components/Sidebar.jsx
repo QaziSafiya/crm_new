@@ -92,7 +92,7 @@ export default function Sidebar({ open }) {
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Profit" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Loss" />
                 </Menu> 
-                <SideNavLink icon={<BillIcon />} to='https://invoice.itaxeasy.com' title="Invoice" external />
+                <SideNavLink icon={<BillIcon />} to='/' title="Invoice" external withToken />
                 <Menu icon={<RupeeIcon />} title="Finance">
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Car Loan" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Business Loan" />

@@ -16,6 +16,8 @@ export default function PrivateRoute({ children }) {
     }
 
     if(redirect && location !== redirect) {
+        console.log(redirect);
+        
         dispatch({
             type: CLEAR_REDIRECT,
         });
