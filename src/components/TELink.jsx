@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import useAuth from '../hooks/useAuth.js';
 
-const INVOICE_URL = 'http://localhost:5174';
+const INVOICE_URL = 'https://invoice.itaxeasy.com';
 
 export default function TELink({ path = '/', children, className }) {
     const { currentUser, token } = useAuth();
