@@ -1,46 +1,98 @@
 import { useState } from "react";
 import AddCircleIcon from "../../components/icons/AddCircleIcon.jsx";
 import DeleteIcon from "../../components/icons/DeleteIcon.jsx";
+import ErrorMessage from "../../components/messages/ErrorMessage.jsx";
+import SuccessMessage from "../../components/messages/SuccessMessage.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
+import { BASE_URL } from "../../constants.js";
+import useAuth from "../../hooks/useAuth.js";
 
 export default function AddService() {
-    const [docs, setDocs] = useState([]);
+    const { token } = useAuth();
+        
+    const [service, setService] = useState({
+        serviceName: '',
+        description: '',
+        price: '',
+        gst: '',
+        banner: '',
+        documents: []
+    });
 
-    const handleDocNameUpdate = (id, name) => {
-        setDocs(docs.map((doc, idx) => {
-            if(idx !== id) {
-                return doc;
-            }
+    const [adding, setAdding] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
-            return { ...doc, name };
-        }));
+    const handleDocChange = (e, id) => {
+        setService({
+            ...service,
+            documents: service.documents.map((doc, idx) => {
+                if(idx !== id) {
+                    return doc;
+                }
+    
+                return { ...doc, [e.target.name]: e.target.value };
+            })
+        });
     };
 
-    const handleDocTypeUpdate = (id, type) => {
-        setDocs(docs.map((doc, idx) => {
-            if(idx !== id) {
-                return doc;
-            }
-
-            return { ...doc, type };
-        }));
+    const handleChange = e => {
+        setService({
+            ...service,
+            [e.target.name]: e.target.value
+        });
     };
 
     const handleDocDelete = id => {
-        setDocs(docs.filter((_, idx) => idx !== id));
+        setService({
+            ...service,
+            documents: service.documents.filter((_, idx) => idx !== id)
+        });
     };
 
     const handleAddDoc = () => {
         const newDoc = {
             name: '',
+            shortName: '',
             type: 'file',
         };
         
-        setDocs([
-            ...docs,
-            newDoc
-        ]);
+        setService({
+            ...service,
+            documents: [
+                ...service.documents,
+                newDoc
+            ]
+        });
+    };
+
+    const handleSubmit = async e => {
+        e.preventDefault();
+        console.log(service);
+        try {
+            setAdding(true);
+            setError('');
+
+            const res = await fetch(`${BASE_URL}/service`, {
+                method: 'POST',
+                headers: new Headers({
+                    'Authorization': `Basic ${token}`,
+                    'Content-Type': 'application/json',
+                }),
+                body: JSON.stringify(service),
+            });
+
+            if(!res.ok) {
+                throw new Error('Could not add service');
+            }
+
+            setSuccess('Service has been added successfully');
+        } catch(e) {
+            setError(e.message);
+        } finally {
+            setAdding(false);
+        }
     };
 
     return (
@@ -50,45 +102,52 @@ export default function AddService() {
                 <Topbar />
                 <div className="inner-container">
                     <h6 className="text-secondary">Add Service</h6>
+                    {
+                        success ? <SuccessMessage message={success} /> : null
+                    }
+                    {
+                        error ? <ErrorMessage message={error} /> : null
+                    }
                     <div className="section">
-                        <form className="flex dir-col g-1rem">
+                        <form onSubmit={handleSubmit} className="flex dir-col g-1rem">
                             <div className="flex dir-col g-1rem">
                                 <h6 className="text-primary">Service Details</h6>
                                 <div className="field">
                                     <label htmlFor="serviceName" className="label text-primary">Service Name</label>
-                                    <input type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                    <input name="serviceName" onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
                                 </div>
                                 <div className="flex ai-center g-1rem">
                                     <div className="field flex-1">
                                         <label htmlFor="serviceCharge" className="label text-primary">Service Charge</label>
-                                        <input type="text" className="input" id="serviceCharge" placeholder="0.0" />
+                                        <input name="price" onChange={handleChange} type="number" className="input" id="serviceCharge" placeholder="0.0" />
                                     </div>
                                     <div className="field flex-1">
                                         <label htmlFor="gst" className="label text-primary">GST</label>
-                                        <input type="text" className="input" id="gst" placeholder="0" />
+                                        <input name="gst" onChange={handleChange} type="number" className="input" id="gst" placeholder="0" />
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label htmlFor="serviceBanner" className="label text-primary">Banner URL</label>
-                                    <input type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
+                                    <input name="banner" onChange={handleChange} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
                                 </div>
                                 <div className="field">
                                     <label htmlFor="Description" className="label text-primary">Description</label>
-                                    <textarea className="textarea" id="Description" placeholder="Describe the service"></textarea>
+                                    <textarea name="description" onChange={handleChange} className="textarea" id="Description" placeholder="Describe the service"></textarea>
                                 </div>
                             </div>
                             <div className="flex dir-col g-1rem">
                                 <h6 className="text-primary">Required Documents</h6>
                                 {
-                                    docs.length > 0
+                                    service.documents.length > 0
                                         ? (
                                             <div className="flex dir-col g-1rem">
                                                 {
-                                                    docs.map((doc, key) => (
+                                                    service.documents.map((doc, key) => (
                                                         <div key={key} className="flex g-1rem ai-center">
                                                             <span className="inline-flex jc-center ai-center text-large">{key + 1}</span>
-                                                            <input value={doc.name} onChange={e => handleDocNameUpdate(key, e.target.value)} type="text" className="input is-small" placeholder="Document Name" />
-                                                            <select value={doc.type} onChange={e => handleDocTypeUpdate(key, e.target.value)} name="docType" id="docType" className="select">
+                                                            <input value={doc.title} name="title" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Document Name" />
+                                                            <input value={doc.shortName} name="shortName" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Short Name" />
+                                                            <select value={doc.type} name="type" onChange={e => handleDocChange(e, key)} id="docType" className="select">
                                                                 <option value="file">File</option>
                                                                 <option value="text">Text</option>
                                                             </select>
@@ -107,7 +166,13 @@ export default function AddService() {
                                     Add Document
                                 </button>
                             </div>
-                            <button className="button is-primary">Add Service</button>
+                            <button className="button is-primary" disabled={adding}>
+                                {
+                                    adding
+                                        ? <span className="spinner small"></span>
+                                        : 'Add Service'
+                                }
+                            </button>
                         </form>
                     </div>
                 </div>
