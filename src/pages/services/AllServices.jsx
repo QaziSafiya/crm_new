@@ -1,5 +1,7 @@
+import { useRef } from "react";
+import { useState } from "react";
 import ReactModal from "react-modal";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import CloseCircleIcon from "../../components/icons/CloseCircleIcon";
 import DeleteIcon from "../../components/icons/DeleteIcon";
 import EditIcon from "../../components/icons/EditIcon";
@@ -44,91 +46,41 @@ const data=[
 
 ]
 
+const customStyles = {
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, .5)'
+    },
+    content: {
+        width: 'max-content',
+        height: 'max-content',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: 'var(--elevation-color)',
+        border: 'none'
+    },
+};
+
 const AllServices = () => {
+    const [search, setSearch] = useSearchParams();
+    const [isOpen, setIsOpen] = useState(false);
+    const [deleting, setDeleting] = useState(false);
 
+    const appElementRef = useRef();
 
-    // const { token } = useAuth();
-
-    // const [search, setSearch] = useSearchParams();
-
-    // const page = parseInt(search.get('page')) || 0;
-
-    // const fetchBlogs = useCallback(async () => {
-    //     const res = await fetch(`${BASE_URL}/service/all?pageNo=${page}`);
-
-    //     return res.json();
-    // }, [page]);
-
-    // const { data, isLoading, error: fetchError } = useQuery(['blogs', page], fetchBlogs);
-
-    // const deletePost = useMutation((id) => {
-    //     return fetch(`${BASE_URL}/blog/delete?id=${post}`, {
-    //         method: 'POST',
-    //         headers: new Headers({
-    //             'Authorization': `Bearer ${token}`,
-    //         })
-    //     })
-    // }, {
-    //     onMutate: async (id) => {
-    //         await queryClient.cancelQueries(['blogs', id]);
-
-    //         queryClient.setQueryData(['blogs', page], (old) => {
-    //             return {
-    //                 ...old,
-    //                 data: old.data.filter(post => post.id !== id)
-    //             };
-    //         });
-    //     }
-    // });
-
-    // const [isOpen, setIsOpen] = useState(false);
-
-    // const [post, setPost] = useState(null);
-
-    // const [error, setError] = useState('');
-    // const [success, setSuccess] = useState('');
-    // const [deleting, setDeleting] = useState(false);
-
-    // const handleDelete = post => {
-    //     setIsOpen(true);
-    //     setPost(post);
-    // };
-
-    // const handlePostDelete = async () => {
-    //     try {
-    //         setError('');
-    //         setDeleting(true);
-
-    //         const res = await deletePost.mutateAsync(post);
-
-    //         console.log(res);
-
-    //         if (!res.ok) {
-    //             throw new Error('Could not delete post.');
-    //         }
-
-    //         setSuccess('Post deleted.');
-    //     } catch (e) {
-    //         console.error(e);
-    //         setError(e.message);
-    //     } finally {
-    //         setDeleting(false);
-    //         setIsOpen(false);
-    //     }
-    // };
-
-    // const appElementRef = useRef();
-
+    const handleDelete = () => {
+        setIsOpen(true);
+    };
 
     return <>
-        <div className="container">
+        <div className="container" ref={appElementRef}>
             <Sidebar />
             <div className="main">
                 <Topbar />
                 <div className="inner-container">
                     <div className="flex jc-between ai-center">
                         <h6 className="text-secondary">Services</h6>
-                        <Link to="/services/newService" className="button is-primary is-small has-icon">
+                        <Link to="/services/add-service" className="button is-primary is-small has-icon">
                             <EditIcon />
                             New Service
                         </Link>
@@ -152,15 +104,12 @@ const AllServices = () => {
                         //         : (
                                     data.map(post => (
                                         <div key={post.id} className="section">
-                                            <span className="text-secondary">
-                                                {postDateFormatter.format(new Date())}
-                                            </span>
                                             <div className="flex dir-row ai-center jc-between">
                                                 <Link to={`/blog/post/${post.id}`}>
                                                     <h6 className="title">{post.title}</h6>
                                                 </Link>
                                                 <div className="flex ai-center g-1rem">
-                                                    <Link to={`/blog/update-post/${post.id}`} className="button is-primary is-small has-icon">
+                                                    <Link to={`/services/update-service/${post.id}`} className="button is-primary is-small has-icon">
                                                         <EditIcon />
                                                         Edit
                                                     </Link>
@@ -174,14 +123,14 @@ const AllServices = () => {
                                     ))
                                 // )
                     }
-                    {/* <Pagination totalPages={data?.totalPages} currentPage={page} setSearch={setSearch} /> */}
+                    <Pagination totalPages={1} currentPage={0} setSearch={setSearch} />
                 </div>
             </div>
-            {/* <ReactModal style={customStyles} isOpen={isOpen} appElement={appElementRef.current} contentLabel="Delete Post">
+            <ReactModal style={customStyles} isOpen={isOpen} appElement={appElementRef.current} contentLabel="Delete Post">
                 <div className="flex dir-col g-1rem">
-                    <h6 className='text-danger text-center'>Delete Post?</h6>
+                    <h6 className='text-danger text-center'>Delete Service?</h6>
                     <div className="flex jc-center ai-center g-1rem">
-                        <button disabled={deleting} onClick={handlePostDelete} className="button is-danger is-small w-max-content">
+                        <button disabled={deleting} className="button is-danger is-small w-max-content">
                             Delete
                         </button>
                         <button disabled={deleting} onClick={() => setIsOpen(false)} className="button is-secondary is-small has-icon">
@@ -190,7 +139,7 @@ const AllServices = () => {
                         </button>
                     </div>
                 </div>
-            </ReactModal> */}
+            </ReactModal>
         </div>
     </>
 }

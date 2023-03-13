@@ -4,7 +4,7 @@ import DeleteIcon from "../../components/icons/DeleteIcon.jsx";
 import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 
-export default function AddService() {
+export default function UpdateService() {
     const [docs, setDocs] = useState([]);
 
     const handleDocNameUpdate = (id, name) => {
@@ -49,7 +49,7 @@ export default function AddService() {
             <div className="main">
                 <Topbar />
                 <div className="inner-container">
-                    <h6 className="text-secondary">Add Service</h6>
+                    <h6 className="text-secondary">Update Service</h6>
                     <div className="section">
                         <form className="flex dir-col g-1rem">
                             <div className="flex dir-col g-1rem">
