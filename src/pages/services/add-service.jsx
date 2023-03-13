@@ -13,6 +13,7 @@ export default function AddService() {
         
     const [service, setService] = useState({
         serviceName: '',
+        serviceType: '',
         description: '',
         price: '',
         gst: '',
@@ -112,9 +113,15 @@ export default function AddService() {
                         <form onSubmit={handleSubmit} className="flex dir-col g-1rem">
                             <div className="flex dir-col g-1rem">
                                 <h6 className="text-primary">Service Details</h6>
-                                <div className="field">
-                                    <label htmlFor="serviceName" className="label text-primary">Service Name</label>
-                                    <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                <div className="flex ai-center g-1rem">
+                                    <div className="field">
+                                        <label htmlFor="serviceName" className="label text-primary">Service Name</label>
+                                        <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                    </div>
+                                    <div className="field">
+                                        <label htmlFor="serviceType" className="label text-primary">Service Type</label>
+                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                    </div>
                                 </div>
                                 <div className="flex ai-center g-1rem">
                                     <div className="field flex-1">
