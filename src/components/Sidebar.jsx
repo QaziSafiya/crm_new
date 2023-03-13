@@ -117,6 +117,7 @@ export default function Sidebar({ open }) {
                         <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
                         <SideNavLink icon={<GlobeIcon />} to='/update/footer' title="Footer" />
                         <SideNavLink icon={<GlobeIcon />} to='/blog' title="Blog" />
+                        <SideNavLink icon={<GlobeIcon />} to='/services' title="Services" />
                     </Menu> 
                 </ProtectedMenu>
                 <Menu icon={<SettingsIcon />} title="Settings">

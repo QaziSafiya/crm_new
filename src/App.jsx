@@ -35,6 +35,7 @@ import Post from './pages/blog/Post.jsx'
 import Ledger from './pages/gst/gstr1/ledger.jsx'
 import InwardSupplies from './pages/gst/inward.jsx'
 import OutwardSupplies from './pages/gst/outward.jsx'
+import AllServices from './pages/services/AllServices'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -192,6 +193,11 @@ function App() {
           <Route path='/blog/post/:id' element={
             <ProtectedRoute>
               <Post />
+            </ProtectedRoute>
+          } />
+          <Route path='/services' element={
+            <ProtectedRoute>
+              <AllServices/>
             </ProtectedRoute>
           } />
           <Route path='/gst/gstr1' element={
