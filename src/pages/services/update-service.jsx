@@ -31,15 +31,16 @@ export default function UpdateService() {
                 }),
             });
 
-            console.log(res);
-
             if(!res.ok) {
                 throw new Error('Could not fetch service.');
             }
 
             const service = await res.json();
             
-            setService(service);
+            setService({
+                ...service,
+                documents: JSON.parse(JSON.parse(service.documents)),
+            });
         } catch(e) {
             console.error(e);
             setError(e.message);
@@ -152,25 +153,25 @@ export default function UpdateService() {
                                                 <h6 className="text-primary">Service Details</h6>
                                                 <div className="field">
                                                     <label htmlFor="serviceName" className="label text-primary">Service Name</label>
-                                                    <input name="serviceName" onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                                    <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
                                                 </div>
                                                 <div className="flex ai-center g-1rem">
                                                     <div className="field flex-1">
                                                         <label htmlFor="serviceCharge" className="label text-primary">Service Charge</label>
-                                                        <input name="price" onChange={handleChange} type="number" className="input" id="serviceCharge" placeholder="0.0" />
+                                                        <input name="price" onChange={handleChange} value={service.price} type="number" className="input" id="serviceCharge" placeholder="0.0" />
                                                     </div>
                                                     <div className="field flex-1">
                                                         <label htmlFor="gst" className="label text-primary">GST</label>
-                                                        <input name="gst" onChange={handleChange} type="number" className="input" id="gst" placeholder="0" />
+                                                        <input name="gst" onChange={handleChange} value={service.gst} type="number" className="input" id="gst" placeholder="0" />
                                                     </div>
                                                 </div>
                                                 <div className="field">
                                                     <label htmlFor="serviceBanner" className="label text-primary">Banner URL</label>
-                                                    <input name="banner" onChange={handleChange} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
+                                                    <input name="imgUrl" onChange={handleChange} value={service.imgUrl} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
                                                 </div>
                                                 <div className="field">
                                                     <label htmlFor="Description" className="label text-primary">Description</label>
-                                                    <textarea name="description" onChange={handleChange} className="textarea" id="Description" placeholder="Describe the service"></textarea>
+                                                    <textarea name="description" onChange={handleChange} value={service.description} className="textarea" id="Description" placeholder="Describe the service"></textarea>
                                                 </div>
                                             </div>
                                             <div className="flex dir-col g-1rem">
