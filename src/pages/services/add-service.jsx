@@ -114,13 +114,13 @@ export default function AddService() {
                             <div className="flex dir-col g-1rem">
                                 <h6 className="text-primary">Service Details</h6>
                                 <div className="flex ai-center g-1rem">
-                                    <div className="field">
+                                    <div className="field flex-1">
                                         <label htmlFor="serviceName" className="label text-primary">Service Name</label>
                                         <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
                                     </div>
-                                    <div className="field">
+                                    <div className="field flex-1">
                                         <label htmlFor="serviceType" className="label text-primary">Service Type</label>
-                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Type of service (eg. Registration)" />
                                     </div>
                                 </div>
                                 <div className="flex ai-center g-1rem">
