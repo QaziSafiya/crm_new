@@ -23,3 +23,5 @@ export const SET_GST_YEAR = 'set-gst-year';
 export const AUTH_FROM_REDIRECT = 'auth-from-redirect';
 
 export const CLEAR_REDIRECT = 'clear-redirect';
+
+export const PDF_DOC = "pdfDoc";

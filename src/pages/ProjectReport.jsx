@@ -2,31 +2,54 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import { InputBox,TextArea,Option,LabelBox,MultipleInputBox,Heading,Section,Button,MainHeading} from "./styles/projectReportStyles";
 import styled from "styled-components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GrAdd } from "react-icons/gr"
 import { useForm } from "react-hook-form";
+import { StoreContext } from "../store/store-context";
+import { PDF_DOC } from "../store/actions";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ProjectReport() {
-
     
     const [rented, setRented] = useState(false)
     const [owner, setOwner] = useState(false)
     const [pnmList, setPnmList] = useState([])
     const [loan,setLoan]=useState(false)
-    const [businessName,setBusinessName]=useState();
+    const [businessName,setBusinessName] = useState('');
     const { handleSubmit, register, setValue, getValues } = useForm();
+    const [_, dispatch] = useContext(StoreContext);
+    const navigate = useNavigate();
     
     const addPlantMachineryHandler = () => {
         setPnmList((prev) => [...prev, {}])
     }
 
-    const onSubmitting=()=>{
-
-        const values=getValues()
-
+    const pdfHandler = (values) => {
+        console.log(pnmList);
+        try {
+            dispatch({
+                type: PDF_DOC,
+                payload: {
+                    businessName,
+                    pnmList,
+                    owner,
+                    rented,
+                    loan,
+                    values,
+                }
+            })
+            
+            navigate('/pdfViewer')
+        } catch (err) {
+            console.log(err);
+        }
     }
 
+    const onSubmitting=()=>{
+        const values = getValues();
+        pdfHandler(values);
+    }
 
     return <div className='container'>
         <Sidebar />
@@ -318,7 +341,7 @@ export default function ProjectReport() {
                             {...register("turnover")}
                         />
                     </InputBox>
-                    <Button type="submit" className="button  is-small has-icon">Generate Pdf</Button>
+                    <Button type="submit" className="button is-small has-icon">Generate Pdf</Button>
                 </form>
             </div>
         </div>

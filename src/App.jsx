@@ -39,6 +39,7 @@ import AllServices from './pages/services/AllServices'
 import AddService from './pages/services/add-service.jsx'
 import UpdateService from './pages/services/update-service.jsx'
 import ProjectReport from './pages/ProjectReport'
+import PdfViewer from './components/pdfViewer'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -101,6 +102,7 @@ function App() {
               <Dashboard />
             </PrivateRoute>
           } />
+          <Route path='/pdfViewer' element={<PdfViewer />} />
           <Route path='/users' element={
             <ProtectedRoute>
               <Users />

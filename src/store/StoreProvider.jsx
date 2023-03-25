@@ -23,6 +23,14 @@ export default function StoreProvider({ children }) {
             loading: true,
         },
         sidebarOpen: true,
+        pdfDoc: {
+            businessName: "",
+            pnmList: [],
+            owner: undefined,
+            rented: undefined,
+            loan: undefined,
+            data: {},
+        }
     };
 
     return (

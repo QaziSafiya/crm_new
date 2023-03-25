@@ -1,4 +1,4 @@
-import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER } from "./actions.js";
+import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC} from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     switch(type) {
@@ -37,6 +37,18 @@ export default function reducer(state, { type, payload }) {
             return { ...state, gst: { ...state.gst, month: payload }, };
         case SET_GST_YEAR:
             return { ...state, gst: { ...state.gst, year: payload }, };
+        case PDF_DOC:
+            return {
+                ...state,
+                pdfDoc: {
+                    businessName: payload.businessName,
+                    pnmList: payload.pnmList,
+                    owner: payload.owner,
+                    rented: payload.rented,
+                    loan: payload.loan,
+                    data: payload.values,
+                },
+            };
         default:
             return state;
     }
