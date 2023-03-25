@@ -28,8 +28,12 @@ export default function Login() {
             setError('');
 
             const formData = new FormData(e.target);
+            const info = {
+                email: formData.get("email"),
+                password: formData.get('password')
+            }
 
-            const { data, token, status } = await signIn(formData);
+            const { data, token, status } = await signIn(info);
 
             if(!status) {
                 throw new Error('Some error occured.');

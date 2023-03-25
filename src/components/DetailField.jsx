@@ -8,7 +8,8 @@ export default function DetailField({ label, value, type }) {
 
     const copyToClipboard = async () => {
         try {
-            await navigator.clipboard.writeText(value);
+            await 
+            clipboard.writeText(value);
             setCopied(true);
         } catch (e) {
             console.error(e);

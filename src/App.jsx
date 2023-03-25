@@ -38,6 +38,7 @@ import OutwardSupplies from './pages/gst/outward.jsx'
 import AllServices from './pages/services/AllServices'
 import AddService from './pages/services/add-service.jsx'
 import UpdateService from './pages/services/update-service.jsx'
+import ProjectReport from './pages/ProjectReport'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -230,6 +231,11 @@ function App() {
           <Route path='/gst/outward-supplies' element={
             <PrivateRoute>
               <OutwardSupplies />
+            </PrivateRoute>
+          } />
+          <Route path='/project-report' element={
+            <PrivateRoute>
+              <ProjectReport />
             </PrivateRoute>
           } />
           <Route path='/login' element={<Login />} />
