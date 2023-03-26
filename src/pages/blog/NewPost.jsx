@@ -83,7 +83,7 @@ export default function NewPost() {
 
     const handleHeading = (e) => {
         const value = e.target.value;
-        setEditorState(RichUtils.toggleBlockType(editorState, value));
+        setEditorState(toggleBlockType(editorState, value));
     };
 
     const handleKeyCommand = (command, editorState) => {
@@ -201,6 +201,13 @@ export default function NewPost() {
                             onChange={e => setTitle(e.target.value)} 
                             placeholder="Title"
                         />
+                        {/* <input
+                            type="text"
+                            className="input"
+                            value={title}
+                            onChange={e => setTitle(e.target.value)}
+                            placeholder="Title"
+                        /> */}
                         <Editor 
                             editorState={editorState}
                             customStyleMap={styleMap}
