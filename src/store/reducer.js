@@ -46,7 +46,7 @@ export default function reducer(state, { type, payload }) {
                     owner: payload.owner,
                     rented: payload.rented,
                     loan: payload.loan,
-                    data: payload.values,
+                    data: payload.data,
                 },
             };
         default:

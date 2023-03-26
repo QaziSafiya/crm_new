@@ -11,7 +11,7 @@ import {
   Link,
 } from "@react-pdf/renderer";
 import { useNavigate } from "react-router-dom";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
 
 const styles = StyleSheet.create({
   page: {
@@ -47,45 +47,43 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     gap: "6px",
     marginTop: "16px",
-    },
-  flexRow: {display: 'flex', border: '1px solid black', flexDirection: 'row'},
-  flexBasis15: {flexBasis: '15%', textAlign: 'center', border: '1px solid black'},
-  flexBasis60: {flexBasis: '60%', textAlign: 'center', border: '1px solid black'},
-  flexBasis25: {flexBasis: '25%', textAlign: 'center', border: '1px solid black'},
+  },
+  flexRow: { display: "flex", border: "1px solid black", flexDirection: "row" },
+  flexBasis15: {
+    flexBasis: "15%",
+    textAlign: "center",
+    border: "1px solid black",
+  },
+  flexBasis60: {
+    flexBasis: "60%",
+    textAlign: "center",
+    border: "1px solid black",
+  },
+  flexBasis25: {
+    flexBasis: "25%",
+    textAlign: "center",
+    border: "1px solid black",
+  },
   sidePadding: { width: "80%", padding: "10px 0", margin: "0 auto" },
-    smText: { fontSize: "12px" },
-    table: { border: '1px solid black', margin: '16px 0' }
+  smText: { fontSize: "12px" },
+  table: { border: "1px solid black", margin: "16px 0" },
 });
 
 const PdfViewer = () => {
   const [state, dispatch] = useContext(StoreContext);
   const navigate = useNavigate();
 
-  console.log(state.pdfDoc);
   const businessName = state.pdfDoc.businessName;
   const loan = state.pdfDoc.loan;
   const owner = state.pdfDoc.owner;
-  const pnmList = state.pdfDoc.pnmList;
+  const pnmList = state.pdfDoc?.pnmList;
   const rented = state.pdfDoc.rented;
-  const data = state.pdfDoc.data;
+  const data = state.pdfDoc?.data;
 
-  console.log(
-    "businessName ->",
-    businessName,
-    "loan ->",
-    loan,
-    "owner ->",
-    owner,
-    "pnmList ->",
-    pnmList,
-    "rented ->",
-    rented,
-    "data ->",
-    data
-  );
+  console.log(state.pdfDoc);
 
   useEffect(() => {
-    if (!state.pdfDoc) {
+    if (!state.pdfDoc?.data) {
       navigate(-1);
     }
   }, []);
@@ -94,6 +92,28 @@ const PdfViewer = () => {
     const value = pnmList.map((obj, i) => obj.price);
     return value.reduce((acc, currentVal) => acc + currentVal, 0);
   };
+
+  // const pnmTable = () => {
+  //   {
+  //     state.pdfDoc?.pnmList?.length > 0 &&
+  //       state.pdfDoc.pnmList.map((obj, i) => {
+  //         obj && (
+  //           <View key={uuid() + i}>
+  //             <View>
+  //               <Text style={styles.smText}>{i + 1}</Text>
+  //             </View>{" "}
+  //             style={styles.smText}
+  //             <View>
+  //               <Text style={styles.smText}>{obj?.name}</Text>
+  //             </View>
+  //             <View>
+  //               <Text style={styles.smText}>{obj?.price}</Text>
+  //             </View>
+  //           </View>
+  //         );
+  //       });
+  //   }
+  // };
 
   return (
     <>
@@ -145,7 +165,9 @@ const PdfViewer = () => {
 
                 <View>
                   <Text style={styles.semiBold}>A. Fixed Capital</Text>
-                  <Text style={styles.smText}>Land and Building :- {data.land_building}</Text>
+                  <Text style={styles.smText}>
+                    Land and Building :- {data.land_building}
+                  </Text>
                 </View>
                 <View>
                   <Text style={styles.semiBold}>Plant and Machinery</Text>
@@ -153,24 +175,46 @@ const PdfViewer = () => {
                   {/* TABLE START  */}
                   <View style={styles.table}>
                     <View style={styles.flexRow}>
-                      <View style={styles.flexBasis15}><Text style={styles.smText}>Sl. No</Text></View>
-                      <View style={styles.flexBasis60}><Text style={styles.smText}>Item</Text></View>
-                      <View style={styles.flexBasis25}><Text style={styles.smText}>Cost (Rs.)</Text></View>
-                    </View>
-                    {state.pdfDoc.pnmList && state.pdfDoc.pnmList.length > 0 && state.pdfDoc.pnmList.map((obj, i) => (
-                      <View key={uuid() + i}>
-                        <View><Text style={styles.smText}>{i + 1}</Text></View> style={styles.smText}
-                        <View><Text style={styles.smText}>{obj?.name}</Text></View>
-                        <View><Text style={styles.smText}>{obj?.price}</Text></View>
+                      <View style={styles.flexBasis15}>
+                        <Text style={styles.smText}>Sl. No</Text>
                       </View>
-                    ))}
+                      <View style={styles.flexBasis60}>
+                        <Text style={styles.smText}>Item</Text>
+                      </View>
+                      <View style={styles.flexBasis25}>
+                        <Text style={styles.smText}>Cost (Rs.)</Text>
+                      </View>
+                    </View>
+                    {pnmList?.length > 0 &&
+                      pnmList.map((obj, i) => {
+                        console.log(obj, obj.name, obj.price);
+                        obj && (
+                          <View key={uuid() + i}>
+                            <View>
+                              <Text style={styles.smText}>{i + 1}</Text>
+                            </View>{" "}
+                            style={styles.smText}
+                            <View>
+                              <Text style={styles.smText}>{obj?.name}</Text>
+                            </View>
+                            <View>
+                              <Text style={styles.smText}>{obj?.price}</Text>
+                            </View>
+                          </View>
+                        );
+                      })}
                     <View style={styles.flexRow}>
                       <View style={styles.flexBasis15}></View>
-                      <View style={styles.flexBasis60}><Text>Total</Text></View>
-                      <View style={styles.flexBasis25}><Text>{pnmTotal()}</Text></View>
+                      <View style={styles.flexBasis60}>
+                        <Text>Total</Text>
+                      </View>
+                      <View style={styles.flexBasis25}>
+                        <Text>{pnmTotal()}</Text>
+                      </View>
                     </View>
                   </View>
                   {/* TABLE END */}
+
                 </View>
               </View>
             </View>

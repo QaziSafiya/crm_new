@@ -26,9 +26,9 @@ export default function StoreProvider({ children }) {
         pdfDoc: {
             businessName: "",
             pnmList: [],
-            owner: undefined,
-            rented: undefined,
-            loan: undefined,
+            owner: '',
+            rented: false,
+            loan: false,
             data: {},
         }
     };

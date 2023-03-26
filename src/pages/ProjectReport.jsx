@@ -26,7 +26,6 @@ export default function ProjectReport() {
     }
 
     const pdfHandler = (values) => {
-        console.log(pnmList);
         try {
             dispatch({
                 type: PDF_DOC,
@@ -36,11 +35,11 @@ export default function ProjectReport() {
                     owner,
                     rented,
                     loan,
-                    values,
+                    data: { ...values },
                 }
             })
-            
-            navigate('/pdfViewer')
+            navigate('/pdfViewer');
+            console.log(_.pdfDoc);
         } catch (err) {
             console.log(err);
         }
