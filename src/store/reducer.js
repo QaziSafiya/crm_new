@@ -41,6 +41,7 @@ export default function reducer(state, { type, payload }) {
             return {
                 ...state,
                 pdfDoc: {
+                    intro:payload.intro,
                     businessName: payload.businessName,
                     pnmList: payload.pnmList,
                     owner: payload.owner,

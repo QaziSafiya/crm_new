@@ -24,6 +24,7 @@ export default function StoreProvider({ children }) {
         },
         sidebarOpen: true,
         pdfDoc: {
+            intro:'',
             businessName: "",
             pnmList: [],
             owner: '',

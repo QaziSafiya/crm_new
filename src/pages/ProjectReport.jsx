@@ -1,6 +1,6 @@
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import { InputBox,TextArea,Option,LabelBox,MultipleInputBox,Heading,Section,Button,MainHeading} from "./styles/projectReportStyles";
+import { InputBox, TextArea, Option, LabelBox, MultipleInputBox, Heading, Section, Button, MainHeading } from "./styles/projectReportStyles";
 import styled from "styled-components";
 import { useContext, useState } from "react";
 import { GrAdd } from "react-icons/gr"
@@ -8,19 +8,21 @@ import { useForm } from "react-hook-form";
 import { StoreContext } from "../store/store-context";
 import { PDF_DOC } from "../store/actions";
 import { useNavigate } from "react-router-dom";
+import { Intro } from "../helper/projectReportIntros";
 
 
 export default function ProjectReport() {
-    
+
     const [rented, setRented] = useState(false)
     const [owner, setOwner] = useState(false)
     const [pnmList, setPnmList] = useState([])
-    const [loan,setLoan]=useState(false)
-    const [businessName,setBusinessName] = useState('');
+    const [loan, setLoan] = useState(false)
+    const [intro,setIntro]=useState()
+    const [businessName, setBusinessName] = useState('');
     const { handleSubmit, register, setValue, getValues } = useForm();
     const [_, dispatch] = useContext(StoreContext);
     const navigate = useNavigate();
-    
+
     const addPlantMachineryHandler = () => {
         setPnmList((prev) => [...prev, {}])
     }
@@ -30,6 +32,7 @@ export default function ProjectReport() {
             dispatch({
                 type: PDF_DOC,
                 payload: {
+                    intro,
                     businessName,
                     pnmList,
                     owner,
@@ -45,10 +48,17 @@ export default function ProjectReport() {
         }
     }
 
-    const onSubmitting=()=>{
+    const onSubmitting = () => {
         const values = getValues();
         pdfHandler(values);
     }
+
+    const nameChangeHandler = (e) => {
+        setBusinessName(e.target.value)
+        const filterIntro=Intro.filter((item)=>item.name==e.target.value)
+        setIntro(filterIntro[0].intro)
+    }
+
 
     return <div className='container'>
         <Sidebar />
@@ -68,7 +78,7 @@ export default function ProjectReport() {
                         type='text'
                         placeholder="Business Name"
                     /> */}
-                        <select onChange={(e)=>setBusinessName(e.target.value)} name="businessName" id="business_name" className="select w-max-content">
+                        <select onChange={(e) => nameChangeHandler(e)} name="businessName" id="business_name" className="select w-max-content">
                             <option disabled selected value> -- select an option -- </option>
                             <option value="Flour Mill">Flour Mill</option>
                             <option value="Toilet Soap Manufacturing Unit">Toilet Soap Manufacturing Unit</option>
@@ -99,13 +109,13 @@ export default function ProjectReport() {
                             <option value='Beauty Parlor'>Beauty Parlor</option>
                         </select>
                     </InputBox>
-                    <InputBox>
+                    {/* <InputBox>
                         <label htmlFor="market_potential">Market Potential</label>
                         <TextArea
                             className="input"
                             id="market_potential"
                             placeholder="Tell us about Market Potential of your Business..."
-                            {...register("market_potential")}        
+                            {...register("market_potential")}
                         />
                     </InputBox>
                     <InputBox>
@@ -125,7 +135,7 @@ export default function ProjectReport() {
                             placeholder="Tell us about Manufacturing process of your product..."
                             {...register("manufacturing_process")}
                         />
-                    </InputBox>
+                    </InputBox> */}
                     <Section style={{ paddingTop: '1rem' }}>
                         <Heading>Land and Building</Heading>
                         <MultipleInputBox>
@@ -211,7 +221,7 @@ export default function ProjectReport() {
                                         className="input"
                                         id="name"
                                         placeholder="Name"
-                                        onChange={(e)=>pnmList[i].name=e.target.value}
+                                        onChange={(e) => pnmList[i].name = e.target.value}
 
                                     />
                                 </InputBox>
