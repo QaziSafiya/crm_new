@@ -1,6 +1,7 @@
 import styled from "styled-components"
+import { css } from "styled-components"
 
-export const InputBox=styled.div`
+export const InputBox = styled.div`
     padding-top: 1rem;
 `
 
@@ -43,6 +44,20 @@ border: 1px solid grey;
 border-radius: 5px;
 background-color: white;
 margin-top: 1rem;
+
+ ${(props) =>
+        props.disabled &&
+        css`
+       cursor: not-allowed;
+           filter: opacity(0.4);
+
+       &:hover{
+           filter: opacity(0.4);
+       }
+    `}
+
+
+
 `
 
 export const MainHeading = styled.h1`

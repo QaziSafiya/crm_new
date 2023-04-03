@@ -40,6 +40,9 @@ import AddService from './pages/services/add-service.jsx'
 import UpdateService from './pages/services/update-service.jsx'
 import ProjectReport from './pages/ProjectReport'
 import PdfViewer from './components/pdfViewer'
+import AllLibrary from './pages/e-library/AllLibrary'
+import UpdateLibrary from './pages/e-library/updateLibrary'
+import CreateLibrary from './pages/e-library/createLibrary'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -213,6 +216,21 @@ function App() {
           <Route path='/services/update-service/:id' element={
             <ProtectedRoute>
               <UpdateService/>
+            </ProtectedRoute>
+          } />
+          <Route path='/e-library' element={
+            <ProtectedRoute>
+              <AllLibrary />
+            </ProtectedRoute>
+          } />
+          <Route path='/e-library/update-library/:id' element={
+            <ProtectedRoute>
+              <UpdateLibrary />
+            </ProtectedRoute>
+          } />
+          <Route path='/e-library/add-library' element={
+            <ProtectedRoute>
+              <CreateLibrary />
             </ProtectedRoute>
           } />
           <Route path='/gst/gstr1' element={

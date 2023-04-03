@@ -9,6 +9,8 @@ import { StoreContext } from "../store/store-context";
 import { PDF_DOC } from "../store/actions";
 import { useNavigate } from "react-router-dom";
 import { Intro } from "../helper/projectReportIntros";
+import { AiFillDelete } from "react-icons/ai"
+import uuid from "react-uuid"
 
 
 export default function ProjectReport() {
@@ -17,14 +19,19 @@ export default function ProjectReport() {
     const [owner, setOwner] = useState(false)
     const [pnmList, setPnmList] = useState([])
     const [loan, setLoan] = useState(false)
-    const [intro,setIntro]=useState()
+    const [intro, setIntro] = useState()
     const [businessName, setBusinessName] = useState('');
     const { handleSubmit, register, setValue, getValues } = useForm();
     const [_, dispatch] = useContext(StoreContext);
     const navigate = useNavigate();
 
     const addPlantMachineryHandler = () => {
-        setPnmList((prev) => [...prev, {}])
+        setPnmList((prev) => [...prev, { id: uuid() }])
+    }
+
+    const deleteHandler = (id) => {
+        const filterList = pnmList.filter((item) => item.id !== id)
+        setPnmList(filterList)
     }
 
     const pdfHandler = (values) => {
@@ -55,7 +62,7 @@ export default function ProjectReport() {
 
     const nameChangeHandler = (e) => {
         setBusinessName(e.target.value)
-        const filterIntro=Intro.filter((item)=>item.name==e.target.value)
+        const filterIntro = Intro.filter((item) => item.name == e.target.value)
         setIntro(filterIntro[0].intro)
     }
 
@@ -101,12 +108,12 @@ export default function ProjectReport() {
                             <option value="Pickle Unit">Pickle Unit</option>
                             <option value="Manufacturing of Palm Plate">Manufacturing of Palm Plate</option>
                             <option value="Note Book Manufacturing">Note Book Manufacturing</option>
-                            <option value="Dairy Products">Dairy Products</option>
+                            {/* <option value="Dairy Products">Dairy Products</option>
                             <option value="Detergent Power and Cakes">Detergent Power and Cakes</option>
                             <option value="Sanitary Napkin Manufacturing Project">Sanitary Napkin Manufacturing Project</option>
                             <option value="General Engineering Workshop">General Engineering Workshop</option>
                             <option value='Rubberised Coir Mattresses'>Rubberised Coir Mattresses</option>
-                            <option value='Beauty Parlor'>Beauty Parlor</option>
+                            <option value='Beauty Parlor'>Beauty Parlor</option> */}
                         </select>
                     </InputBox>
                     {/* <InputBox>
@@ -212,8 +219,8 @@ export default function ProjectReport() {
                             </InputBox>
                         </MultipleInputBox>}
                         <Heading>Plant and Machinery</Heading>
-                        {pnmList && pnmList.length > 0 && pnmList.map((_, i) => {
-                            return <MultipleInputBox key={i} >
+                        {pnmList && pnmList.length > 0 && pnmList.map((item, i) => {
+                            return <MultipleInputBox key={item.id} >
                                 <InputBox>
                                     <label htmlFor="name">Name</label>
                                     <input
@@ -222,7 +229,6 @@ export default function ProjectReport() {
                                         id="name"
                                         placeholder="Name"
                                         onChange={(e) => pnmList[i].name = e.target.value}
-
                                     />
                                 </InputBox>
                                 <InputBox>
@@ -245,9 +251,19 @@ export default function ProjectReport() {
                                         onChange={(e) => pnmList[i].rate = e.target.value}
                                     />
                                 </InputBox>
+                                <div style={{ transform: "translateY(50%)",cursor:"pointer" }} onClick={() => deleteHandler(item.id)}>
+                                    <AiFillDelete size={20} color="grey" />
+                                </div>
                             </MultipleInputBox>
                         })}
-                        <Button type="button" onClick={addPlantMachineryHandler} className="button  is-small has-icon">Add <GrAdd /></Button>
+                        <Button
+                            type="button"
+                            onClick={addPlantMachineryHandler}
+                            className="button  is-small has-icon"
+                            disabled={pnmList.length>5}
+                        >
+                            Add <GrAdd />
+                        </Button>
                     </Section>
                     <Section style={{ paddingTop: '1rem' }}>
                         <Heading>Working Capital</Heading>
