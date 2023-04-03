@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666665 8.4666669"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="icon.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="7.9195959"
+     inkscape:cx="43.285101"
+     inkscape:cy="19.388398"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     showborder="true"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="682"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-288.53332)">
+    <g
+       aria-label="BS"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.57777786px;line-height:125%;font-family:Yantramanav;-inkscape-font-specification:'Yantramanav, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="text817">
+      <path
+         d="m 2.6403211,294.56638 c 0.8902127,0 1.372526,-0.36105 1.372526,-1.06936 0,-0.38034 -0.1956814,-0.69178 -0.6201171,-0.78824 0.3389974,-0.1378 0.4960937,-0.41892 0.4960937,-0.76343 0,-0.66422 -0.5236545,-0.99219 -1.4248915,-0.99219 H 1.2236978 v 3.61046 z m -0.57602,-2.9683 h 0.3996311 c 0.3996311,0 0.5842882,0.12954 0.5842882,0.44097 0,0.27286 -0.1874132,0.41066 -0.5677517,0.41893 H 2.0643011 Z m 0.6256294,1.41387 c 0.3445095,0 0.4878255,0.16261 0.4878255,0.4768 0,0.29214 -0.1763889,0.42995 -0.5374349,0.42995 h -0.57602 v -0.90675 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Yantramanav;-inkscape-font-specification:'Yantramanav, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#ffffff"
+         id="path823" />
+      <path
+         d="m 5.8869792,293.99036 c -0.4575087,0 -0.6779948,-0.16261 -0.6779948,-0.57878 H 4.3904297 l -0.00276,0.0138 c -0.019293,0.77997 0.6752388,1.19889 1.4993056,1.19889 0.8185547,0 1.3559896,-0.37482 1.3559896,-1.01423 0,-0.62839 -0.4134115,-0.94534 -1.2402344,-1.18787 -0.5319227,-0.19293 -0.6890191,-0.28388 -0.6890191,-0.49334 0,-0.22049 0.2039497,-0.38861 0.540191,-0.38861 0.3472656,0 0.5512153,0.19569 0.5512153,0.48783 h 0.8130425 l 0.00551,-0.0165 c 0.019292,-0.65043 -0.5484593,-1.10243 -1.3532336,-1.10243 -0.8130425,0 -1.3918185,0.40515 -1.3918185,1.01424 0,0.62287 0.4244357,0.8847 1.3449652,1.17409 0.4382162,0.15985 0.5787761,0.26182 0.5787761,0.5209 0,0.22599 -0.1653646,0.37482 -0.5153863,0.37482 z"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:Yantramanav;-inkscape-font-specification:'Yantramanav, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#d5f6ff"
+         id="path825" />
+    </g>
+  </g>
+</svg>
