@@ -12,20 +12,20 @@
     --link-color: var(var(--primary-color));
     --secondary-color: rgba(108, 117, 125);
     --on-secondary-color: #ffffff;
-    --danger-color: #ff0000;
+    --danger-color: #e64c4c;
     --on-danger-color: #ffffff;
-    --on-danger-light-color: #ff0000;
+    --on-danger-light-color: #e64c4c;
     --danger-color-light: #fde6e6;
-    --success-color: #00ff00;
+    --success-color: #78f078;
     --on-success-color: #ffffff;
-    --on-success-light-color: #00a300;
+    --on-success-light-color: #78f078;
     --success-color-light: #b9ffb9;
     --border-color: #a3a3a3;
     --input-bg: #ffffff;
     --input-color: #5e6278;
     --label-text: var(--primary-color);
-    --ribbon-color: var(--primary-color);
-    --on-ribbon-color: var(--on-primary-color);
+    --ribbon-color: #ffffff;
+    --on-ribbon-color: #010101;
     --scroll-bar-bg-color: #d3d3d3;
     --scroll-bar-thumb-color: #797979;
 }
@@ -38,7 +38,7 @@
     --on-primary-color: #ffffff;
     --elevation-color: rgb(31, 31, 31);
     --on-elevation-color: #ffffff;
-    --elevation-shadow-color: rgba(34, 31, 31, 0.5);
+    --elevation-shadow-color: rgba(34, 31, 31, 0.25);
     --sidebar-color: rgb(31, 31, 31);
     --on-sidebar-color: #ffffff;
     --secondary-color: rgba(108, 117, 125);
@@ -47,7 +47,8 @@
     --input-bg: #252525;
     --input-color: #ffffff;
     --label-text: var(--secondary-color);
-    --ribbon-color: #222222;
+    --ribbon-color: var(--elevation-color);
+    --on-ribbon-color: #ffffff;
     --scroll-bar-bg-color: var(--elevation-color);
     --scroll-bar-thumb-color: var(--primary-color);
 }
@@ -547,6 +548,7 @@ table {
 thead {
     background-color: var(--ribbon-color);
     color: var(--on-ribbon-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 td {
