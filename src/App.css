@@ -419,18 +419,26 @@ h6, .h6 {
     overflow: hidden;
 }
 
-.side-bar {
+.side-bar-container {
+    display: flex;
     flex: 0 1 320px;
+    border-top-right-radius: 3rem;
+    border-bottom-right-radius: 3rem;
+    overflow: hidden;
+    transition: 300ms ease;
+}
+
+.side-bar {
+    flex: 1;
     background-color: var(--sidebar-color);
     color: var(--on-sidebar-color);
     overflow: auto;
-    transition: 300ms ease;
     scrollbar-color: var(--primary-color) var(--elevation-color);
     scrollbar-width: .25rem;
 }
   
 
-.side-bar:not(.open) {
+.side-bar-container:not(.open) {
     flex-basis: 0;
     min-width: 0;
     width: 0;
@@ -817,7 +825,7 @@ th {
 }
 
 @media only screen and (max-width: 425px) {
-    .side-bar {
+    .side-bar-container {
         position: fixed;
         top: 0;
         left: 0;

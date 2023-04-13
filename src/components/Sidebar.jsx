@@ -49,97 +49,99 @@ export default function Sidebar({ open }) {
     }, [open]);
 
     return (
-        <div className={`side-bar${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
-            <div className="flex p-1rem jc-center ai-center">
-                <button onClick={toggleSidebar} className="button icon-button small responsive-menu-toggle">
-                    <CloseIcon />
-                </button>
-                <Link to="/">
-                    <img src={Logo} height={48} alt="iTaxEasy" />
-                </Link>
-            </div>
-            <nav className="side-nav">
-                <SideNavLink to='/' icon={<DashboardIcon />} title='Dashboard' />
-                <ProtectedMenu>
-                    <Menu icon={<UserIcon />} title="Users">
-                        <SideNavLink to='/users' icon={<GlobeIcon />} title='All Users' />
-                        <SideNavLink to='/users' icon={<GlobeIcon />} title='Active Users' />
-                        <SideNavLink to='/users' icon={<GlobeIcon />} title='Non Active Users' />
-                    </Menu>
-                </ProtectedMenu>
-                {
-                    ['normal', 'developer'].includes(state.auth.currentUser.userType)
-                        ? (
-                            <>
-                                <Menu icon={<UserIcon />} title="My Account">
-                                    <SideNavLink icon={<GlobeIcon />} to='https://itaxeasy.com/register-startup' title="Services" external />
-                                    <SideNavLink icon={<GlobeIcon />} to='/orders' title="Orders" />
-                                    <SideNavLink icon={<GlobeIcon />} to='/orders/payments' title="Payments" />
-                                    <SideNavLink icon={<GlobeIcon />} to='/' title="APIs" upcoming />
-                                </Menu> 
-                            </>
-                        )
-                        : null
-                }
-                <SideNavLink icon={<BankIcon />} to='/gst/gstr1' title="Easy GST Return" />
-                <Menu icon={<PercentageIcon />} title="ITR" upcoming>
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Form-16" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2A" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Sehej" />
-                </Menu> 
-                <Menu icon={<BarGraphIcon />} title="Easy Investment" upcoming>
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Mutual Fund" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="SIP" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Sell of Share" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Purchase of Share" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Profit" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Loss" />
-                </Menu> 
-                <SideNavLink icon={<BillIcon />} to='/' title="Invoice" external withToken />
-                <Menu icon={<RupeeIcon />} title="Finance">
-                    <SideNavLink icon={<BankIcon />} to='/loan' title="Loan" />
-                    <SideNavLink icon={<ArrowLeftIcon />} to='/payments' title="Payment" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Working Capital" />
-                </Menu> 
-                <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
-                    <SideNavLink icon={<ArrowRightIcon />} to='/' title="Recipt" />
-                    <SideNavLink icon={<ArrowLeftIcon />} to='/' title="Payment" />
-                    <SideNavLink icon={<CashTransactionIcon />} to='/' title="Cash" />
-                    <SideNavLink icon={<BankIcon />} to='/' title="Bank" />
-                </Menu> 
-                <Menu icon={<ReportsIcon />} title="Reports" >
-                    {/* <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" /> */}
-                <SideNavLink icon={<ReportsIcon />} to='/project-report' title="Project Report" />
-                    {/* <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" /> */}
-                </Menu>
-                <Menu icon={<BillIcon />} title="Bill Payment">
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Electricity Bill" upcoming />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Mobile Recharge" upcoming />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Gas Bill" upcoming />
-                </Menu>  
-                <Menu icon={<ReportsIcon />} title="Reports" upcoming>
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />
-                </Menu> 
-                <ProtectedMenu>
-                    <Menu icon={<WindowIcon />} title="Web Settings">
-                        <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
-                        <SideNavLink icon={<GlobeIcon />} to='/update/footer' title="Footer" />
-                        <SideNavLink icon={<GlobeIcon />} to='/blog' title="Blog" />
-                        <SideNavLink icon={<GlobeIcon />} to='/services' title="Services" />
-                        <SideNavLink icon={<GlobeIcon />} to='/e-library' title="e-library" />
-                        <SideNavLink icon={<GlobeIcon />} to='/career' title="Career" />
+        <div className={`side-bar-container${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
+            <div className="side-bar">
+                <div className="flex p-1rem jc-center ai-center">
+                    <button onClick={toggleSidebar} className="button icon-button small responsive-menu-toggle">
+                        <CloseIcon />
+                    </button>
+                    <Link to="/">
+                        <img src={Logo} height={48} alt="iTaxEasy" />
+                    </Link>
+                </div>
+                <nav className="side-nav">
+                    <SideNavLink to='/' icon={<DashboardIcon />} title='Dashboard' />
+                    <ProtectedMenu>
+                        <Menu icon={<UserIcon />} title="Users">
+                            <SideNavLink to='/users' icon={<GlobeIcon />} title='All Users' />
+                            <SideNavLink to='/users' icon={<GlobeIcon />} title='Active Users' />
+                            <SideNavLink to='/users' icon={<GlobeIcon />} title='Non Active Users' />
+                        </Menu>
+                    </ProtectedMenu>
+                    {
+                        ['normal', 'developer'].includes(state.auth.currentUser.userType)
+                            ? (
+                                <>
+                                    <Menu icon={<UserIcon />} title="My Account">
+                                        <SideNavLink icon={<GlobeIcon />} to='https://itaxeasy.com/register-startup' title="Services" external />
+                                        <SideNavLink icon={<GlobeIcon />} to='/orders' title="Orders" />
+                                        <SideNavLink icon={<GlobeIcon />} to='/orders/payments' title="Payments" />
+                                        <SideNavLink icon={<GlobeIcon />} to='/' title="APIs" upcoming />
+                                    </Menu> 
+                                </>
+                            )
+                            : null
+                    }
+                    <SideNavLink icon={<BankIcon />} to='/gst/gstr1' title="Easy GST Return" />
+                    <Menu icon={<PercentageIcon />} title="ITR" upcoming>
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Form-16" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Form-2A" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Sehej" />
                     </Menu> 
-                </ProtectedMenu>
-                <Menu icon={<SettingsIcon />} title="Settings">
-                    <SideNavLink icon={<AccountIcon />} to='/settings/my-account' title="My Account" />
-                    {/* <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" /> */}
-                    <SideNavLink icon={<PasswordIcon />} to='/settings/change-password' title="Change Password" />
-                </Menu> 
-            </nav>
+                    <Menu icon={<BarGraphIcon />} title="Easy Investment" upcoming>
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Mutual Fund" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="SIP" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Sell of Share" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Purchase of Share" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Profit" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Loss" />
+                    </Menu> 
+                    <SideNavLink icon={<BillIcon />} to='/' title="Invoice" external withToken />
+                    <Menu icon={<RupeeIcon />} title="Finance">
+                        <SideNavLink icon={<BankIcon />} to='/loan' title="Loan" />
+                        <SideNavLink icon={<ArrowLeftIcon />} to='/payments' title="Payment" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Working Capital" />
+                    </Menu> 
+                    <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
+                        <SideNavLink icon={<ArrowRightIcon />} to='/' title="Recipt" />
+                        <SideNavLink icon={<ArrowLeftIcon />} to='/' title="Payment" />
+                        <SideNavLink icon={<CashTransactionIcon />} to='/' title="Cash" />
+                        <SideNavLink icon={<BankIcon />} to='/' title="Bank" />
+                    </Menu> 
+                    <Menu icon={<ReportsIcon />} title="Reports" >
+                        {/* <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" /> */}
+                    <SideNavLink icon={<ReportsIcon />} to='/project-report' title="Project Report" />
+                        {/* <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" /> */}
+                    </Menu>
+                    <Menu icon={<BillIcon />} title="Bill Payment">
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Electricity Bill" upcoming />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Mobile Recharge" upcoming />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Gas Bill" upcoming />
+                    </Menu>  
+                    <Menu icon={<ReportsIcon />} title="Reports" upcoming>
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
+                        <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />
+                    </Menu> 
+                    <ProtectedMenu>
+                        <Menu icon={<WindowIcon />} title="Web Settings">
+                            <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
+                            <SideNavLink icon={<GlobeIcon />} to='/update/footer' title="Footer" />
+                            <SideNavLink icon={<GlobeIcon />} to='/blog' title="Blog" />
+                            <SideNavLink icon={<GlobeIcon />} to='/services' title="Services" />
+                            <SideNavLink icon={<GlobeIcon />} to='/e-library' title="e-library" />
+                            <SideNavLink icon={<GlobeIcon />} to='/career' title="Career" />
+                        </Menu> 
+                    </ProtectedMenu>
+                    <Menu icon={<SettingsIcon />} title="Settings">
+                        <SideNavLink icon={<AccountIcon />} to='/settings/my-account' title="My Account" />
+                        {/* <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" /> */}
+                        <SideNavLink icon={<PasswordIcon />} to='/settings/change-password' title="Change Password" />
+                    </Menu> 
+                </nav>
+            </div>
         </div>
     )
 }
