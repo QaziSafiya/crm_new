@@ -34,26 +34,28 @@ export default function Payments() {
                 <div className="inner-container">
                     <h6 className="text-secondary">Payments</h6>
                     <div className="section p-0">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>S. No.</th>
-                                    <th>Transaction ID</th>
-                                    <th>UPI ID</th>
-                                    <th>Seller Name</th>
-                                    <th>Purchaser Name</th>
-                                    <th>Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    payments.map((payment, i) => (
-                                        <PaymentItem key={payment.id} i={i + 1} data={payment} />
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                        <div className="scrollable">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>S. No.</th>
+                                        <th>Transaction ID</th>
+                                        <th>UPI ID</th>
+                                        <th>Seller Name</th>
+                                        <th>Purchaser Name</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        payments.map((payment, i) => (
+                                            <PaymentItem key={payment.id} i={i + 1} data={payment} />
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -3,14 +3,18 @@ import axios from "axios";
 const AUTH_API_URL = `${BASE_URL}/users/login`;
 
 export async function signIn(data) {
+    const response = await fetch(
+        AUTH_API_URL, 
+        {
+            method: 'POST',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            body: JSON.stringify(data),
+        }
+    );
 
-    const response = await axios.post(AUTH_API_URL,{
-        email:data.email,
-        password:data.password
-    })
-
-
-    const { status, results, message } =  response.data
+    const { status, results, message } = await response.json();
 
     if(status === 'failed') {
         throw new Error(message);

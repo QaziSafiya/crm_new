@@ -10,12 +10,28 @@ import Topbar from "../../components/Topbar.jsx";
 import { BASE_URL } from "../../constants.js";
 import useAuth from "../../hooks/useAuth.js";
 
+const parseDocuments = v => {
+    if(typeof v === 'string') {
+        return parseDocuments(JSON.parse(v));
+    }
+
+    return v;
+};
+
 export default function UpdateService() {
     const { id } = useParams();
 
     const { token } = useAuth();
     
-    const [service, setService] = useState(null);
+    const [service, setService] = useState({
+        serviceName: '',
+        serviceType: '',
+        description: '',
+        price: '',
+        gst: '',
+        imgUrl: '',
+        documents: []
+    });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [updating, setUpdating] = useState(false);
@@ -39,7 +55,7 @@ export default function UpdateService() {
             
             setService({
                 ...service,
-                documents: JSON.parse(JSON.parse(service.documents)),
+                documents: parseDocuments(service.documents),
             });
         } catch(e) {
             console.error(e);
@@ -85,6 +101,7 @@ export default function UpdateService() {
             name: '',
             shortName: '',
             type: 'file',
+            numInputs: '',
         };
         
         setService({
@@ -98,12 +115,12 @@ export default function UpdateService() {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(service);
+        console.log(JSON.stringify(service));
         try {
             setUpdating(true);
             setError('');
 
-            const res = await fetch(`${BASE_URL}/service`, {
+            const res = await fetch(`${BASE_URL}/service/${id}`, {
                 method: 'PUT',
                 headers: new Headers({
                     'Authorization': `Basic ${token}`,
@@ -144,83 +161,88 @@ export default function UpdateService() {
                                     <span className="spinner small"></span>
                                 </div>
                             )
-                            : error 
-                                ? null
-                                : (
-                                    <div className="section">
-                                        <form onSubmit={handleSubmit} className="flex dir-col g-1rem">
-                                            <div className="flex dir-col g-1rem">
-                                                <h6 className="text-primary">Service Details</h6>
-                                                <div className="flex ai-center g-1rem">
-                                                    <div className="field">
-                                                        <label htmlFor="serviceName" className="label text-primary">Service Name</label>
-                                                        <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
-                                                    </div>
-                                                    <div className="field">
-                                                        <label htmlFor="serviceType" className="label text-primary">Service Type</label>
-                                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
-                                                    </div>
-                                                </div>
-                                                <div className="flex ai-center g-1rem">
-                                                    <div className="field flex-1">
-                                                        <label htmlFor="serviceCharge" className="label text-primary">Service Charge</label>
-                                                        <input name="price" onChange={handleChange} value={service.price} type="number" className="input" id="serviceCharge" placeholder="0.0" />
-                                                    </div>
-                                                    <div className="field flex-1">
-                                                        <label htmlFor="gst" className="label text-primary">GST</label>
-                                                        <input name="gst" onChange={handleChange} value={service.gst} type="number" className="input" id="gst" placeholder="0" />
-                                                    </div>
+                            : (
+                                <div className="section">
+                                    <form onSubmit={handleSubmit} className="flex dir-col g-1rem">
+                                        <div className="flex dir-col g-1rem">
+                                            <h6 className="text-primary">Service Details</h6>
+                                            <div className="flex ai-center g-1rem">
+                                                <div className="field">
+                                                    <label htmlFor="serviceName" className="label text-primary">Service Name</label>
+                                                    <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
                                                 </div>
                                                 <div className="field">
-                                                    <label htmlFor="serviceBanner" className="label text-primary">Banner URL</label>
-                                                    <input name="imgUrl" onChange={handleChange} value={service.imgUrl} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
-                                                </div>
-                                                <div className="field">
-                                                    <label htmlFor="Description" className="label text-primary">Description</label>
-                                                    <textarea name="description" onChange={handleChange} value={service.description} className="textarea" id="Description" placeholder="Describe the service"></textarea>
+                                                    <label htmlFor="serviceType" className="label text-primary">Service Type</label>
+                                                    <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
                                                 </div>
                                             </div>
-                                            <div className="flex dir-col g-1rem">
-                                                <h6 className="text-primary">Required Documents</h6>
-                                                {
-                                                    service.documents.length > 0
-                                                        ? (
-                                                            <div className="flex dir-col g-1rem">
-                                                                {
-                                                                    service.documents.map((doc, key) => (
-                                                                        <div key={key} className="flex g-1rem ai-center">
-                                                                            <span className="inline-flex jc-center ai-center text-large">{key + 1}</span>
-                                                                            <input value={doc.title} name="title" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Document Name" />
-                                                                            <input value={doc.shortName} name="shortName" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Short Name" />
-                                                                            <select value={doc.type} name="type" onChange={e => handleDocChange(e, key)} id="docType" className="select">
-                                                                                <option value="file">File</option>
-                                                                                <option value="text">Text</option>
-                                                                            </select>
-                                                                            <button type="button" onClick={() => handleDocDelete(key)} className="button icon-button">
-                                                                                <DeleteIcon />
-                                                                            </button>
-                                                                        </div>
-                                                                    ))
-                                                                }
-                                                            </div>
-                                                        )
-                                                        : null
-                                                }
-                                                <button type="button" onClick={handleAddDoc} className="button has-icon reveal-button is-small w-max-content">
-                                                    <AddCircleIcon />
-                                                    Add Document
-                                                </button>
+                                            <div className="flex ai-center g-1rem">
+                                                <div className="field flex-1">
+                                                    <label htmlFor="serviceCharge" className="label text-primary">Service Charge</label>
+                                                    <input name="price" onChange={handleChange} value={service.price} type="number" className="input" id="serviceCharge" placeholder="0.0" />
+                                                </div>
+                                                <div className="field flex-1">
+                                                    <label htmlFor="gst" className="label text-primary">GST</label>
+                                                    <input name="gst" onChange={handleChange} value={service.gst} type="number" className="input" id="gst" placeholder="0" />
+                                                </div>
                                             </div>
-                                            <button className="button is-primary" disabled={updating}>
-                                                {
-                                                    updating
-                                                        ? <span className="spinner small"></span>
-                                                        : 'Update Service'
-                                                }
+                                            <div className="field">
+                                                <label htmlFor="serviceBanner" className="label text-primary">Banner URL</label>
+                                                <input name="imgUrl" onChange={handleChange} value={service.imgUrl} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
+                                            </div>
+                                            <div className="field">
+                                                <label htmlFor="Description" className="label text-primary">Description</label>
+                                                <textarea name="description" onChange={handleChange} value={service.description} className="textarea" id="Description" placeholder="Describe the service"></textarea>
+                                            </div>
+                                        </div>
+                                        <div className="flex dir-col g-1rem">
+                                            <h6 className="text-primary">Required Documents</h6>
+                                            {
+                                                service.documents.length > 0
+                                                    ? (
+                                                        <div className="flex dir-col g-1rem">
+                                                            {
+                                                                service.documents.map((doc, key) => (
+                                                                    <div key={key} className="flex g-1rem ai-center">
+                                                                        <span className="inline-flex jc-center ai-center text-large">{key + 1}</span>
+                                                                        <input value={doc.title} name="title" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Document Name" />
+                                                                        <input value={doc.shortName} name="shortName" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Short Name" />
+                                                                        <select value={doc.type} name="type" onChange={e => handleDocChange(e, key)} id="docType" className="select">
+                                                                            <option value="file">File</option>
+                                                                            <option value="text">Text</option>
+                                                                            <option value="file-multi">Multiple Files</option>
+                                                                            <option value="text-multi">Multiple Text</option>
+                                                                        </select>
+                                                                        {
+                                                                            doc.type === 'text-multi' || doc.type === 'file-multi'
+                                                                                ? <input value={doc.numInputs} name="numInputs" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Number of Inputs" />
+                                                                                : null
+                                                                        }
+                                                                        <button type="button" onClick={() => handleDocDelete(key)} className="button icon-button">
+                                                                            <DeleteIcon />
+                                                                        </button>
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                    )
+                                                    : null
+                                            }
+                                            <button type="button" onClick={handleAddDoc} className="button has-icon reveal-button is-small w-max-content">
+                                                <AddCircleIcon />
+                                                Add Document
                                             </button>
-                                        </form>
-                                    </div>
-                                )
+                                        </div>
+                                        <button className="button is-primary" disabled={updating}>
+                                            {
+                                                updating
+                                                    ? <span className="spinner small"></span>
+                                                    : 'Update Service'
+                                            }
+                                        </button>
+                                    </form>
+                                </div>
+                            )
                     }
                 </div>
             </div>

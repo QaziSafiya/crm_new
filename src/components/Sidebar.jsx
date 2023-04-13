@@ -70,10 +70,14 @@ export default function Sidebar({ open }) {
                 {
                     state.auth.currentUser.userType === 'normal'
                         ? (
-                            <Menu icon={<UserIcon />} title="Customers">
-                                <SideNavLink to='/customers' icon={<GlobeIcon />} title='All Customers' />
-                                <SideNavLink to='/add-customer' icon={<EditIcon />} title='Add Customer' />
-                            </Menu>
+                            <>
+                                <Menu icon={<UserIcon />} title="My Account">
+                                    <SideNavLink icon={<GlobeIcon />} to='https://itaxeasy.com/register-startup' title="Services" external />
+                                    <SideNavLink icon={<GlobeIcon />} to='/orders' title="Orders" />
+                                    <SideNavLink icon={<GlobeIcon />} to='/orders/payments' title="Payments" />
+                                    <SideNavLink icon={<GlobeIcon />} to='/' title="APIs" upcoming />
+                                </Menu> 
+                            </>
                         )
                         : null
                 }
@@ -94,11 +98,8 @@ export default function Sidebar({ open }) {
                 </Menu> 
                 <SideNavLink icon={<BillIcon />} to='/' title="Invoice" external withToken />
                 <Menu icon={<RupeeIcon />} title="Finance">
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Car Loan" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Business Loan" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Home Loan" />
-                    <SideNavLink icon={<GlobeIcon />} to='/' title="Loan against Property" />
-                    <SideNavLink icon={<GlobeIcon />} to='/payments' title="Payment" />
+                    <SideNavLink icon={<BankIcon />} to='/loan' title="Loan" />
+                    <SideNavLink icon={<ArrowLeftIcon />} to='/payments' title="Payment" />
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Working Capital" />
                 </Menu> 
                 <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
@@ -112,6 +113,16 @@ export default function Sidebar({ open }) {
                     <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" /> */}
                 <SideNavLink icon={<ReportsIcon />} to='/project-report' title="Project Report" />
                     {/* <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" /> */}
+                </Menu>
+                <Menu icon={<BillIcon />} title="Bill Payment">
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Electricity Bill" upcoming />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Mobile Recharge" upcoming />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Gas Bill" upcoming />
+                </Menu>  
+                <Menu icon={<ReportsIcon />} title="Reports" upcoming>
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
+                    <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />
                 </Menu> 
                 <ProtectedMenu>
                     <Menu icon={<WindowIcon />} title="Web Settings">
@@ -120,11 +131,12 @@ export default function Sidebar({ open }) {
                         <SideNavLink icon={<GlobeIcon />} to='/blog' title="Blog" />
                         <SideNavLink icon={<GlobeIcon />} to='/services' title="Services" />
                         <SideNavLink icon={<GlobeIcon />} to='/e-library' title="e-library" />
+                        <SideNavLink icon={<GlobeIcon />} to='/career' title="Career" />
                     </Menu> 
                 </ProtectedMenu>
                 <Menu icon={<SettingsIcon />} title="Settings">
                     <SideNavLink icon={<AccountIcon />} to='/settings/my-account' title="My Account" />
-                    <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" />
+                    {/* <SideNavLink icon={<GlobeIcon />} to='/settings/language' title="Language" /> */}
                     <SideNavLink icon={<PasswordIcon />} to='/settings/change-password' title="Change Password" />
                 </Menu> 
             </nav>

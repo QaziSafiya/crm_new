@@ -24,7 +24,7 @@
     --input-bg: #ffffff;
     --input-color: #5e6278;
     --label-text: var(--primary-color);
-    --ribbon-color: #5e6278;
+    --ribbon-color: var(--primary-color);
     --on-ribbon-color: var(--on-primary-color);
     --scroll-bar-bg-color: #d3d3d3;
     --scroll-bar-thumb-color: #797979;
@@ -406,6 +406,10 @@ h6, .h6 {
     padding: 1rem;
 }
 
+.card.hoverable {
+    cursor: pointer;
+}
+
 /* @Layout */
 
 .container {
@@ -750,6 +754,29 @@ th {
     border-radius: 1rem;
     font-size: .5rem;
     text-transform: uppercase;
+}
+
+.badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem 1rem;
+    border-radius: 2rem;
+}
+
+.badge.secondary {
+    background-color: var(--secondary-color);
+    color: var(--on-secondary-color);
+}
+
+.badge.danger {
+    background-color: var(--danger-color);
+    color: var(--on-danger-color);
+}
+
+.badge.success {
+    background-color: var(--success-color);
+    color: var(--on-success-color);
 }
 
 /* @Spinner */

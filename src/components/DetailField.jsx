@@ -1,15 +1,21 @@
+import { useId } from "react";
 import { useEffect, useMemo, useState } from "react";
 import CopyIcon from "./icons/CopyIcon.jsx";
+import EditIcon from "./icons/EditIcon.jsx";
 import ExternalLinkIcon from "./icons/ExternalLinkIcon.jsx";
 import MailIcon from "./icons/MailIcon.jsx";
 
-export default function DetailField({ label, value, type }) {
+export default function DetailField({ label, value, type, editable = false, handleEditedValue }) {
     const [copied, setCopied] = useState(false);
+    const [editing, setEditing] = useState(false);
+    const [currentValue, setCurrentValue] = useState(value);
+    const [editedValue, setEditedValue] = useState(currentValue);
+
+    const id = useId();
 
     const copyToClipboard = async () => {
         try {
-            await 
-            clipboard.writeText(value);
+            await navigator.clipboard.writeText(currentValue);
             setCopied(true);
         } catch (e) {
             console.error(e);
@@ -20,24 +26,24 @@ export default function DetailField({ label, value, type }) {
         switch(type) {
             case "email":
                 return (
-                    <a href={`mailto://${value}`} className="flex ai-center g-0_5rem">
+                    <a href={`mailto://${currentValue}`} className="flex ai-center g-0_5rem">
                         {value}
                         <MailIcon width={16} height={16} />
                     </a>
                 );
             case "phone":
-                return <a href={`tel://${value}`}>{value}</a>;
+                return <a href={`tel://${currentValue}`}>{currentValue}</a>;
             case "link":
                 return (
-                    <a href={value} target="_blank" className="flex ai-center g-0_5rem">
-                        {value}
+                    <a href={currentValue} target="_blank" className="flex ai-center g-0_5rem">
+                        {currentValue}
                         <ExternalLinkIcon width={16} height={16} />
                     </a>
                 );
             default:
-                return value;
+                return currentValue;
         }
-    }, [value, type]);
+    }, [currentValue, type]);
 
     useEffect(() => {
         if(!copied) {
@@ -49,19 +55,56 @@ export default function DetailField({ label, value, type }) {
         return () => clearTimeout(timeout);
     }, [copied]);
 
+    const handleEditCancel = () => {
+        setEditing(false);
+        setEditedValue(currentValue);
+    };
+
+    const handleEditSubmit = () => {
+        handleEditedValue && handleEditedValue(editedValue);
+        setCurrentValue(editedValue);
+        setEditing(false);
+    };
+
     return (
         <div className="flex jc-between">
-            <div className="flex dir-col g-0_5rem">
-                <strong className="text-label">{label}</strong>
-                {renderValue}
-            </div>
             {
-                copied
-                    ? <span className="inline-flex text-secondary text-small ai-center">Copied!</span>
+                editing
+                    ? (
+                        <div className="field">
+                            <label htmlFor={id} className="label">{label}</label>
+                            <input type="text" className="input is-small" id={id} value={editedValue} onChange={e => setEditedValue(e.target.value)} />
+                            <div className="flex g-1rem">
+                                <button onClick={handleEditSubmit} className="button is-primary is-small">Update</button>
+                                <button onClick={handleEditCancel} className="button is-danger is-small">Cancel</button>
+                            </div>
+                        </div>
+                    )
                     : (
-                        <button onClick={copyToClipboard} className="button icon-button secondary-icon">
-                            <CopyIcon />
-                        </button>
+                        <>
+                            <div className="flex dir-col g-0_5rem">
+                                <strong className="text-label">{label}</strong>
+                                {renderValue}
+                            </div>
+                            <div className="flex ai-center g-0_5rem">
+                                {
+                                    editable ? (
+                                        <button onClick={() => setEditing(true)} className="button icon-button secondary-icon">
+                                            <EditIcon />
+                                        </button>
+                                    ) : null
+                                }
+                                {
+                                    copied
+                                        ? <span className="inline-flex text-secondary text-small ai-center">Copied!</span>
+                                        : (
+                                            <button onClick={copyToClipboard} className="button icon-button secondary-icon">
+                                                <CopyIcon />
+                                            </button>
+                                        )
+                                }
+                            </div>
+                        </>
                     )
             }
         </div>

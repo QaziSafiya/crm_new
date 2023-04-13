@@ -41,8 +41,16 @@ import UpdateService from './pages/services/update-service.jsx'
 import ProjectReport from './pages/ProjectReport'
 import PdfViewer from './components/pdfViewer'
 import AllLibrary from './pages/e-library/AllLibrary'
-import UpdateLibrary from './pages/e-library/updateLibrary'
-import CreateLibrary from './pages/e-library/createLibrary'
+import UpdateLibrary from './pages/e-library/UpdateLibrary'
+import CreateLibrary from './pages/e-library/CreateLibrary'
+import LoanIndex from './pages/loan/index.jsx'
+import ApplyForLoan from './pages/loan/apply.jsx'
+import LoanDetails from './pages/loan/details.jsx'
+import Applications from './pages/career/index.jsx'
+import JobApplicationDetails from './pages/career/application.jsx'
+import Orders from './pages/account/Orders.jsx'
+import OrderPayments from './pages/account/Payments.jsx'
+import OrderDetails from './pages/account/OrderDetails.jsx'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -167,6 +175,46 @@ function App() {
             <PrivateRoute>
               <ChangePassword />
             </PrivateRoute>
+          } />
+          <Route path='/loan' element={
+            <PrivateRoute>
+              <LoanIndex />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/apply' element={
+            <PrivateRoute>
+              <ApplyForLoan />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/l/:id' element={
+            <PrivateRoute>
+              <LoanDetails />
+            </PrivateRoute>
+          } />
+          <Route path='/orders' element={
+            <PrivateRoute>
+              <Orders />
+            </PrivateRoute>
+          } />
+          <Route path='/order/:id' element={
+            <PrivateRoute>
+              <OrderDetails />
+            </PrivateRoute>
+          } />
+          <Route path='/orders/payments' element={
+            <PrivateRoute>
+              <OrderPayments />
+            </PrivateRoute>
+          } />
+          <Route path='/career' element={
+            <ProtectedRoute>
+              <Applications />
+            </ProtectedRoute>
+          } />
+          <Route path='/career/application/:id' element={
+            <ProtectedRoute>
+              <JobApplicationDetails />
+            </ProtectedRoute>
           } />
           <Route path='/update/homepage' element={
             <ProtectedRoute>

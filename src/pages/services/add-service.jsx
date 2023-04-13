@@ -57,6 +57,7 @@ export default function AddService() {
             name: '',
             shortName: '',
             type: 'file',
+            numInputs: '',
         };
         
         setService({
@@ -81,7 +82,10 @@ export default function AddService() {
                     'Authorization': `Basic ${token}`,
                     'Content-Type': 'application/json',
                 }),
-                body: JSON.stringify(service),
+                body: JSON.stringify({
+                    ...service,
+                    documents: JSON.stringify(service.documents),
+                }),
             });
 
             if(!res.ok) {
@@ -156,8 +160,15 @@ export default function AddService() {
                                                             <input value={doc.shortName} name="shortName" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Short Name" />
                                                             <select value={doc.type} name="type" onChange={e => handleDocChange(e, key)} id="docType" className="select">
                                                                 <option value="file">File</option>
+                                                                <option value="file-multi">File Multiple</option>
                                                                 <option value="text">Text</option>
+                                                                <option value="text-multi">Multiple Text</option>
                                                             </select>
+                                                            {
+                                                                doc.type === 'text-multi' || doc.type === 'file-multi'
+                                                                    ? <input value={doc.numInputs} name="numInputs" onChange={e => handleDocChange(e, key)} type="text" className="input is-small" placeholder="Number of Inputs" />
+                                                                    : null
+                                                            }
                                                             <button type="button" onClick={() => handleDocDelete(key)} className="button icon-button">
                                                                 <DeleteIcon />
                                                             </button>

@@ -158,7 +158,7 @@ const AllServices = () => {
                                             </div>
                                         ))
                                     }
-                                    <Pagination totalPages={Math.max(Math.floor(data.total_services / 10), 1)} currentPage={page} setSearch={setSearch} />
+                                    <Pagination totalPages={Math.ceil(data.total_services / 10)} currentPage={page} setSearch={setSearch} />
                                     </>
                                 )
                     }
