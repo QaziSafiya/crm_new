@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children }) {
         return <Navigate to='/login' replace />
     }
 
-    if(currentUser.userType !== 'admin') {
+    if(!(['admin', 'developer'].includes(currentUser.userType))) {
         return <Navigate to='/' replace />
     }
 

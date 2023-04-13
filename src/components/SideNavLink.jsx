@@ -5,7 +5,7 @@ import TELink from "./TELink.jsx";
 export default function SideNavLink({ icon, title, to, isProtected, upcoming = false, external = false, withToken = false  }) {
     const { currentUser } = useAuth();
     
-    if(isProtected && currentUser.userType !== 'admin') {
+    if(isProtected && !(['admin', 'developer'].includes(currentUser.userType))) {
         return null;
     }
 
