@@ -15,7 +15,8 @@ export default function StoreProvider({ children }) {
             isLoggedIn: false,
             gstin: null,
             username: null,
-            month: 1,
+            month: null,
+            quarter: 1,
             year: new Date().getFullYear()
         },
         dashboard: {

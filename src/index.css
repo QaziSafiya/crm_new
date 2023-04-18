@@ -155,6 +155,10 @@ a, a:hover {
   padding-block: 0.5rem;
 }
 
+.py-0_75 {
+  padding-block: 0.75rem;
+}
+
 .py-1 {
   padding-block: 1rem;
 }

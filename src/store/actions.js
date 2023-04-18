@@ -18,6 +18,8 @@ export const GST_LOGIN = 'gst-login';
 
 export const SET_GST_MONTH = 'set-gst-month';
 
+export const SET_GST_QUARTER = 'set-gst-quarter';
+
 export const SET_GST_YEAR = 'set-gst-year';
 
 export const AUTH_FROM_REDIRECT = 'auth-from-redirect';

@@ -30,6 +30,7 @@ import { StoreContext } from "../../../store/store-context.js";
 import {
   GST_LOGIN,
   SET_GST_MONTH,
+  SET_GST_QUARTER,
   SET_GST_YEAR,
 } from "../../../store/actions.js";
 
@@ -44,17 +45,26 @@ export default function GSTR1() {
   const [showhide, setShowHide] = useState("login");
 
   const [type, setType] = useState("regular");
-  const [period2, setPeriod2] = useState("monthly");
+  const [period, setPeriod] = useState(undefined);
 
   const [gstin, setGstin] = useState("");
   const [username, setUsername] = useState("");
   const [otp, setOtp] = useState("");
+
+  const currentQuarter = getMonthsByCurrentQuarter(state.gst.quarter);
 
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
     setGstin("");
     setUsername("");
+  };
+
+  const setQuarter = (quarter) => {
+    dispatch({
+      type: SET_GST_QUARTER,
+      payload: quarter,
+    });
   };
 
   const setMonth = (month) => {
@@ -170,34 +180,29 @@ export default function GSTR1() {
 
     setType(value);
 
-    if (value === "composition") {
-      setPeriod2("yearly");
-    } else {
-      setPeriod2("monthly");
-    }
+    // if (value === "composition") {
+    //   setPeriod("yearly");
+    // } else {
+    //   setPeriod("monthly");
+    // }
   };
 
-  const handlePeriod2 = (e) => {
-    const period = e.target.value;
+  const handlePeriod = (e) => {
+    const quarter = Number(e.target.value);
 
-    setPeriod2(period);
+    setPeriod(quarter);
 
-    if (period === "monthly") {
-      setMonth(1);
-    } else {
-      const prevQuarter = getMonthsByPreviousQuarter();
+    // if (period === "monthly") {
+    //   setMonth(1);
+    // } else {
+    // const prevQuarter = getMonthsByPreviousQuarter();
 
-      const first = prevQuarter[0];
-
-      setMonth(first.i + 1);
-    }
+    // const first = prevQuarter[0];
+    setQuarter(quarter);
   };
 
   const handleMonth = (e) => {
-    const month = parseInt(e.target.value) + 1;
-
-    console.log(month);
-
+    const month = parseInt(e.target.value);
     setMonth(month);
   };
 
@@ -268,63 +273,119 @@ export default function GSTR1() {
                   Import Data
                 </button>
               </div>
-              <div
-                className="flex outline dir-col g-2rem margin-y"
-                style={{ "--margin-y": "2.5rem" }}
-              >
-                <div className="flex jc-between ai-center">
-                  <Link
-                    to="/gst/outward-supplies"
-                    className="button is-primary is-small has-icon"
-                  >
-                    <ArrowLeftIcon />
-                    {/* Outward Supplies Liability (GSTR-1) */}
-                    Sales (GSTR-1)
-                  </Link>
-                  <span className="text-bold">(A)</span>
+
+              {type === "regular" ? (
+                <div
+                  className="flex outline dir-col g-2rem margin-y"
+                  style={{ "--margin-y": "2.5rem" }}
+                >
+                  <div className="flex jc-between ai-center">
+                    <Link
+                      to="/gst/outward-supplies"
+                      className="button is-primary is-small has-icon"
+                    >
+                      <ArrowLeftIcon />
+                      {/* Outward Supplies Liability (GSTR-1) */}
+                      Sales (GSTR-1)
+                    </Link>
+                    <span className="text-bold">(A)</span>
+                  </div>
+                  <div className="flex jc-between ai-center">
+                    <Link
+                      to="/gst/inward-supplies"
+                      className="button is-primary is-small has-icon"
+                    >
+                      <ArrowRightIcon />
+                      {/* Inward Supplies Credit (GSTR-2) */}
+                      Purchase (GSTR-2)
+                    </Link>
+                    <span className="text-bold">(B)</span>
+                  </div>
+                  <div className="flex py-0_5 jc-between ai-center">
+                    <span className="">Utilized ITC Balance:</span>
+                    <span className="text-bold">(C)</span>
+                  </div>
+                  <div className="flex py-0_5 jc-between ai-center">
+                    <span>Net Tax Liability on Outward Supply: (A-C):</span>
+                    <span className="text-bold">(D)</span>
+                  </div>
+                  <div className="flex jc-between ai-center">
+                    <span>
+                      <span className="text-small">Add: </span>
+                      Tax Liability on Inward Supply:
+                    </span>
+                    <span className="text-bold">(E)</span>
+                  </div>
+                  <div className="flex py-0_25 jc-between ai-center">
+                    <span className="text-bold">
+                      Total Tax Payable in Cash: (D+E)
+                    </span>
+                    <span className="text-bold">(F)</span>
+                  </div>
+                  <div className="flex py-0_5 jc-between ai-center">
+                    <span>
+                      <span className="text-small">Less: </span>
+                      Utilized Cash Balance:
+                    </span>
+                    <span className="text-bold">(G)</span>
+                  </div>
+                  <div className="flex py-0_5 jc-between ai-center">
+                    <span className="text-bold">Balance GST Due: (F-G)</span>
+                    <span className="text-bold">(H)</span>
+                  </div>
                 </div>
-                <div className="flex jc-between ai-center">
-                  <Link
-                    to="/gst/inward-supplies"
-                    className="button is-primary is-small has-icon"
-                  >
-                    <ArrowRightIcon />
-                    {/* Inward Supplies Credit (GSTR-2) */}
-                    Purchase (GSTR-2)
-                  </Link>
-                  <span className="text-bold">(B)</span>
+              ) : (
+                <div
+                  className="flex outline dir-col g-2rem margin-y"
+                  style={{ "--margin-y": "2.5rem" }}
+                >
+                  <div className="flex jc-between ai-center">
+                    <Link
+                      to="/gst/outward-supplies"
+                      className="button is-primary is-small has-icon"
+                    >
+                      <ArrowLeftIcon />
+                      {/* Outward Supplies Liability (GSTR-1) */}
+                      Sales (GSTR-1)
+                    </Link>
+                    <span className="text-bold">(A)</span>
+                  </div>
+                  <div className="flex jc-between ai-center">
+                    <Link
+                      to="/gst/inward-supplies"
+                      className="button is-primary is-small has-icon"
+                    >
+                      <ArrowRightIcon />
+                      {/* Inward Supplies Credit (GSTR-2) */}
+                      Purchase (GSTR-2)
+                    </Link>
+                    <span className="text-bold">(B)</span>
+                  </div>
+                  <div className="flex py-0_75 jc-between ai-center">
+                    <span className="">Total Tax Liability: (A+B)</span>
+                    <span className="text-bold">(C)</span>
+                  </div>
+                  <div className="flex py-0_75 jc-between ai-center">
+                    <span>Less: TDS Credit Received</span>
+                    <span className="text-bold">(D)</span>
+                  </div>
+                  <div className="flex py-0_75 jc-between ai-center">
+                    <span>Net Tax Liability: (C-D)</span>
+                    <span className="text-bold">(E)</span>
+                  </div>
+                  <div className="flex py-0_75 jc-between ai-center">
+                    <span className="text-bold">
+                      <span className="text-small">Less: </span> Tax Paid in
+                      Cash:
+                    </span>
+                    <span className="text-bold">(F)</span>
+                  </div>
+                  <div className="flex py-0_75 jc-between ai-center">
+                    <span className="text-bold">Balance GST Due: (E-F)</span>
+                    <span className="text-bold">(G)</span>
+                  </div>
                 </div>
-                <div className="flex py-0_5 jc-between ai-center">
-                  <span className="">Utilized ITC Balance:</span>
-                  <span className="text-bold">(C)</span>
-                </div>
-                <div className="flex py-0_5 jc-between ai-center">
-                  <span>Net Tax Liability on Outward Supply: (A-C):</span>
-                  <span className="text-bold">(D)</span>
-                </div>
-                <div className="flex py-0_25 jc-between ai-center">
-                  <span>
-                    <span className="text-small">Add: </span>
-                    Tax Liability on Inward Supply:
-                  </span>
-                  <span className="text-bold">(E)</span>
-                </div>
-                <div className="flex py-0_25 jc-between ai-center">
-                  <span className="text-bold">Total Tax Payable in Cash: (D+E)</span>
-                  <span className="text-bold">(F)</span>
-                </div>
-                <div className="flex py-0_5 jc-between ai-center">
-                  <span>
-                    <span className="text-small">Less: </span>
-                    Utilized Cash Balance:
-                  </span>
-                  <span className="text-bold">(G)</span>
-                </div>
-                <div className="flex py-0_5 jc-between ai-center">
-                  <span className="text-bold">Balance GST Due: (F-G)</span>
-                  <span className="text-bold">(H)</span>
-                </div>
-              </div>
+              )}
             </div>
             <div className="section small-container p-0">
               <div className="flex g-1rem ai-center p-1rem">
@@ -336,51 +397,67 @@ export default function GSTR1() {
                   <option value="regular">Regular</option>
                   <option value="composition">Composition</option>
                 </select>
-                <select
-                  onChange={handlePeriod2}
-                  className="select w-max-content"
-                  value={period2}
-                >
-                  {type === "regular" ? (
-                    <>
-                      <option value="monthly">Monthly</option>
-                    </>
-                  ) : null}
-                  <option value="quarterly">Quarterly</option>
-                </select>
                 <select name="c" className="select w-max-content">
                   {type === "regular" ? (
                     <>
                       <option value="gstr1">GSTR1</option>
+                      <option value="gstr2a">GSTR2A</option>
                       <option value="gstr3b">GSTR3B</option>
                     </>
                   ) : (
-                    <option value="gstr4">GSTR4</option>
+                    <>
+                      <option value="cmp_80">CMP-80</option>
+                      <option value="gstr4a">GSTR4A</option>
+                    </>
                   )}
                 </select>
-                {type === "regular" ? (
-                  <select
-                    onChange={handleMonth}
-                    value={state.gst.month - 1}
-                    className="select w-max-content"
-                  >
-                    {period2 === "monthly"
-                      ? MONTHS.map((month, i) => {
-                          return (
-                            <option key={month} value={i}>
-                              {month}
-                            </option>
-                          );
-                        })
-                      : getMonthsByPreviousQuarter().map(({ month, i }) => {
-                          return (
-                            <option key={month} value={i}>
-                              {month}
-                            </option>
-                          );
-                        })}
-                  </select>
-                ) : null}
+                <select
+                  onChange={handlePeriod}
+                  className="select w-max-content"
+                  value={period}
+                >
+                  <option hidden selected>
+                    --Quarter--
+                  </option>
+                  <option value="1">Apr-June</option>
+                  <option value="2">Jul-Sep</option>
+                  <option value="3">Oct-Dec</option>
+                  <option value="0">Jan-Mar</option>
+                </select>
+                <select
+                  onChange={(e) => handleMonth(e)}
+                  value={state.gst.month}
+                  className="select w-max-content"
+                >
+                  <option hidden selected>
+                    --Period--
+                  </option>
+                  {
+                    // period2 === "monthly"
+                    //   ? MONTHS.map((month, i) => {
+                    //       return (
+                    //         <option key={month} value={i}>
+                    //           {month}
+                    //         </option>
+                    //       );
+                    //   }) :
+                    type === "regular"
+                      ? currentQuarter.map(
+                          ({ month, i }) => {
+                            return (
+                              <option key={month} value={i}>
+                                {month}
+                              </option>
+                            );
+                          }
+                        )
+                      : (
+                        <option value={currentQuarter[currentQuarter.length-1].i}>
+                          {currentQuarter[currentQuarter.length - 1].month}
+                        </option>
+                      )
+                  }
+                </select>
                 <select
                   onChange={handleYearChange}
                   className="select w-max-content"
@@ -519,21 +596,23 @@ export default function GSTR1() {
                         <input type="text" className="input is-small" />
                       </td>
                     </tr>
-                    <tr>
-                      <th>{/* TDS/TCS */}</th>
-                      <td>
-                        <input type="text" className="input is-small" />
-                      </td>
-                      <td>
-                        <input type="text" className="input is-small" />
-                      </td>
-                      <td>
-                        <input type="text" className="input is-small" />
-                      </td>
-                      <td>
-                        <input type="text" className="input is-small" />
-                      </td>
-                    </tr>
+                    {type === "regular" && (
+                      <tr>
+                        <th>{/* TDS/TCS */}</th>
+                        <td>
+                          <input type="text" className="input is-small" />
+                        </td>
+                        <td>
+                          <input type="text" className="input is-small" />
+                        </td>
+                        <td>
+                          <input type="text" className="input is-small" />
+                        </td>
+                        <td>
+                          <input type="text" className="input is-small" />
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
