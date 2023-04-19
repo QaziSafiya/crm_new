@@ -6,10 +6,37 @@ import Sidebar from "../../components/Sidebar.jsx";
 import Topbar from "../../components/Topbar.jsx";
 import { Formik, Form, Field } from "formik";
 
-const calculateCgst = (turnOver, rate) => {
-  const amount = Number(turnOver) / 100;
-  return amount * rate;
+const calculateTax = (turnOver, rate) => {
+  let number = Number(turnOver)
+  if(!(Number.isNaN(number))){
+    let amount = number / 100;
+    let tax = amount * rate;
+    return tax / 2;
+  } else {
+    return 0;
+  }
 };
+
+const totalTax = (values) => {
+  let tax = 0;
+  Object.keys(values).map((key, i) => {
+    const stringRate = key.slice(-1);
+    const rate = Number(stringRate);
+    const turnOver = Number(values[key]);
+    console.log(turnOver, rate);
+    tax += calculateTax(turnOver, rate);
+  });
+  return tax.toLocaleString("en", {maximumFractionDigits: 2});
+};
+
+const totalTurnOver = (values) => {
+  let total = Object.values(values).reduce(
+    (acc, i) => Number(i) + acc,
+    0
+  )
+  total = Number(total) ? total : 0;
+  return total.toLocaleString("en", {maximumFractionDigits: 2});;
+}
 
 export default function OutwardSupplies() {
   return (
@@ -49,10 +76,10 @@ export default function OutwardSupplies() {
           <div className="section p-0">
             <Formik
               initialValues={{
+                turnOver0: 0,
+                turnOver_0: 0,
                 turnOver_1: 0,
                 turnOver_2: 0,
-                turnOver_3: 0,
-                turnOver_4: 0,
                 turnOver_5: 0,
               }}
             >
@@ -86,22 +113,33 @@ export default function OutwardSupplies() {
                             <input
                               disabled
                               type="text"
+                              value={0}
                               className="input is-small"
                             />
                           </td>
                           <td>
                             <Field
-                              name="turnOver_1"
+                              name="turnOver0"
                               type="text"
+                              disabled
                               className="input is-small"
                             />
                           </td>
                           <td>
-                            <input className="input is-small" />
-                              {/* {calculateCgst(values.turnOver_1, 0)} */}
+                            <input
+                              value={0}
+                              disabled
+                              className="input is-small"
+                            />
+                            {/* {calculateCgst(values.turnOver_1, 0)} */}
                           </td>
                           <td>
-                            <input type="text" className="input is-small" />
+                            <input
+                              value={0}
+                              disabled
+                              type="text"
+                              className="input is-small"
+                            />
                           </td>
                           {/* <td>
                                                 <input type="text" className="input is-small" />
@@ -124,18 +162,20 @@ export default function OutwardSupplies() {
                           </td>
                           <td>
                             <Field
-                              name="turnOver_2"
+                              name="turnOver_0"
                               type="text"
                               className="input is-small"
                             />
                           </td>
                           <td>
                             <span className="total">
-                              {calculateCgst(values.turnOver_2, 0)}
+                              {calculateTax(values.turnOver_0, 0)}
                             </span>
                           </td>
                           <td>
-                            <input type="text" className="input is-small" />
+                            <span className="total">
+                              {calculateTax(values.turnOver_0, 0)}
+                            </span>
                           </td>
                           {/* <td>
                                                 <input type="text" className="input is-small" />
@@ -158,18 +198,20 @@ export default function OutwardSupplies() {
                           </td>
                           <td>
                             <Field
-                              name="turnOver_3"
+                              name="turnOver_1"
                               type="text"
                               className="input is-small"
                             />
                           </td>
                           <td>
                             <span className="total">
-                              {calculateCgst(values.turnOver_3, 1)}
+                              {calculateTax(values.turnOver_1, 1)}
                             </span>
                           </td>
                           <td>
-                            <input type="text" className="input is-small" />
+                            <span className="total">
+                              {calculateTax(values.turnOver_1, 1)}
+                            </span>
                           </td>
                           {/* <td>
                                                 <input type="text" className="input is-small" />
@@ -193,18 +235,20 @@ export default function OutwardSupplies() {
                           </td>
                           <td>
                             <Field
-                              name="turnOver_4"
+                              name="turnOver_2"
                               type="text"
                               className="input is-small"
                             />
                           </td>
                           <td>
                             <span className="total">
-                              {calculateCgst(values.turnOver_4, 2)}
+                              {calculateTax(values.turnOver_2, 2)}
                             </span>
                           </td>
                           <td>
-                            <input type="text" className="input is-small" />
+                            <span className="total">
+                              {calculateTax(values.turnOver_2, 2)}
+                            </span>
                           </td>
                           {/* <td>
                                                 <input type="text" className="input is-small" />
@@ -235,11 +279,13 @@ export default function OutwardSupplies() {
                           </td>
                           <td>
                             <span className="total">
-                              {calculateCgst(values.turnOver_5, 5)}
+                              {calculateTax(values.turnOver_5, 5)}
                             </span>
                           </td>
                           <td>
-                            <input type="text" className="input is-small" />
+                            <span className="total">
+                              {calculateTax(values.turnOver_5, 5)}
+                            </span>
                           </td>
                           {/* <td>
                                                 <input type="text" className="input is-small" />
@@ -252,17 +298,14 @@ export default function OutwardSupplies() {
                           <td></td>
                           <td>
                             <span className="total">
-                              {Object.values(values).reduce(
-                                (acc, i) => Number(i) + acc,
-                                0
-                              )}
+                              {totalTurnOver(values)}
                             </span>
                           </td>
                           <td>
-                            <span className="total"></span>
+                            <span className="total">{totalTax(values)}</span>
                           </td>
                           <td>
-                            <span className="total"></span>
+                            <span className="total">{totalTax(values)}</span>
                           </td>
                         </tr>
 

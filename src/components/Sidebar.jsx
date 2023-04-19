@@ -120,11 +120,11 @@ export default function Sidebar({ open }) {
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Mobile Recharge" upcoming />
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Gas Bill" upcoming />
                     </Menu>  
-                    <Menu icon={<ReportsIcon />} title="Reports" upcoming>
+                    {/* <Menu icon={<ReportsIcon />} title="Reports" upcoming>
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Balance Acc" />
-                    </Menu> 
+                    </Menu>  */}
                     <ProtectedMenu>
                         <Menu icon={<WindowIcon />} title="Web Settings">
                             <SideNavLink icon={<GlobeIcon />} to='/update/homepage' title="Home Page" />
