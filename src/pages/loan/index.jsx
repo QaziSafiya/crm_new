@@ -9,7 +9,7 @@ import { postDateFormatter } from "../../lib/formatter.js";
 const data = {
     loans: [
         {  
-            id: crypto.randomUUID(),
+            id: 1,
             type: 'Business Loan',
             amount: 10_000,
             date_applied: new Date(),
@@ -17,7 +17,7 @@ const data = {
             status: 'pending',
         },
         {  
-            id: crypto.randomUUID(),
+            id: 2,
             type: 'Business Loan',
             amount: 10_000,
             date_applied: new Date(),
@@ -25,7 +25,7 @@ const data = {
             status: 'pending',
         },
         {  
-            id: crypto.randomUUID(),
+            id: 3,
             type: 'Car Loan',
             amount: 10_000,
             date_applied: new Date(),
@@ -33,7 +33,7 @@ const data = {
             status: 'rejected',
         },
         {  
-            id: crypto.randomUUID(),
+            id: 4,
             type: 'Business Loan',
             amount: 10_000,
             date_applied: new Date(),

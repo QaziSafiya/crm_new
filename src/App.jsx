@@ -28,7 +28,7 @@ import NewPost from './pages/blog/NewPost.jsx'
 import GSTR1 from './pages/gst/gstr1/gstr1.jsx'
 import { useContext, useEffect } from 'react'
 import { StoreContext } from './store/store-context.js'
-import { AUTH_FROM_REDIRECT, AUTH_USER } from './store/actions.js'
+import { AUTH_FROM_REDIRECT, AUTH_USER, TOGGLE_SIDEBAR } from './store/actions.js'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import UpdatePost from './pages/blog/UpdatePost.jsx'
 import Post from './pages/blog/Post.jsx'
@@ -51,6 +51,7 @@ import JobApplicationDetails from './pages/career/application.jsx'
 import Orders from './pages/account/Orders.jsx'
 import OrderPayments from './pages/account/Payments.jsx'
 import OrderDetails from './pages/account/OrderDetails.jsx'
+import { useRef } from 'react'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -60,6 +61,8 @@ function App() {
   useTheme();
 
   const [state, dispatch] = useContext(StoreContext);
+
+  const resized = useRef();
 
   const messageHandler = (e) => {
     if(e.origin === ITAX_URL) {
@@ -102,6 +105,18 @@ function App() {
     window.addEventListener('load', handleOnLoad);
 
     return () => window.removeEventListener('load', handleOnLoad);
+  }, []);
+
+  useEffect(() => {
+    if(window.innerWidth > 425 || resized.current) {
+      return;
+    }
+
+    resized.current = true;
+
+    dispatch({
+      type: TOGGLE_SIDEBAR,
+    });
   }, []);
 
   return (

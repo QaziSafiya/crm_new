@@ -1,4 +1,4 @@
-import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER} from "./actions.js";
+import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT} from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     switch(type) {
@@ -6,6 +6,8 @@ export default function reducer(state, { type, payload }) {
             return { ...state, auth: { ...state.auth, currentUser: payload.user, token: payload.token, pending: false } };
         case AUTH_FROM_REDIRECT:
             return { ...state, auth: { ...state.auth, currentUser: payload.user, token: payload.token, pending: false, redirect: payload.redirect } };
+        case SET_REDIRECT:
+            return { ...state, auth: { ...state.auth, redirect: payload.redirect } };
         case CLEAR_REDIRECT:
             return { ...state, auth: { ...state.auth, redirect: null } };
         case UPDATE_USER:

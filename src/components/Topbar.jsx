@@ -4,7 +4,10 @@ import { LOGOUT, TOGGLE_SIDEBAR } from "../store/actions.js";
 import { StoreContext } from "../store/store-context.js";
 import HoverMenu from "./HoverMenu.jsx";
 import AccountIcon from "./icons/AccountIcon.jsx";
+import LogoutIcon from "./icons/LogoutIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
+import OrderedListIcon from "./icons/OrderedListIcon.jsx";
+import UnorderedListIcon from "./icons/UnorderedListIcon.jsx";
 import ThemeButton from "./ThemeButton.jsx";
 
 export default function Topbar() {
@@ -35,13 +38,25 @@ export default function Topbar() {
                 <HoverMenu icon={<AccountIcon />} tooltip="Account">
                     <ul className="list-menu">
                         <li>
-                            <Link className="list-menu-item" to='/settings/my-account'>My Account</Link>
+                            <Link className="list-menu-item" to='/settings/my-account'>
+                                <AccountIcon />
+                                My Account
+                            </Link>
+                        </li>
+                        <li>
+                            <Link className="list-menu-item" to='/orders'>
+                                <UnorderedListIcon />
+                                Orders
+                            </Link>
                         </li>
                         <li>
                             <button
                                 onClick={handleSignOut}
                                 className="flex button list-menu-item is-small w-100pc jc-start"
-                            >Log out</button>
+                            >
+                                <LogoutIcon />
+                                Log out
+                            </button>
                         </li>
                     </ul>
                 </HoverMenu>

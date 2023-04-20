@@ -267,9 +267,6 @@ export default function Ledger() {
                     </form>
                 </Modal>
             </div>
-            <div id="section-to-print">
-                ITSAWORKINGGGGG
-            </div>
         </>
     )
 }

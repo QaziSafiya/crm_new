@@ -120,26 +120,26 @@ export default function AddService() {
                                 <div className="flex ai-center g-1rem">
                                     <div className="field flex-1">
                                         <label htmlFor="serviceName" className="label text-primary">Service Name</label>
-                                        <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Name of service" />
+                                        <input name="serviceName" value={service.serviceName} onChange={handleChange} type="text" className="input is-small" id="serviceName" placeholder="Name of service" />
                                     </div>
                                     <div className="field flex-1">
                                         <label htmlFor="serviceType" className="label text-primary">Service Type</label>
-                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input" id="serviceName" placeholder="Type of service (eg. Registration)" />
+                                        <input name="serviceType" value={service.serviceType} onChange={handleChange} type="text" className="input is-small" id="serviceName" placeholder="Type of service (eg. Registration)" />
                                     </div>
                                 </div>
                                 <div className="flex ai-center g-1rem">
                                     <div className="field flex-1">
                                         <label htmlFor="serviceCharge" className="label text-primary">Service Charge</label>
-                                        <input name="price" onChange={handleChange} value={service.price} type="number" className="input" id="serviceCharge" placeholder="0.0" />
+                                        <input name="price" onChange={handleChange} value={service.price} type="number" className="input is-small" id="serviceCharge" placeholder="0.0" />
                                     </div>
                                     <div className="field flex-1">
                                         <label htmlFor="gst" className="label text-primary">GST</label>
-                                        <input name="gst" onChange={handleChange} value={service.gst} type="number" className="input" id="gst" placeholder="0" />
+                                        <input name="gst" onChange={handleChange} value={service.gst} type="number" className="input is-small" id="gst" placeholder="0" />
                                     </div>
                                 </div>
                                 <div className="field">
                                     <label htmlFor="serviceBanner" className="label text-primary">Banner URL</label>
-                                    <input name="imgUrl" onChange={handleChange} value={service.imgUrl} type="text" className="input" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
+                                    <input name="imgUrl" onChange={handleChange} value={service.imgUrl} type="text" className="input is-small" id="serviceBanner" placeholder="http://example.com/banner.jpg" />
                                 </div>
                                 <div className="field">
                                     <label htmlFor="Description" className="label text-primary">Description</label>

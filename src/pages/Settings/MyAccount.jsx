@@ -27,7 +27,7 @@ export default function MyAccount() {
             setError('');
 
             const response = await fetch(
-                `${BASE_URL}/users/update`,
+                `${BASE_URL}/users/update-profile`,
                 {
                     method: 'POST',
                     headers: new Headers({
@@ -44,7 +44,7 @@ export default function MyAccount() {
             dispatch({
                 type: UPDATE_USER,
                 payload: data
-            })
+            });
 
             setSuccess(message);
         } catch(e) {
@@ -62,7 +62,8 @@ export default function MyAccount() {
                 <Topbar />
                 <div className="inner-container">
                     <h6 className="text-secondary">My Account</h6>
-                    <div className="section">
+                    <div className="section w-max-content mx-auto">
+                        <h6 className="text-large">Edit Profile</h6>
                         <form className="form flex dir-col g-1rem" onSubmit={handleSubmit(onSubmit)}>
                             {
                                 error
@@ -85,10 +86,10 @@ export default function MyAccount() {
                                     : null
                             }
                             <div className="flex flex-wrap g-1rem">
-                                <div className="field">
+                                <div className="field flex-1">
                                     <label htmlFor="firstName" className="label">First Name</label>
                                     <input 
-                                        className="input" 
+                                        className="input is-small" 
                                         type="text" 
                                         id="firstName"
                                         {...register('first_name', { 
@@ -107,10 +108,10 @@ export default function MyAccount() {
                                             : null
                                     }
                                 </div>
-                                <div className="field">
+                                <div className="field flex-1">
                                     <label htmlFor="lastName" className="label">Last name</label>
                                     <input 
-                                        className="input" 
+                                        className="input is-small" 
                                         type="text" 
                                         id="lastName"
                                         {
@@ -132,10 +133,56 @@ export default function MyAccount() {
                                     }
                                 </div>
                             </div>
+                            <div className="flex flex-wrap g-1rem">
+                                <div className="field flex-1">
+                                    <label htmlFor="aadhar" className="label">Aadhaar</label>
+                                    <input 
+                                        className="input is-small" 
+                                        type="text" 
+                                        id="aadhar"
+                                        {...register('aadhar', { 
+                                            value: currentUser.aadhar,
+                                        })}
+                                    />
+                                    {
+                                        errors.aadhar
+                                            ? (
+                                                <div className="error-message">
+                                                    <CloseCircleIcon />
+                                                    {errors.aadhar.message}
+                                                </div>
+                                            )
+                                            : null
+                                    }
+                                </div>
+                                <div className="field flex-1">
+                                    <label htmlFor="pan" className="label">Pan no</label>
+                                    <input 
+                                        className="input is-small" 
+                                        type="text" 
+                                        id="pan"
+                                        {
+                                            ...register('pan', {
+                                                value: currentUser.pan
+                                            })
+                                        }
+                                    />
+                                    {
+                                        errors.pan
+                                            ? (
+                                                <div className="error-message">
+                                                    <CloseCircleIcon />
+                                                    {errors.pan.message}
+                                                </div>
+                                            )
+                                            : null
+                                    }
+                                </div>
+                            </div>
                             <div className="field">
                                 <label htmlFor="pincode" className="label">Pincode</label>
                                 <input 
-                                    className="input" 
+                                    className="input is-small" 
                                     type="text" 
                                     id="pincode"
                                     {
@@ -163,7 +210,7 @@ export default function MyAccount() {
                             <div className="field">
                                 <label htmlFor="mob" className="label">Mobile No</label>
                                 <input 
-                                    className="input" 
+                                    className="input is-small" 
                                     type="tel" 
                                     id="mob"
                                     {

@@ -13,6 +13,7 @@ export default function EditableItem({ name, value, param, endpoint, setUpper })
 
     const handleUpdate = async () => {
         try {
+            setUpdating(true);
             const response = await fetch(
                 `${BASE_URL}/${endpoint}`,
                 {
@@ -69,12 +70,12 @@ export default function EditableItem({ name, value, param, endpoint, setUpper })
             : (
                 <div className="flex dir-col jc-between ai-top g-0_5rem">
                     <span className="text-large">{name}</span>
-                    <input
+                    <textarea
                         type="text"
-                        className="input" 
+                        className="textarea" 
                         value={editedValue}
                         onChange={e => setEditedValue(e.target.value)}
-                    />
+                    ></textarea>
                     {
                         error
                             ? <div className="error-message">{error}</div>

@@ -4,7 +4,7 @@ import RupeeIcon from "./icons/RupeeIcon.jsx";
 import UserIcon from "./icons/UserIcon.jsx";
 import Menu from "./Menu.jsx";
 
-import Logo from '../assets/logo.png';
+import Icon from '/icon.svg';
 import SideNavLink from "./SideNavLink.jsx";
 import BankIcon from "./icons/BankIcon.jsx";
 import BillIcon from "./icons/BillIcon.jsx";
@@ -51,13 +51,14 @@ export default function Sidebar({ open }) {
     return (
         <div className={`side-bar-container${state.sidebarOpen ? ' open' : ''}`} style={{ width: state.sidebarOpen ? '280px' : '0px' }}>
             <div className="side-bar">
-                <div className="flex p-1rem jc-center ai-center">
+                <div className="flex p-1rem pb-0 jc-between ai-center">
                     <button onClick={toggleSidebar} className="button icon-button small responsive-menu-toggle">
                         <CloseIcon />
                     </button>
-                    <Link to="/">
-                        <img src={Logo} height={48} alt="iTaxEasy" />
+                    <Link to="/" className="mx-auto">
+                        <img src={Icon} height={32} alt="iTaxEasy" />
                     </Link>
+                    <div className="icon-box"></div>
                 </div>
                 <nav className="side-nav">
                     <SideNavLink to='/' icon={<DashboardIcon />} title='Dashboard' />
