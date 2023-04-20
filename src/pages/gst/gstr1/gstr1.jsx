@@ -279,10 +279,10 @@ export default function GSTR1() {
                   className="flex outline dir-col g-2rem margin-y"
                   style={{ "--margin-y": "2.5rem" }}
                 >
-                  <div className="flex jc-between ai-center">
+                  <div className="flex jc-between ai-center g-1rem">
                     <Link
                       to="/gst/outward-supplies"
-                      className="button is-primary is-small has-icon"
+                      className="button is-primary is-small has-icon flex-1"
                     >
                       <ArrowLeftIcon />
                       {/* Outward Supplies Liability (GSTR-1) */}
@@ -290,10 +290,10 @@ export default function GSTR1() {
                     </Link>
                     <span className="text-bold">(A)</span>
                   </div>
-                  <div className="flex jc-between ai-center">
+                  <div className="flex jc-between ai-center g-1rem">
                     <Link
                       to="/gst/inward-supplies"
-                      className="button is-primary is-small has-icon"
+                      className="button is-primary is-small has-icon flex-1"
                     >
                       <ArrowRightIcon />
                       {/* Inward Supplies Credit (GSTR-2) */}
@@ -339,10 +339,10 @@ export default function GSTR1() {
                   className="flex outline dir-col g-2rem margin-y"
                   style={{ "--margin-y": "2.5rem" }}
                 >
-                  <div className="flex jc-between ai-center">
+                  <div className="flex jc-between ai-center g-1rem">
                     <Link
                       to="/gst/outward-supplies"
-                      className="button is-primary is-small has-icon"
+                      className="button is-primary is-small has-icon flex-1"
                     >
                       <ArrowLeftIcon />
                       {/* Outward Supplies Liability (GSTR-1) */}
@@ -350,10 +350,10 @@ export default function GSTR1() {
                     </Link>
                     <span className="text-bold">(A)</span>
                   </div>
-                  <div className="flex jc-between ai-center">
+                  <div className="flex jc-between ai-center g-1rem">
                     <Link
                       to="/gst/inward-supplies"
-                      className="button is-primary is-small has-icon"
+                      className="button is-primary is-small has-icon flex-1"
                     >
                       <ArrowRightIcon />
                       {/* Inward Supplies Credit (GSTR-2) */}
@@ -649,7 +649,7 @@ export default function GSTR1() {
       </div>
       <Modal open={open} setOpen={setOpen} onClose={handleClose}>
         {showhide === "login" && (
-          <div className="login-box">
+          <div className="login-box p-2rem">
             <form className="flex dir-col g-1rem" onSubmit={handleLogin}>
               <h5>GST Login</h5>
               <div className="field">

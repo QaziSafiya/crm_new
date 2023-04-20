@@ -53,7 +53,7 @@ export default function Sidebar({ open }) {
             <div className="side-bar">
                 <div className="flex p-1rem pb-0 jc-between ai-center">
                     <button onClick={toggleSidebar} className="button icon-button small responsive-menu-toggle">
-                        <CloseIcon />
+                        <ArrowLeftIcon />
                     </button>
                     <Link to="/" className="mx-auto">
                         <img src={Icon} height={32} alt="iTaxEasy" />

@@ -4,7 +4,7 @@
     --primary-color: rgb(0, 85, 212);
     --primary-color-rgb: 0, 85, 212;
     --on-primary-color: #ffffff;
-    --elevation-color: rgba(255, 255, 255, .5);
+    --elevation-color: rgba(255, 255, 255, .6);
     --on-elevation-color: #000000;
     --elevation-shadow-color: rgba(0, 85, 212, 0.2);
     --sidebar-color: rgb(235, 243, 255);
@@ -20,11 +20,11 @@
     --on-success-color: #ffffff;
     --on-success-light-color: #73c573;
     --success-color-light: #b9ffb9;
-    --border-color: rgb(129, 129, 165);
+    --border-color: rgb(143, 164, 196);
     --input-bg: #ffffff;
-    --input-color: #5e6278;
+    --input-color: rgb(71, 88, 112);;
     --label-text: var(--primary-color);
-    --ribbon-color:rgba(255, 255, 255, .5);
+    --ribbon-color:rgb(237, 243, 252);
     --on-ribbon-color: #010101;
     --scroll-bar-thumb-color: rgb(0, 85, 212);
 }
@@ -312,12 +312,12 @@ h6, .h6 {
 }
 
 .icon-button:hover {
-  background-color: rgba(71, 71, 71, 0.1);
+  background-color: rgb(0, 85, 212, .1);
 }
 
 .tool-button.active {
     color: var(--primary-color);
-    background-color: rgba(71, 71, 71, 0.1);
+    background-color: rgb(0, 85, 212, .1);
 }
 
 .button.has-icon:hover {
