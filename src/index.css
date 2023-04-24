@@ -89,9 +89,9 @@ a, a:hover {
 /* @Margin, Padding and Gap */
 
 
-/* div {
+.div {
   outline: 2px solid black;
-} */
+}
 
 .mx-auto {
   margin-inline: auto;
@@ -142,6 +142,16 @@ a, a:hover {
   padding: 0;
 }
 
+.p {
+  padding: var(--py, 1rem) var(--px, 1rem);
+}
+
+@media only screen and (max-width: 975px) {
+  .p-0_25-mobile {
+    padding: 0.25rem;
+  }
+}
+
 .p-0_5rem {
   padding: 0.5rem;
 }
@@ -156,6 +166,10 @@ a, a:hover {
 
 .p-3rem {
   padding: 3rem;
+}
+
+.px {
+  padding-inline: var(--px, 3rem);
 }
 
 .py {
@@ -188,6 +202,12 @@ a, a:hover {
 
 .g-0_5rem {
   gap: 0.5rem;
+}
+
+@media only screen and (max-width: 975px) {
+  .g-0_25rem-mobile {
+    gap: 0.25rem !important;
+  }
 }
 
 .g-1rem {
@@ -233,4 +253,8 @@ a, a:hover {
 
 .overflow-hidden {
   overflow: hidden;
+}
+
+.d-none {
+  display: none;
 }

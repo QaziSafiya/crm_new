@@ -25,14 +25,17 @@ import UpdateCustomer from './pages/UpdateCustomer.jsx'
 import UpdateFooter from './pages/update/UpdateFooter.jsx'
 import Blog from './pages/blog/index.jsx'
 import NewPost from './pages/blog/NewPost.jsx'
+import GSTR from './pages/gst/gstr/gstr.jsx'
 import GSTR1 from './pages/gst/gstr1/gstr1.jsx'
+import GSTR2a from './pages/gst/gstr2a/gstr2a.jsx'
+import GSTR3b from './pages/gst/gstr3b/gstr3b.jsx'
 import { useContext, useEffect } from 'react'
 import { StoreContext } from './store/store-context.js'
 import { AUTH_FROM_REDIRECT, AUTH_USER, TOGGLE_SIDEBAR } from './store/actions.js'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import UpdatePost from './pages/blog/UpdatePost.jsx'
 import Post from './pages/blog/Post.jsx'
-import Ledger from './pages/gst/gstr1/ledger.jsx'
+import Ledger from './pages/gst/gstr/ledger.jsx'
 import InwardSupplies from './pages/gst/inward.jsx'
 import OutwardSupplies from './pages/gst/outward.jsx'
 import AllServices from './pages/services/AllServices'
@@ -296,12 +299,27 @@ function App() {
               <CreateLibrary />
             </ProtectedRoute>
           } />
+          <Route path='/gst/gstr' element={
+            <PrivateRoute>
+              <GSTR />
+            </PrivateRoute>
+          } />
           <Route path='/gst/gstr1' element={
             <PrivateRoute>
               <GSTR1 />
             </PrivateRoute>
           } />
-          <Route path='/gst/gstr1/ledger' element={
+          <Route path='/gst/gstr2a' element={
+            <PrivateRoute>
+              <GSTR2a />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/gstr3b' element={
+            <PrivateRoute>
+              <GSTR3b />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/gstr/ledger' element={
             <PrivateRoute>
               <Ledger />
             </PrivateRoute>
