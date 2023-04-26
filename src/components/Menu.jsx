@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import ArrowDownIcon from "./icons/ArrowDownIcon.jsx";
 import ArrowUpIcon from "./icons/ArrowUpIcon.jsx";
 
-export default function Menu({ title, icon, children, upcoming = false }) {
+export default function Menu({ title, icon, children, upcoming = false}) {
     const [open, setOpen] = useState(false);
 
     const containerRef = useRef();

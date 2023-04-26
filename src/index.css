@@ -247,6 +247,10 @@ a, a:hover {
   width: 425px;
 }
 
+.min-w {
+  min-width: (--var, 25rem);
+}
+
 .w-max-content {
   width: max-content;
 }
@@ -257,4 +261,10 @@ a, a:hover {
 
 .d-none {
   display: none;
+}
+
+@media only screen and (min-width: 975px) {
+  .mobile-only {
+    display: none;
+  }
 }

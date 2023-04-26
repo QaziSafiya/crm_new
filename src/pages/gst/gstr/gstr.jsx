@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CashTransactionIcon from "../../../components/icons/CashTransactionIcon.jsx";
 import CheckCircleIcon from "../../../components/icons/CheckCircleIcon.jsx";
 import RupeeIcon from "../../../components/icons/RupeeIcon.jsx";
@@ -39,7 +39,7 @@ export default function GSTR1() {
   const { token } = useAuth();
   const [state, dispatch] = useContext(StoreContext);
 
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [open, setOpen] = React.useState(false);
 
@@ -54,11 +54,11 @@ export default function GSTR1() {
   const [username, setUsername] = useState("");
   const [otp, setOtp] = useState("");
 
+  const navigate = useNavigate()
+
   const currentQuarter = getMonthsByCurrentQuarter(state.gst.quarter);
 
   const handleOpen = () => setOpen(true);
-
-  console.log(isOpen);
 
   const handleClose = () => {
     setGstin("");
@@ -217,6 +217,10 @@ export default function GSTR1() {
       payload: e.target.value,
     });
   };
+
+  const handleFileReturn = () => {
+    navigate("/gst/gstr/file-return")
+  }
 
   return (
     <div className="container">
@@ -397,21 +401,21 @@ export default function GSTR1() {
               <div className="w-100pc">
                 <div className="flex g-1rem ai-center p-1rem flex-wrap">
                   <div>
-                    <button onClick={() => setIsOpen(!isOpen)} className="button icon-button secondary-icon small"><MenuIcon /></button>
+                    <button onClick={() => setIsOpen(!isOpen)} className="button mobile-only icon-button secondary-icon small"><MenuIcon /></button>
                   </div>
                   <select
                     onChange={handleType}
                     className="select w-max-content"
                     value={type}
                   >
-                    <option selected hidden>--Type--</option>
+                    <option value={""} selected hidden>--Type--</option>
                     <option value="regular">Regular</option>
                     <option value="composition">Composition</option>
                   </select>
                   <select name="c" className="select w-max-content">
                     {type === "regular" ? (
                       <>
-                        <option hidden selected>
+                        <option value={""} hidden selected>
                           --GST--
                         </option>
                         <option value="gstr1">GSTR1</option>
@@ -430,7 +434,7 @@ export default function GSTR1() {
                     className="select w-max-content"
                     value={period}
                   >
-                    <option hidden selected>
+                    <option value={""} hidden selected>
                       --Quarter--
                     </option>
                     <option value="1">Apr-June</option>
@@ -444,7 +448,7 @@ export default function GSTR1() {
                     value={state.gst.month}
                     className="select w-max-content"
                   >
-                    <option hidden selected>
+                    <option value={""} hidden selected>
                       --Month--
                     </option>
                     {
@@ -478,7 +482,7 @@ export default function GSTR1() {
                     className="select w-max-content"
                     value={state.gst.year}
                   >
-                    <option hidden selected>--Select Year--</option>
+                    <option value={""} hidden selected>--Select Year--</option>
                     <option value="2020-21">2020-21</option>
                     <option value="2021-22">2021-22</option>
                     <option value="2022-23">2022-23</option>
@@ -636,7 +640,7 @@ export default function GSTR1() {
                 <div className="flex p-1rem jc-between">
                   <div className="flex g-1rem flex-wrap">
                     <Link
-                      to="/gst/gstr1/ledger"
+                      to="/gst/gstr/ledger"
                       className="button is-primary is-small has-icon"
                     >
                       <BookIcon />
@@ -650,7 +654,7 @@ export default function GSTR1() {
                       <RupeeIcon />
                       Credit
                     </button>
-                    <button className="button is-primary is-small has-icon">
+                    <button onClick={() => handleFileReturn()} className="button is-primary is-small has-icon">
                       <FileTransferIcon />
                       File Return
                     </button>

@@ -29,6 +29,7 @@ import GSTR from './pages/gst/gstr/gstr.jsx'
 import GSTR1 from './pages/gst/gstr1/gstr1.jsx'
 import GSTR2a from './pages/gst/gstr2a/gstr2a.jsx'
 import GSTR3b from './pages/gst/gstr3b/gstr3b.jsx'
+import FileReturn from './pages/gst/fileReturn/FileReturn'
 import { useContext, useEffect } from 'react'
 import { StoreContext } from './store/store-context.js'
 import { AUTH_FROM_REDIRECT, AUTH_USER, TOGGLE_SIDEBAR } from './store/actions.js'
@@ -317,6 +318,11 @@ function App() {
           <Route path='/gst/gstr3b' element={
             <PrivateRoute>
               <GSTR3b />
+            </PrivateRoute>
+          } />
+          <Route path='/gst/gstr/file-return' element={
+            <PrivateRoute>
+                <FileReturn />
             </PrivateRoute>
           } />
           <Route path='/gst/gstr/ledger' element={
