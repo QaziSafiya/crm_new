@@ -1,17 +1,17 @@
-export default function Steps({ steps, flex, active, setSection }) {
+export default function Steps({ steps, flex, active, setSection, border }) {
   return (
-    <ul className={`flex ${flex === "row" ? "dir-row" : "dir-col"}`}>
+    <div className={`flex jc-center ${flex === "column" ? "dir-col" : ""}`}>
       {steps.map((item, index) => (
         <li
           key={index}
           onClick={() => {
             setSection(item);
           }}
-          className={`${item === active ? ".bg" : ""}`}
+          className={`columns-2-link ${item === active ? border : ""}`}
         >
           {item}
         </li>
       ))}
-    </ul>
+    </div>
   );
 }

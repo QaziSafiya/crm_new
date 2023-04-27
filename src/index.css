@@ -86,6 +86,70 @@ a, a:hover {
   align-items: end;
 }
 
+/* grid  */
+
+.grid {
+  display: grid;
+}
+
+.grid-col-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.grid-col-5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.grid-col-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-col-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.items-center {
+  place-items: center;
+}
+
+.columns-2 {
+  display: grid;
+  height: 100%;
+  grid-template-columns: var(--col1, 12.5rem) var(--col2, 1fr);
+}
+
+.columns-2 > nav {
+  background: var(--bg-color);
+  border-radius: 10px;
+}
+
+.columns-2-link {
+  list-style: none;
+  padding: 1.25rem 3rem;
+}
+
+.columns-2-link:hover { 
+  background: rgb(0, 85, 212, .15);
+}
+
+.columns-2-link-active {
+  border-left: 5px solid currentColor;
+  background: rgb(0, 85, 212, .15);
+}
+
+.columns-2-link-active-2 {
+  border-bottom: 5px solid currentColor;
+  background: rgb(0, 85, 212, .15);
+}
+
+.columns-2-link-not-active {
+  border-left: 5px solid var(--bg-color);
+}
+
+.columns-2-link-not-active-2 {
+  border-bottom: 5px solid var(--elevation-color);
+}
+
 /* @Margin, Padding and Gap */
 
 

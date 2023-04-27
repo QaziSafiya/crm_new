@@ -9,7 +9,7 @@ import Gstr2 from "../gstr2a/Gstr2a";
 import Gstr3 from "../gstr3b/Gstr3b";
 
 const FileReturn = () => {
-  const [active, setActive] = useState("GSTR1");
+  const [active, setActive] = useState(steps[0]);
 
   const activePage = () => {
     switch (active) {
@@ -24,32 +24,26 @@ const FileReturn = () => {
     }
   };
 
+  const border = "columns-2-link-active"
+
   return (
     <div className="container">
       <Sidebar open={false} />
       <div className="main">
         <Topbar />
         <div className="inner-container">
-          <div className="small-container" style={{ padding: 0 }}>
-            <div className="container mini-container">
-              <div
-                className="side-bar-container open"
-                style={{ minWidth: "15rem" }}
-              >
-                <div className="side-bar">
-                  <nav className="side-nav">
-                    <div className="">
-                      <Steps
-                        steps={steps}
-                        flex="column"
-                        active={active}
-                        setSection={setActive}
-                      />
-                    </div>
-                  </nav>
-                </div>
-              </div>
-              {activePage()}
+          <div className="grid-container">
+            <div className="columns-2">
+              <nav className="py" style={{"--py": "5rem"}}>
+                <Steps
+                  steps={steps}
+                  flex="column"
+                  active={active}
+                  setSection={setActive}
+                  border={border}
+                />
+              </nav>
+              <div className="">{activePage()}</div>
             </div>
           </div>
         </div>
