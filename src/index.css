@@ -169,6 +169,10 @@ a, a:hover {
   margin-inline: var(--margin-x, 2rem);
 }
 
+.m-top {
+  margin-top: var(--m-top, 2rem);;
+}
+
 .m-0 {
   margin: 0;
 }
@@ -272,6 +276,10 @@ a, a:hover {
   .g-0_25rem-mobile {
     gap: 0.25rem !important;
   }
+}
+
+.gap {
+  gap: var(--gap, 1.25rem);
 }
 
 .g-1rem {

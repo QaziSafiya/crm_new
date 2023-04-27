@@ -320,11 +320,13 @@ function App() {
               <GSTR3b />
             </PrivateRoute>
           } />
-          <Route path='/gst/gstr/file-return' element={
+
+          <Route index path='/gst/gstr/file-return' element={
             <PrivateRoute>
-                <FileReturn />
+              <FileReturn />
             </PrivateRoute>
           } />
+            
           <Route path='/gst/gstr/ledger' element={
             <PrivateRoute>
               <Ledger />

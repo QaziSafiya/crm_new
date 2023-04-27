@@ -39,7 +39,7 @@ export default function GSTR1() {
   const { token } = useAuth();
   const [state, dispatch] = useContext(StoreContext);
 
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const [open, setOpen] = React.useState(false);
 
