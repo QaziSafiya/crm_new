@@ -48,19 +48,18 @@ const TableComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <div className="flex dir-col g-1rem g-0_25rem-mobile">
+      <div className="flex dir-col g-0_25rem-mobile">
         <div className="small-container drawer-relative p-0">
           <div
             data-open={`${isOpen ? true : false}`}
-            className="flex p dir-col g-1rem mini-container"
+            className="flex p dir-col mini-container"
           >
             <div
-              className="flex text-small text-bold separater dir-col g-2rem margin-y"
-              style={{ "--margin-y": ".75rem" }}
+              className="flex text-small text-bold separater dir-col g-1rem"
             >
               <div
                 className="flex m-top jc-between ai-center"
-                style={{ "--m-top": "4.5rem" }}
+                style={{ "--m-top": "5.5rem" }}
               >
                 <span>Pays tax u/s 9(5)</span>
               </div>

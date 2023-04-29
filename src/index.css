@@ -45,6 +45,10 @@ a, a:hover {
 .flex-wrap {
   flex-wrap: wrap;
 }
+/* 
+*{
+  outline: 2px solid black;
+} */
 
 .flex-1 {
   flex: 1;
@@ -112,12 +116,6 @@ a, a:hover {
   place-items: center;
 }
 
-.columns-2 {
-  display: grid;
-  height: 100%;
-  grid-template-columns: var(--col1, 12.5rem) var(--col2, 1fr);
-}
-
 .columns-2 > nav {
   background: var(--bg-color);
   border-radius: 10px;
@@ -152,8 +150,7 @@ a, a:hover {
 
 /* @Margin, Padding and Gap */
 
-
-.div {
+.show-div {
   outline: 2px solid black;
 }
 
@@ -295,6 +292,7 @@ a, a:hover {
 }
 
 /* @Width and Height */
+
 .h-100vh {
   height: 100vh;
 }

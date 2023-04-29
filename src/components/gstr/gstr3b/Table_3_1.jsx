@@ -16,12 +16,12 @@ const Table_3_1 = ({ setActiveSection }) => {
                   className="flex p dir-col g-1rem mini-container"
                 >
                   <div
-                    className="flex text-small text-bold separater dir-col g-2rem margin-y"
-                    style={{ "--margin-y": ".75rem" }}
+                    className="flex text-small text-bold separater dir-col gap margin-y"
+                    style={{ "--margin-y": "1.5rem", "--gap": "1.35rem" }}
                   >
                     <div
                       className="flex m-top jc-between ai-center"
-                      style={{ "--m-top": "4.5rem" }}
+                      style={{ "--m-top": "3rem" }}
                     >
                       <span className="">
                         Outward taxable supplies (other than zero rated)

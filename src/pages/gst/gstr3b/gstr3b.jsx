@@ -48,13 +48,13 @@ const gstr3b = () => {
     <>
       <div>
         {(activeSection === null) ? (
-          <div className="grid grid-col-5 text-center p-2rem g-2rem">
+          <div className="flex flex-wrap jc-center w-100pc text-center p-2rem g-2rem">
             {cardsTitles.length > 0 &&
               cardsTitles.map((title, i) => {
                 return (
                   <div
                     onClick={() => setActiveSection(i)}
-                    className="card-grid"
+                    className="card-flex"
                     key={title}
                   >
                     <span>{title}</span>
@@ -85,7 +85,7 @@ const cardsTitles = [
   "4 Eligible ITC",
   "5.1 Interest and late fee for preview tax period",
   "5 Exempt, nill and Non GST inward suppliers",
-  "6.1 Payment of tax=",
+  "6.1 Payment of tax",
 ];
 
 export default gstr3b;

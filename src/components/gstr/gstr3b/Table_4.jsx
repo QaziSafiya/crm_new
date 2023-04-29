@@ -15,8 +15,8 @@ const Table_4 = ({ setActiveSection }) => {
                   data-open={`${isOpen ? true : false}`}
                   className="flex p dir-col g-1rem mini-container"
                 >
-                  <div className="flex text-small text-bold separater gap dir-col margin-y" style={{ "--margin-y": ".75rem", "--gap": "1.55rem" }}>
-                    <div className="flex g-1rem m-top" style={{ "--m-top": "3.25rem" }}>
+                  <div className="flex text-small text-bold separater dir-col margin-y" style={{ "--margin-y": "2rem" }}>
+                    <div className="flex g-1rem m-top" style={{ "--m-top": "2rem" }}>
                       <span>(A)</span>
                       <span>ITC available</span>
                     </div>
@@ -24,7 +24,7 @@ const Table_4 = ({ setActiveSection }) => {
                       <span>(1)</span>
                       <span>Import of service</span>
                     </div>
-                    <div className="flex g-1rem">
+                    <div className="flex margin-y g-1rem" style={{ "--margin-y": "1.65rem" }}>
                       <span>(2)</span>
                       <span>Import of services</span>
                     </div>
@@ -32,7 +32,7 @@ const Table_4 = ({ setActiveSection }) => {
                       <span>(3)</span>
                       <span>Inward supplies reverse charge</span>
                     </div>
-                    <div className="flex g-1rem">
+                    <div className="flex g-1rem margin-y" style={{ "--margin-y": "1.6rem" }}>
                       <span>(4)</span>
                       <span>Inward supplies from ISD</span>
                     </div>
@@ -48,7 +48,7 @@ const Table_4 = ({ setActiveSection }) => {
                       <span>(1)</span>
                       <span>38, 42, & 43 of CGST rule sec 17 (5)</span>
                     </div>
-                    <div className="flex g-1rem">
+                    <div className="flex g-1rem margin-y" style={{ "--margin-y": "1.6rem" }}>
                       <span>(2)</span>
                       <span>Other</span>
                     </div>
@@ -56,14 +56,14 @@ const Table_4 = ({ setActiveSection }) => {
                       <span>(C)</span>
                       <span>Net ITC available (A) - (B)</span>
                     </div>
-                    <div className="flex g-1rem">
+                    <div className="flex g-1rem m-top" style={{ "--m-top": "1rem" }}>
                       <span>(D)</span>
                       <span>Other Details</span>
                     </div>
                     <div className="flex g-1rem">
                       <span>ITC reclaimed 4(B) (2) in earlier tax period</span>
                     </div>
-                    <div className="flex g-1rem">
+                    <div className="flex g-1rem margin-y" style={{ "--margin-y": "1.65rem" }}>
                       <span>Ineligible ITC 16(4) ITC restricted pos rule</span>
                     </div>
                   </div>

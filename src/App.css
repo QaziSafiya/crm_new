@@ -411,11 +411,13 @@ h6, .h6 {
     padding: 1rem;
 }
 
-.card-grid {
+.card-flex {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding: 2rem 1rem;
+    width: 18rem;
+    padding: 2rem;
+    cursor: pointer;
     background-color: var(--bg-color);
     border-radius: 10px;
     box-shadow: 0 0 1em .1em var(--elevation-shadow-color);
@@ -569,11 +571,30 @@ h6, .h6 {
     padding: 1rem;
 }
 
-/* @media only screen and (max-width: 975px) {
-    .columns {
-        
-     }
-} */
+.steps {
+    cursor: pointer;
+    width: 100%;
+}
+
+.small-bar {
+    min-width: 12.5rem;
+}
+
+@media only screen and (max-width: 975px) {
+    .small-bar {
+        position: absolute;
+        height: 100%;
+    }
+}
+
+.small-bar:not(.open) {
+    width: 0;
+    opacity: 0;
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+}
 
 .grid-container {
     display: grid;
@@ -621,9 +642,14 @@ h6, .h6 {
     gap: 1rem;
 }
 
+.separater > div {
+    padding: .9rem .5rem;
+}
+
 .separater > :nth-child(2n) {
-    background-color: var(--ribbon-color);
-    padding: 1.35rem 0rem;
+    background-color: var(--bg-color);
+    padding: .9rem .5rem;
+    border-radius: 5px;
     margin-top: .25rem;
 }
 

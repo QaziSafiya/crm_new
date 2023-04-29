@@ -22,8 +22,8 @@ const Table_3_1_1 = ({ setActiveSection }) => {
                   className="flex p dir-col g-1rem mini-container"
                 >
                   <div
-                    className="flex text-small text-bold separater dir-col g-2rem margin-y"
-                    style={{ "--margin-y": ".75rem" }}
+                    className="flex text-small text-bold separater dir-col g-1rem margin-y"
+                    style={{ "--margin-y": "1rem" }}
                   >
                     <div
                       className="flex m-top jc-between ai-center"

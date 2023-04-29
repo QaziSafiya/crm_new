@@ -9,42 +9,38 @@ const Table_5_1 = ({ setActiveSection }) => {
       <div className="container">
         <div className="main">
           <div className="inner-container">
+            <div className="flex g-1rem p" style={{"backgroundColor": "var(--bg-color)"}}>
+              <span>
+                5.1 Interest and late fee for previous tax period
+              </span>
+            </div>
+            <div className="flex g-1rem p" style={{"backgroundColor": "var(--bg-color)"}}>
+              <input type="checkbox" id="interestLiablity" />
+              <label htmlFor="interestLiablity">
+                Please select the checkbox if you wish to declare any Interest
+                liabilities need to be paid in cash in addition to tax
+                liabilities for the month
+              </label>
+            </div>
             <div className="flex g-1rem g-0_25rem-mobile">
               <div className="small-container drawer-relative p-0">
                 <div
                   data-open={`${isOpen ? true : false}`}
-                  className="flex p dir-col g-1rem mini-container"
+                  className="flex p dir-col mini-container"
+                  style={{ "--width": "15rem" }}
                 >
                   <div
-                    className="flex text-small text-bold separater dir-col g-2rem margin-y"
-                    style={{ "--margin-y": ".75rem" }}
+                    className="flex text-bold separater dir-col gap"
+                    style={{"--gap": "1.2rem" }}
                   >
-                    <div
-                      className="flex m-top jc-between ai-center"
-                      style={{ "--m-top": "4.5rem" }}
-                    >
-                      <span className="">
-                        Outward taxable supplies (other than zero rated)
-                      </span>
-                      <span>(A)</span>
-                    </div>
                     <div className="flex jc-between ai-center">
-                      <span className="">
-                        Outward taxable supplies (Zero rated)
-                      </span>
-                      <span>(B)</span>
+                      <span>Description</span>
                     </div>
-                    <div className="flex jc-between ai-center">
-                      <span>Other outward supplies (Nil rated)</span>
-                      <span>(C)</span>
+                    <div className="flex text-small jc-between ai-center">
+                      <span>Interest</span>
                     </div>
-                    <div className="flex jc-between ai-center">
-                      <span>Inward supplies (Liable to reverse charge)</span>
-                      <span>(D)</span>
-                    </div>
-                    <div className="flex jc-between ai-center">
-                      <span>Non-GST outward supplies</span>
-                      <span>(E)</span>
+                    <div className="flex text-small jc-between ai-center">
+                      <span>Late fees</span>
                     </div>
                   </div>
                 </div>
@@ -63,11 +59,10 @@ const Table_5_1 = ({ setActiveSection }) => {
                       <table className="flex-wrap">
                         <thead>
                           <tr>
-                            <th className="py-1 p-0_25-mobile">Value</th>
-                            <th className="py-1 p-0_25-mobile">IGST</th>
-                            <th className="py-1 p-0_25-mobile">CGST</th>
-                            <th className="py-1 p-0_25-mobile">SGST</th>
-                            <th className="py-1 p-0_25-mobile">CESS</th>
+                            <th className="py-1 p-0_25-mobile">Integ ₹</th>
+                            <th className="py-1 p-0_25-mobile">Central ₹</th>
+                            <th className="py-1 p-0_25-mobile">State/UI</th>
+                            <th className="py-1 p-0_25-mobile">CESS ₹</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -84,65 +79,8 @@ const Table_5_1 = ({ setActiveSection }) => {
                             <td className="p-0_25-mobile">
                               <input type="text" className="input is-small" />
                             </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
                           </tr>
                           <tr>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
-                          </tr>
-                          <tr>
-                            <td className="p-0_25-mobile">
-                              <input type="text" className="input is-small" />
-                            </td>
                             <td className="p-0_25-mobile">
                               <input type="text" className="input is-small" />
                             </td>

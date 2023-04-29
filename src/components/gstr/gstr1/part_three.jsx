@@ -6,10 +6,10 @@ const part_three = () => {
 
   return (
     <div>
-      <div className='grid grid-col-5 text-center p-2rem g-2rem'>
+      <div className='flex flex-wrap jc-center w-100pc text-center p-2rem g-2rem'>
         {cardsTitles.length > 0 && cardsTitles.map((title) => {
           return (
-            <div className="card-grid" key={title}>
+            <div className="card-flex" key={title}>
               <span>{title}</span>
               <span>details here</span>
             </div>
