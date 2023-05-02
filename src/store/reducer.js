@@ -1,7 +1,8 @@
-import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT} from "./actions.js";
+import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT, GSTR_MODE, GSTR_OBJ} from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
-    switch(type) {
+    console.log(type, payload);
+    switch (type) {
         case AUTH_USER:
             return { ...state, auth: { ...state.auth, currentUser: payload.user, token: payload.token, pending: false } };
         case AUTH_FROM_REDIRECT:
@@ -38,14 +39,14 @@ export default function reducer(state, { type, payload }) {
         case SET_GST_MONTH:
             return { ...state, gst: { ...state.gst, month: payload }, };
         case SET_GST_QUARTER:
-            return {...state, gst: {...state.gst, quarter: payload}}
+            return { ...state, gst: { ...state.gst, quarter: payload } }
         case SET_GST_YEAR:
             return { ...state, gst: { ...state.gst, year: payload }, };
         case PDF_DOC:
             return {
                 ...state,
                 pdfDoc: {
-                    intro:payload.intro,
+                    intro: payload.intro,
                     businessName: payload.businessName,
                     pnmList: payload.pnmList,
                     owner: payload.owner,
@@ -54,6 +55,11 @@ export default function reducer(state, { type, payload }) {
                     data: payload.data,
                 },
             };
+        case GSTR_MODE:
+            return { ...state, gstr:{ mode: payload }};
+
+        case GSTR_OBJ: 
+            return {...state, gstr:{...state.gstr, gstrObj: payload}}
         default:
             return state;
     }

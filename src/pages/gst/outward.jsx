@@ -23,7 +23,6 @@ const totalTax = (values) => {
     const stringRate = key.slice(-1);
     const rate = Number(stringRate);
     const turnOver = Number(values[key]);
-    console.log(turnOver, rate);
     tax += calculateTax(turnOver, rate);
   });
   return tax.toLocaleString("en", {maximumFractionDigits: 2});

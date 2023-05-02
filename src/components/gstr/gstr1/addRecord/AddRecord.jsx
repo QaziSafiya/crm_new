@@ -3,7 +3,7 @@ import Card_One from "./Card_One";
 
 const AddRecord = () => {
   const [activeSection, setActiveSection] = useState(null);
-  const [isOpen, setIsOpen] = useState(true);
+  // const [isOpen, setIsOpen] = useState(true);
 
   const activeWindow = () => {
     switch (activeSection) {

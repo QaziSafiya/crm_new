@@ -1,8 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { StoreContext } from "../../../../store/store-context";
 
-const Card_One = ({setActiveSection}) => {
+const Card_One = ({ setActiveSection }) => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [info, setInfo] = useState([]);
+  const [state, dispatch] = useContext(StoreContext);
+  const gstrObj = state.gstr.gstrObj;
+
+  // useEffect(() => {
+  //   gstrObj !== undefined &&
+  //       gstrObj.b2b.map((item, i) => {
+  //       return {
+  //         gsrn: item?.ctin,
+  //         invoiceNumber: item?.inv[0]?.inum,
+  //         invoiceDate: item?.inv[0]?.idt,
+  //         invoiceValue: item?.inv[0]?.val,
+  //         pos: item?.inv[0]?.pos,
+  //         tax: item?.inv[0]?.itms[0]?.itm_det?.txval,
+  //         rate: item?.inv[0]?.itms[0]?.itm_det?.rt,
+  //         cgst: item?.inv[0]?.itms[0]?.itm_det?.camt,
+  //         sgst: item?.inv[0]?.itms[0]?.itm_det?.samt,
+  //         type: item?.inv[0]?.inv_typ,
+  //       };
+  //     });
+  //   setInfo((state) => {
+  //     [...state, obj];
+  //   });
+  // }, [gstrObj]);
+
   return (
     <>
       <div className="inner-container">
@@ -17,7 +42,12 @@ const Card_One = ({setActiveSection}) => {
                   Add record
                 </button>
                 <h4>Record Details</h4>
-                <button className="button is-small is-primary" onClick={() => setActiveSection(null)}>Back</button>
+                <button
+                  className="button is-small is-primary"
+                  onClick={() => setActiveSection(null)}
+                >
+                  Back
+                </button>
               </div>
             )}
             <div>
@@ -51,86 +81,136 @@ const Form = ({ setIsFormOpen, info, setInfo }) => {
   return (
     <div className="flex dir-col g-1rem">
       <div className="flex g-2rem jc-between p-2rem">
-      <table className="flex-wrap">
-        <thead>
-          <tr>
-            <th className="py-1 p-0_25-mobile">SR No.</th>
-            <th className="py-1 p-0_25-mobile">Values</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="p-0_25-mobile">GSRN</td>
-            <td className="p-0_25-mobile">
-              <input name="gsrn" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">POS</td>
-            <td className="p-0_25-mobile">
-              <input name="pos" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Invoice Number</td>
-            <td className="p-0_25-mobile">
-              <input name="invoiceNumber" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Invoice Date</td>
-            <td className="p-0_25-mobile">
-              <input name="invoiceDate" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Invoice Value</td>
-            <td className="p-0_25-mobile">
-              <input name="invoiceValue" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table className="flex-wrap">
-        <thead>
-          <tr>
-            <th className="py-1 p-0_25-mobile">SR No.</th>
-            <th className="py-1 p-0_25-mobile">Values</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="p-0_25-mobile">CGST</td>
-            <td className="p-0_25-mobile">
-              <input name="cgst" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">SGST</td>
-            <td className="p-0_25-mobile">
-              <input name="sgst" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Rate</td>
-            <td className="p-0_25-mobile">
-              <input name="rate" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Nature</td>
-            <td className="p-0_25-mobile">
-              <input name="nature" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-          <tr>
-            <td className="p-0_25-mobile">Source</td>
-            <td className="p-0_25-mobile">
-              <input name="source" type="text" className="input is-small" onChange={(e) => handleChange(e)} />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <table className="flex-wrap">
+          <thead>
+            <tr>
+              <th className="py-1 p-0_25-mobile">SR No.</th>
+              <th className="py-1 p-0_25-mobile">Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-0_25-mobile">GSRN</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="gsrn"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">POS</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="pos"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Invoice Number</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="invoiceNumber"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Invoice Date</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="invoiceDate"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Invoice Value</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="invoiceValue"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table className="flex-wrap">
+          <thead>
+            <tr>
+              <th className="py-1 p-0_25-mobile">SR No.</th>
+              <th className="py-1 p-0_25-mobile">Values</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="p-0_25-mobile">CGST</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="cgst"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">SGST</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="sgst"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Rate</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="rate"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Nature</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="nature"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td className="p-0_25-mobile">Source</td>
+              <td className="p-0_25-mobile">
+                <input
+                  name="source"
+                  type="text"
+                  className="input is-small"
+                  onChange={(e) => handleChange(e)}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <button
         className="button w-320px mx-auto is-small is-primary"
@@ -143,6 +223,10 @@ const Form = ({ setIsFormOpen, info, setInfo }) => {
 };
 
 const Details = ({ info }) => {
+  const [state, dispatch] = useContext(StoreContext);
+  const gstrObj = state.gstr.gstrObj;
+
+  console.log(info, "HELLO");
   return (
     <>
       <table className="flex-wrap">
@@ -157,19 +241,54 @@ const Details = ({ info }) => {
           </tr>
         </thead>
         <tbody>
-          {info.length > 0 &&
+          {/* {info.length > 0 &&
             info.map((item, i) => {
               return (
                 <tr key={i + item}>
-                  <td>{item.Recipient}</td>
-                  <td>{item.Tade}</td>
-                  <td>{item.name}</td>
-                  <td>{item.type}</td>
-                  <td>{item.records}</td>
-                  <td>{item.Pending}</td>
+                  <td>{item?.Recipient}</td>
+                  <td>{item?.Tade}</td>
+                  <td>{item?.name}</td>
+                  <td>{item?.type}</td>
+                  <td>{item?.records}</td>
+                  <td>{item?.Pending}</td>
                 </tr>
               );
-            })}
+            })} */}
+          {/* {gstrObj !== undefined &&
+            gstrObj.b2b.map((item, i) => {
+              return (
+                <tr key={item + i}>
+                  <td>{item?.ctin}</td>
+                  <td>{item?.inv[0]?.inum}</td>
+                  <td>{item?.inv[0]?.idt}</td>
+                  <td>{item?.inv[0]?.val}</td>
+                  <td>{item?.inv[0]?.pos}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.txval}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.rt}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.camt}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.samt}</td>
+                  <td>{item?.inv[0]?.inv_typ}</td>
+                </tr>
+              );
+            })} */}
+
+          {/* {info !== undefined &&
+            info.map((item, i) => {
+              return (
+                <tr key={item + i}>
+                  <td>{item?.ctin}</td>
+                  <td>{item?.inv[0]?.inum}</td>
+                  <td>{item?.inv[0]?.idt}</td>
+                  <td>{item?.inv[0]?.val}</td>
+                  <td>{item?.inv[0]?.pos}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.txval}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.rt}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.camt}</td>
+                  <td>{item?.inv[0]?.itms[0]?.itm_det?.samt}</td>
+                  <td>{item?.inv[0]?.inv_typ}</td>
+                </tr>
+              );
+            })}   */}
         </tbody>
       </table>
     </>

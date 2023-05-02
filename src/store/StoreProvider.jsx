@@ -32,6 +32,10 @@ export default function StoreProvider({ children }) {
             rented: false,
             loan: false,
             data: {},
+        },
+        gstr: {
+            mode: "offline",
+            gstrObj: {},
         }
     };
 

@@ -29,3 +29,7 @@ export const SET_REDIRECT = 'redirect';
 export const CLEAR_REDIRECT = 'clear-redirect';
 
 export const PDF_DOC = "pdfDoc";
+
+export const GSTR_MODE = "gtr-mode";
+
+export const GSTR_OBJ = "gtr-object";

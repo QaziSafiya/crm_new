@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AddRecord from "../../../components/gstr/gstr1/addRecord/AddRecord.jsx";
 import AmendRecord from "../../../components/gstr/gstr1/amendRecord/AmendRecord.jsx";
 import EInvoice from "../../../components/gstr/gstr1/eInvoice/EInvoice.jsx";
 import Steps from "../gstrStep";
 
-const gstr1 = () => {
+const Gstr1 = () => {
   const [section, setSection] = useState(sectionList[0]);
 
   function activeTab() {
@@ -35,4 +35,4 @@ const sectionList = [
   "E-invoice download history",
 ];
 
-export default gstr1;
+export default Gstr1;
