@@ -16,7 +16,7 @@ const Table_4 = ({ setActiveSection }) => {
                   className="flex p dir-col g-1rem mini-container"
                 >
                   <div className="flex text-small text-bold separater dir-col margin-y" style={{ "--margin-y": "2rem" }}>
-                    <div className="flex g-1rem m-top" style={{ "--m-top": "2rem" }}>
+                    <div className="flex g-1rem m-top" style={{ "--m-top": ".85rem" }}>
                       <span>(A)</span>
                       <span>ITC available</span>
                     </div>

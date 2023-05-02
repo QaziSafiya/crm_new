@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Part_one from "../../../components/gstr/gstr1/Part_one.jsx";
-import Part_two from "../../../components/gstr/gstr1/Part_two.jsx";
-import Part_three from "../../../components/gstr/gstr1/Part_three.jsx";
+import AddRecord from "../../../components/gstr/gstr1/addRecord/AddRecord.jsx";
+import AmendRecord from "../../../components/gstr/gstr1/amendRecord/AmendRecord.jsx";
+import EInvoice from "../../../components/gstr/gstr1/eInvoice/EInvoice.jsx";
 import Steps from "../gstrStep";
 
 const gstr1 = () => {
@@ -9,11 +9,11 @@ const gstr1 = () => {
 
   function activeTab() {
     if (section === sectionList[1]) {
-      return <Part_two setSection={setSection} />;
+      return <AmendRecord setSection={setSection} />;
     } else if (section === sectionList[2]) {
-      return <Part_three setSection={setSection} />;
+      return <EInvoice setSection={setSection} />;
     } else {
-      return <Part_one setSection={setSection} />;
+      return <AddRecord setSection={setSection} />;
     }
   }
 

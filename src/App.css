@@ -577,7 +577,10 @@ h6, .h6 {
 }
 
 .small-bar {
-    min-width: 12.5rem;
+    /* min-width: 12.5rem; */
+    background: var(--bg-color);
+    border-radius: 10px;
+    z-index: 3;
 }
 
 @media only screen and (max-width: 975px) {
@@ -599,6 +602,7 @@ h6, .h6 {
 .grid-container {
     display: grid;
     height: 100%;
+    grid-template-columns: 12.5rem 1fr;
     gap: 1rem;
     padding: 1rem 1rem;
     background-color: var(--elevation-color);
@@ -606,6 +610,13 @@ h6, .h6 {
     box-shadow: 0 .1em .2rem .1rem var(--elevation-shadow-color);
     overflow: hidden;
     backdrop-filter: blur(.5rem);
+}
+
+@media only screen and (max-width: 975px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
 }
 
 /* @Table */

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const part_three = () => {
+const eInvoice = () => {
 
   const cardsTitles = ["Available for download"]
 
@@ -20,4 +20,4 @@ const part_three = () => {
   )
 }
 
-export default part_three
+export default eInvoice

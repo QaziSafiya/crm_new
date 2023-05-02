@@ -318,7 +318,7 @@ a, a:hover {
 }
 
 .min-w {
-  min-width: (--var, 25rem);
+  min-width: var(--var, 25rem);
 }
 
 .w-max-content {

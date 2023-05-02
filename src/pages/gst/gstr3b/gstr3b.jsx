@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Steps from "../gstrStep";
+import React, { useState } from "react";
 import Table_3_1 from "../../../components/gstr/gstr3b/Table_3_1";
 import Table_3_1_1 from "../../../components/gstr/gstr3b/Table_3_1_1";
 import Table_3_2 from "../../../components/gstr/gstr3b/Table_3_2";
@@ -9,21 +8,8 @@ import Table_5 from "../../../components/gstr/gstr3b/Table_5";
 import Table_6_1 from "../../../components/gstr/gstr3b/Table_6_1";
 
 const gstr3b = () => {
-  // const [section, setSection] = useState(sectionList[0]);
 
   const [activeSection, setActiveSection] = useState(null);
-
-  // function activeTab() {
-  //   if (section === sectionList[1]) {
-  //     return <Part_two setSection={setSection} />;
-  //   } else if (section === sectionList[2]) {
-  //     return <Part_three setSection={setSection} />;
-  //   } else {
-  //     return <Part_one setSection={setSection} />;
-  //   }
-  // }
-
-  // const border = "columns-2-link-active-2";
 
   const activeWindow = () => {
     switch (activeSection) {
@@ -66,17 +52,10 @@ const gstr3b = () => {
         ) : (
           activeWindow()
         )}
-        {/* {activeTab()} */}
       </div>
     </>
   );
 };
-
-// const sectionList = [
-//   "Add record details",
-//   "Amend record details",
-//   "E-invoice download history",
-// ];
 
 const cardsTitles = [
   "3.1 Tax on outward and reverse changes inward supplies",

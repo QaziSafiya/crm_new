@@ -288,8 +288,8 @@ export default function GSTR1() {
 
                 {type === "regular" ? (
                   <div
-                    className="flex separater dir-col g-2rem margin-y"
-                    style={{ "--margin-y": ".75rem" }}
+                    className="flex separater text-small dir-col gap"
+                    style={{ "--gap": "1.65rem" }}
                   >
                     <div className="flex jc-between ai-center g-1rem | not-p">
                       <Link
@@ -347,10 +347,10 @@ export default function GSTR1() {
                   </div>
                 ) : (
                   <div
-                    className="flex separater dir-col g-2rem margin-y"
-                    style={{ "--margin-y": ".25rem" }}
+                    className="flex separater text-small dir-col gap"
+                    style={{ "--gap": "1.7rem" }}
                   >
-                    <div className="flex jc-between ai-center g-1rem">
+                    <div className="flex jc-between ai-center g-1rem not-p">
                       <Link
                         to="/gst/outward-supplies"
                         className="button is-primary is-small has-icon flex-1"
@@ -361,7 +361,7 @@ export default function GSTR1() {
                       </Link>
                       <span className="text-bold">(A)</span>
                     </div>
-                    <div className="flex jc-between ai-center g-1rem">
+                    <div className="flex jc-between ai-center g-1rem not-p">
                       <Link
                         to="/gst/inward-supplies"
                         className="button is-primary is-small has-icon flex-1"
@@ -638,7 +638,7 @@ export default function GSTR1() {
                   </table>
                 </div>
                 <div className="flex p-1rem jc-between">
-                  <div className="flex g-1rem flex-wrap">
+                  <div className="flex w-100pc g-1rem jc-end flex-wrap">
                     <Link
                       to="/gst/gstr/ledger"
                       className="button is-primary is-small has-icon"
@@ -658,11 +658,11 @@ export default function GSTR1() {
                       <FileTransferIcon />
                       File Return
                     </button>
-                  </div>
                   <button className="button is-primary has-icon is-small">
                     <CheckCircleIcon />
                     Pay Tax
                   </button>
+                  </div>
                 </div>
               </div>
             </div>

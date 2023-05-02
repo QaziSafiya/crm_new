@@ -32,16 +32,15 @@ const FileReturn = () => {
       <div className="main">
         <Topbar />
         <div className="inner-container">
-          <div className="grid-container">
-            <div className="p" style={{ position: "absolute", zIndex: "1" }}>
+            <div style={{ zIndex: "2" }}>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="button mobile-only icon-button secondary-icon small"
+                className=" button mobile-only icon-button secondary-icon small"
               >
                 <MenuIcon />
               </button>
             </div>
-            <div className="flex">
+          <div className="grid-container">
               <nav
                 className={`small-bar ${isOpen ? "open" : ""} py`}
                 style={{ "--py": "5rem" }}
@@ -54,8 +53,7 @@ const FileReturn = () => {
                   border={border}
                 />
               </nav>
-              <div className="">{activePage()}</div>
-            </div>
+              <div>{activePage()}</div>
           </div>
         </div>
       </div>
