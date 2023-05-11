@@ -35,7 +35,7 @@ export default function StoreProvider({ children }) {
         },
         gstr: {
             mode: "offline",
-            gstrObj: {},
+            gstrObj: [{}],
         }
     };
 

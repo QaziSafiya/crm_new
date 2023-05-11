@@ -59,7 +59,7 @@ export default function reducer(state, { type, payload }) {
             return { ...state, gstr:{ mode: payload }};
 
         case GSTR_OBJ: 
-            return {...state, gstr:{...state.gstr, gstrObj: payload}}
+            return {...state, gstr: {...state.gstr, gstrObj: payload}}
         default:
             return state;
     }
