@@ -15,7 +15,7 @@ export default function useDashboard() {
         }
 
         try {
-            const res = await fetch(`${BASE_URL}/cms/get-user-count`);
+            const res = await fetch(`${BASE_URL}/cms/total-users`);
             const { count } = await res.json();
 
             const data = {
@@ -26,7 +26,7 @@ export default function useDashboard() {
                 type: SET_DASHBOARD_DATA,
                 payload: data
             });
-
+            
             setData(data);
         } catch(e) {
             console.error(e);

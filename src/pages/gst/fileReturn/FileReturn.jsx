@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Topbar from "../../../components/Topbar";
 import Steps from "../gstrStep";
-import Gstr1 from "../gstr1/Gstr1";
-import Gstr2a from "../gstr2a/Gstr2a";
-import Gstr3b from "../gstr3b/Gstr3b";
+// import Gstr1 from "../gstr1/Gstr1";
+// import Gstr2a from "../gstr2a/Gstr2a";
+// import Gstr3b from "../gstr3b/Gstr3b";
 import MenuIcon from "../../../components/icons/MenuIcon";
 import { StoreContext } from "../../../store/store-context";
 import { GSTR_MODE } from "../../../store/actions";
@@ -20,8 +20,8 @@ const FileReturn = () => {
 
   const activePage = () => {
     switch (active) {
-      case "GSTR1":
-        return <Gstr1 />;
+      // case "GSTR1":
+      //   return <Gstr1 />;
       case "GSTR2A":
         return <Gstr2a />;
       case "GSTR3B":

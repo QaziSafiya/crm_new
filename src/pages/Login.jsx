@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 import CloseCircleIcon from "../components/icons/CloseCircleIcon.jsx";
 import useAuth from "../hooks/useAuth.js"
-import { signIn, signInWithEmail, verifyEmail } from "../services/auth.js";
+import { signInWithEmail, verifyEmail } from "../services/auth.js";
 import { AUTH_USER } from "../store/actions.js";
 import { StoreContext } from "../store/store-context.js";
 
@@ -46,13 +46,13 @@ export default function Login() {
                 password,
             };
 
-            const { data: { otp_id }, status } = await signInWithEmail(info);
+            const { success, message, otp_key } = await signInWithEmail(info);
 
-            if(status !== 'Success') {
-                throw new Error('Some error occured.');
+            if(!success) {
+                throw new Error(message);
             }
 
-            setOtpId(otp_id);
+            setOtpId(otp_key);
 
             otpFormRef.current.scrollIntoView({
                 behavior: 'smooth',
@@ -85,7 +85,7 @@ export default function Login() {
                 throw new Error('Some error occured.');
             }
 
-            const userProfileRequest = await fetch(`${BASE_URL}/users/getProfile`, {
+            const userProfileRequest = await fetch(`${BASE_URL}/user/profile/${data.id}`, {
                 headers: new Headers({
                     'Authorization': `Basic ${token}`,
                 }),

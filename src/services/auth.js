@@ -1,39 +1,17 @@
 import { BASE_URL } from "../constants.js";
 import axios from "axios";
-const AUTH_API_URL = `${BASE_URL}/users/login`;
-
-export async function signIn(data) {
-    const response = await fetch(
-        AUTH_API_URL, 
-        {
-            method: 'POST',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            }),
-            body: JSON.stringify(data),
-        }
-    );
-
-    const { status, results, message } = await response.json();
-
-    if(status === 'failed') {
-        throw new Error(message);
-    }
-
-    return results;
-};
-
+const AUTH_API_URL = `${BASE_URL}/user/login`;
 
 export async function verifyEmail({ otpId, otp, email }) {
     const response = await fetch(
-        `${BASE_URL}/users/verify-email`, 
+        `${BASE_URL}/user/verify`, 
         {
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
             }),
             body: JSON.stringify({
-                verification_key: otpId,
+                otp_key: otpId,
                 otp,
                 email,
             }),
@@ -46,14 +24,14 @@ export async function verifyEmail({ otpId, otp, email }) {
         throw new Error(result.message);
     }
 
-    const { results: { data, token, } } = result;
+    const { success, data, token, } = result;
 
-    return { data, token, success: true };
+    return { success, data, token };
 };
 
 export async function signInWithEmail(credentials) {
     const response = await fetch(
-        `${BASE_URL}/users/email-login`, 
+        AUTH_API_URL, 
         {
             method: 'POST',
             headers: new Headers({
@@ -63,11 +41,11 @@ export async function signInWithEmail(credentials) {
         }
     );
 
-    const { status, data, message } = await response.json();
+    const { success, otp_key, message } = await response.json();
 
-    if(status !== 'Success') {
+    if(!success) {
         throw new Error(message);
     }
 
-    return { status, data };
+    return { success, otp_key, email: credentials.email };
 };

@@ -8,10 +8,10 @@ export default function useHomescreen() {
     
     const fetchHomescreen = async () => {
         try {
-            const res = await fetch(`${BASE_URL}/cms/getHomeScreen`);
-            const { status, data } = await res.json();
+            const res = await fetch(`${BASE_URL}/cms/homescreen`);
+            const { success, data } = await res.json();
 
-            if(status !== 'success') {
+            if(!success) {
                 throw new Error('Could not fetch homescreen');
             }
             
