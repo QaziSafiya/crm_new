@@ -87,7 +87,7 @@ export default function Sidebar({ open }) {
               />
             </Menu>
           </ProtectedMenu>
-          {["normal", "developer"].includes(state.auth.currentUser.userType) ? (
+          {["normal", "developer"].includes(state.auth.currentUser.user.userType) ? (
             <>
               <Menu icon={<UserIcon />} title="My Account">
                 <SideNavLink

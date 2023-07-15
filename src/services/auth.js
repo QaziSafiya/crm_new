@@ -1,5 +1,4 @@
 import { BASE_URL } from "../constants.js";
-import axios from "axios";
 const AUTH_API_URL = `${BASE_URL}/user/login`;
 
 export async function verifyEmail({ otpId, otp, email }) {
