@@ -1,0 +1,8 @@
+.btn-container {
+    display: flex;
+    gap: 10px;
+}
+
+.btn1 {
+    background-color: red;
+}

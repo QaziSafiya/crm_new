@@ -94,6 +94,9 @@ export default function Login() {
             const { data: userData = {} } = (await userProfileRequest?.json()) || {};
 
             console.log(data, token);
+            //  localStorage.setItem("itaxToken",JSON.stringify(token))
+            localStorage.setItem("itaxData",JSON.stringify(data))
+
 
             dispatch({
                 type: AUTH_USER,
@@ -126,6 +129,7 @@ export default function Login() {
     if(currentUser) {
         return <Navigate to='/' replace />
     }
+    
 
     return (
         <div className="login-container">

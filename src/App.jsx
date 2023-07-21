@@ -56,6 +56,12 @@ import Orders from './pages/account/Orders.jsx'
 import OrderPayments from './pages/account/Payments.jsx'
 import OrderDetails from './pages/account/OrderDetails.jsx'
 import { useRef } from 'react'
+import CreateLoan from './pages/loan/CreateLoan'
+import ApplyLoan from './pages/loan/ApplyLoan'
+import AllApplicant from './pages/loan/AllApplicant'
+import ChooseInsurance from './pages/Insurance/ChooseInsurance'
+import InsForm from './pages/Insurance/InsForm'
+import InsuranceData from './pages/Admin/InsuranceData'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -205,6 +211,21 @@ function App() {
               <ApplyForLoan />
             </PrivateRoute>
           } />
+          <Route path='/loan/apply-loan' element={
+            <PrivateRoute>
+              <ApplyLoan />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/all' element={
+            <PrivateRoute>
+              <AllApplicant />
+            </PrivateRoute>
+          } />
+           <Route path='/loan/create' element={
+            <PrivateRoute>
+              <CreateLoan />
+            </PrivateRoute>
+          } />
           <Route path='/loan/l/:id' element={
             <PrivateRoute>
               <LoanDetails />
@@ -215,6 +236,30 @@ function App() {
               <Orders />
             </PrivateRoute>
           } />
+          <Route
+            path="/insurance"
+            element={
+              <PrivateRoute>
+                <ChooseInsurance />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/insurance/form"
+            element={
+              <PrivateRoute>
+                <InsForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin/insurance"
+            element={
+              <PrivateRoute>
+                <InsuranceData />
+              </PrivateRoute>
+            }
+          />
           <Route path='/order/:id' element={
             <PrivateRoute>
               <OrderDetails />

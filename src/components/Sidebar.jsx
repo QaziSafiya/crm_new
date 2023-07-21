@@ -32,6 +32,7 @@ import EditIcon from "./icons/EditIcon.jsx";
 import BarGraphIcon from "./icons/BarGraphIcon.jsx";
 import PercentageIcon from "./icons/PercentageIcon.jsx";
 import { useEffect } from "react";
+import HandshakeIcon from "./icons/HandshakeIcon.jsx";
 
 export default function Sidebar({ open }) {
   const [state, dispatch] = useContext(StoreContext);
@@ -66,7 +67,7 @@ export default function Sidebar({ open }) {
             <ArrowLeftIcon />
           </button>
           <Link to="/" className="mx-auto">
-            <img src={Icon} height={32} alt="iTaxEasy" />
+          <img src={Icon} className="h-8" alt="iTaxEasy" />
           </Link>
           <div className="icon-box"></div>
         </div>
@@ -142,6 +143,11 @@ export default function Sidebar({ open }) {
             withToken
           />
           <Menu icon={<RupeeIcon />} title="Finance">
+          <SideNavLink
+              icon={<HandshakeIcon />}
+              to="/insurance"
+              title="Insurance"
+            />
             <SideNavLink icon={<BankIcon />} to="/loan" title="Loan" />
             <SideNavLink
               icon={<ArrowLeftIcon />}
@@ -215,6 +221,15 @@ export default function Sidebar({ open }) {
                 title="e-library"
               />
               <SideNavLink icon={<GlobeIcon />} to="/career" title="Career" />
+            </Menu>
+          </ProtectedMenu>
+          <ProtectedMenu>
+            <Menu icon={<AccountIcon />} title="Admin">
+              <SideNavLink
+                icon={<GlobeIcon />}
+                to="/admin/insurance"
+                title="Insourance"
+              />
             </Menu>
           </ProtectedMenu>
           <Menu icon={<SettingsIcon />} title="Settings">
