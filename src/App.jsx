@@ -37,8 +37,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import UpdatePost from './pages/blog/UpdatePost.jsx'
 import Post from './pages/blog/Post.jsx'
 import Ledger from './pages/gst/gstr/ledger.jsx'
-import InwardSupplies from './pages/gst/inward.jsx'
-import OutwardSupplies from './pages/gst/outward.jsx'
+// import InwardSupplies from './pages/gst/inward.jsx'
+import InwardSupplies from './pages/gst-new/InwardSupplies'
+// import OutwardSupplies from './pages/gst/outward.jsx'
+import OutwardSupplies from './pages/gst-new/OutwardSupplies'
 import AllServices from './pages/services/AllServices'
 import AddService from './pages/services/add-service.jsx'
 import UpdateService from './pages/services/update-service.jsx'
@@ -62,6 +64,7 @@ import AllApplicant from './pages/loan/AllApplicant'
 import ChooseInsurance from './pages/Insurance/ChooseInsurance'
 import InsForm from './pages/Insurance/InsForm'
 import InsuranceData from './pages/Admin/InsuranceData'
+import Gstr from './pages/gst-new/Gstr'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -347,7 +350,8 @@ function App() {
           } />
           <Route path='/gst/gstr' element={
             <PrivateRoute>
-              <GSTR />
+              {/* <GSTR /> */}
+              <Gstr />
             </PrivateRoute>
           } />
           <Route path='/gst/gstr1' element={
@@ -379,11 +383,13 @@ function App() {
           } />
           <Route path='/gst/inward-supplies' element={
             <PrivateRoute>
+              {/* <InwardSupplies /> */}
               <InwardSupplies />
             </PrivateRoute>
           } />
           <Route path='/gst/outward-supplies' element={
             <PrivateRoute>
+              {/* <OutwardSupplies /> */}
               <OutwardSupplies />
             </PrivateRoute>
           } />

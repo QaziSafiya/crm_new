@@ -1,0 +1,21 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+
+  .inner-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Small screens */
+  @media screen and (max-width: 600px) {
+    .flex {
+      flex-direction: column;
+    }
+
+    .border-2 {
+      width: 100%;
+    }
+    
+  }
