@@ -389,8 +389,8 @@ function App() {
           } />
           <Route path='/gst/outward-supplies' element={
             <PrivateRoute>
-              {/* <OutwardSupplies /> */}
               <OutwardSupplies />
+              {/* <OutwardSupplies /> */}
             </PrivateRoute>
           } />
           <Route path='/project-report' element={
