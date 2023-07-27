@@ -33,6 +33,8 @@ import BarGraphIcon from "./icons/BarGraphIcon.jsx";
 import PercentageIcon from "./icons/PercentageIcon.jsx";
 import { useEffect } from "react";
 import HandshakeIcon from "./icons/HandshakeIcon.jsx";
+import MenuIcon from "./icons/MenuIcon.jsx";
+import FileTransferIcon from "./icons/FileTransferIcon.jsx";
 
 export default function Sidebar({ open }) {
   const [state, dispatch] = useContext(StoreContext);
@@ -135,13 +137,34 @@ export default function Sidebar({ open }) {
             <SideNavLink icon={<GlobeIcon />} to="/" title="Profit" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Loss" />
           </Menu>
-          <SideNavLink
+          {/* <SideNavLink
             icon={<BillIcon />}
-            to="/"
+            to="/invoice"
             title="Invoice"
             external
             withToken
-          />
+          /> */}
+          <Menu icon={<BillIcon />} title="Invoice">
+          <SideNavLink
+              icon={<HandshakeIcon />}
+              to="/invoice"
+              title="Invoice"
+            />
+             <SideNavLink
+              icon={<UserIcon />}
+              to="/invoice/addparty"
+              title="Add Party"
+            />
+             <SideNavLink
+              icon={<FileTransferIcon />}
+              to="/invoice/createitem"
+              title="Add Item"
+            />
+            </Menu>
+
+            
+         
+           
           <Menu icon={<RupeeIcon />} title="Finance">
           <SideNavLink
               icon={<HandshakeIcon />}

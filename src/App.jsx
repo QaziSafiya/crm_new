@@ -65,6 +65,13 @@ import ChooseInsurance from './pages/Insurance/ChooseInsurance'
 import InsForm from './pages/Insurance/InsForm'
 import InsuranceData from './pages/Admin/InsuranceData'
 import Gstr from './pages/gst-new/Gstr'
+import HomeInvoice from './pages/Invoice/home.jsx'
+import AddParty from './pages/Invoice/add-party'
+import AddItem from './pages/Invoice/add-item'
+import PartyDetails from './pages/Invoice/Lists/PartyDetails'
+import PartyDetailsPage from './pages/Invoice/Lists/PartyDetailsPage'
+import ItemDetailsPage from './pages/Invoice/Lists/ItemDetailsPage'
+import InvoiceDetailsPage from './pages/Invoice/Lists/InvoiceDetailsPage'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -202,6 +209,36 @@ function App() {
           <Route path='/settings/change-password' element={
             <PrivateRoute>
               <ChangePassword />
+            </PrivateRoute>
+          } />
+           <Route path='/invoice' element={
+            <PrivateRoute>
+              <HomeInvoice />
+            </PrivateRoute>
+          } />
+           <Route path='/invoice/invoices/:id' element={
+            <PrivateRoute>
+              <InvoiceDetailsPage />
+            </PrivateRoute>
+          } />
+           <Route path='/invoice/addparty' element={
+            <PrivateRoute>
+              <AddParty  />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/addparty/:id' element={
+            <PrivateRoute>
+              <PartyDetailsPage />
+            </PrivateRoute>
+          } />
+           <Route path='/invoice/createitem' element={
+            <PrivateRoute>
+              <AddItem />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/createitem/:id' element={
+            <PrivateRoute>
+              <ItemDetailsPage />
             </PrivateRoute>
           } />
           <Route path='/loan' element={
