@@ -5,7 +5,7 @@ import { BASE_URL } from "../../../constants";
 import { Link } from "react-router-dom";
 import ViewIcon from "../../../components/icons/ViewIcon";
 
-const PartyList = () => {
+const CustomerList = () => {
   const [parties, setParties] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const PartyList = () => {
 
       if (response.status === 200) {
         let filtered=response.data.parties.filter((el)=>{
-          return el.type=="supplier"
+          return el.type=="customer"
         })
         setParties(filtered);
       }
@@ -55,7 +55,7 @@ const PartyList = () => {
 
   return (
     <div className="w-full mt-16">
-      <h1 className="text-secondary font-bold mb-4">All Suppliers</h1>
+      <h1 className="text-secondary font-bold mb-4">All Customers</h1>
       <div className="pt-10">
         {parties.length === 0 ? (
           <div className="text-center text-gray-500">
@@ -110,4 +110,4 @@ const PartyList = () => {
   );
 };
 
-export default PartyList;
+export default CustomerList;

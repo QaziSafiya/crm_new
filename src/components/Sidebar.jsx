@@ -148,7 +148,7 @@ export default function Sidebar({ open }) {
           <SideNavLink
               icon={<HandshakeIcon />}
               to="/invoice"
-              title="Invoice"
+              title="Dashboard"
             />
              <SideNavLink
               icon={<UserIcon />}

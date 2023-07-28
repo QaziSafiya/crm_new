@@ -65,7 +65,7 @@ const handleClick = () => {
   });
 };
 
-const storedData = JSON.parse(localStorage.getItem("itaxData"));
+// const storedData = JSON.parse(localStorage.getItem("itaxData"));
 // console.log(storedData.user.userType)
 //   let user=storedData.user.userType
 //  console.log(token.data.token)

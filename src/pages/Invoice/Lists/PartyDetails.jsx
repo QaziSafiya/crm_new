@@ -1,10 +1,9 @@
 import React from 'react';
 import PartyDelete from '../deleteComp/PartyDelete';
 
-const PartyDetails = ({ party,onDelete }) => {
-  const handleDelete = () => {
-    onDelete(party.id); // Pass the invoice id to the parent component for updating the list
-  };
+const PartyDetails = ({ party }) => {
+  
+  
   return (
     <div className="p-4 bg-white rounded shadow mb-4">
       <h2 className="text-2xl font-bold mb-2">{party.partyName}</h2>
@@ -23,9 +22,7 @@ const PartyDetails = ({ party,onDelete }) => {
       </div>
       <p className="text-gray-500 mt-4">Updated At: {party.updatedAt}</p>
       {/* Add more party details as needed */}
-      <div>
-      <PartyDelete itemId={party.id} onDelete={handleDelete} />
-      </div>
+      
     </div>
   );
 };

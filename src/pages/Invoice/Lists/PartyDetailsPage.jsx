@@ -18,7 +18,7 @@ const PartyDetailsPage = () => {
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiSGFyc2giLCJsYXN0TmFtZSI6IlNpbmdoIiwiYWRkcmVzcyI6bnVsbCwiYWFkaGFhciI6bnVsbCwicGFuIjpudWxsLCJlbWFpbCI6ImhhcnNoc2luZ2guanNAZ21haWwuY29tIiwicGhvbmUiOiI3NjUyMDM1MTUyIiwidXNlclR5cGUiOiJhZG1pbiIsInZlcmlmaWVkIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDIzLTA3LTEzVDEzOjQzOjExLjE1N1oiLCJpYXQiOjE2ODk0MDM1NjQsImV4cCI6MTcyMDk2MTE2NCwiaXNzIjoiaVRheEVhc3kifQ.Ol-SkcIFpxrLKDjuF3jJqJw6S18zIrcp4ftKDQtq0VM`,
+          Authorization: `Bearer ${token.token}`,
         },
       });
 
@@ -33,13 +33,10 @@ const PartyDetailsPage = () => {
       console.error(error);
     }
   };
-  const handleDeleteInvoice = (deletedInvoiceId) => {
-       console.log(deletedInvoiceId)
-    setInvoices((prevInvoices) =>
-      prevInvoices.filter((invoice) => invoice.id !== deletedInvoiceId)
-    );
-  };
+ 
 
+
+  
   useEffect(() => {
     getPartyById();
   }, [id]);
@@ -51,7 +48,7 @@ const PartyDetailsPage = () => {
         <Topbar />
         <div className="inner-container w-full">
     <div className="container mx-auto p-4">
-      {party ? <PartyDetails party={party}  onDelete={handleDeleteInvoice}/> : <p>Loading...</p>}
+      {party ? <PartyDetails party={party}  /> : <p>Loading...</p>}
     </div>
     </div>
     </div>

@@ -8,6 +8,7 @@ import ArrowRightIcon from "../../components/icons/ArrowRightIcon";
 import { AiFillCaretRight, AiOutlineRight } from "react-icons/ai";
 import AddCircleIcon from "../../components/icons/AddCircleIcon";
 import { BASE_URL } from "../../constants.js";
+import BillingPeriodSelect from "./BillingPeriodSelect";
 
 
 const initialFormData = {
@@ -33,6 +34,11 @@ const initialFormData = {
 export default function HomeInvoice() {
   const [formData, setFormData] = useState(initialFormData);
   const [showForm, setShowForm] = useState(false);
+  const [billingPeriod, setBillingPeriod] = useState('month');
+
+  const handleBillingPeriodChange = (e) => {
+    setBillingPeriod(e.target.value);
+  };
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -99,6 +105,9 @@ export default function HomeInvoice() {
     setShowForm(true);
   };
 
+  let businessName  = JSON.parse(localStorage.getItem("itaxData"));
+    
+
   return (
     <div className="container">
       <Sidebar />
@@ -107,8 +116,15 @@ export default function HomeInvoice() {
         <div className="inner-container">
         { !showForm && (<h6 className="text-secondary font-bold">Invoice Dashboard</h6>)}
          
-          <div className="grid justify-items-end mb-0">
+          <div className="flex justify-between mb-0">
+           
+          { !showForm &&   <div className="p-4 bg-white rounded shadow mb-4 w-52">
+            <p>Business Name</p>
+      <h2 className="text-lg font-bold mb-2">{`${businessName.user.firstName} ${businessName.user.lastName}`}</h2>
+      {/* Add additional information or functionality related to the business name block */}
+    </div>}
 
+       <div>
           {!showForm && (
          
            
@@ -124,6 +140,15 @@ export default function HomeInvoice() {
             
           )}
           </div>
+          </div>
+
+         
+
+          <div className="w-28">
+          { !showForm && (<BillingPeriodSelect billingPeriod={billingPeriod} onChange={handleBillingPeriodChange} />)}
+          </div>
+
+         
 
           <div className="mt-5">
             {!showForm && <div className="flex gap-2 items-center justify-center">
@@ -186,10 +211,11 @@ export default function HomeInvoice() {
           <div className="flex items-center justify-center mt-2">
             {!showForm && <InvoicesList />}
           </div>
-
+          
+          
           {showForm && (
-            <div>
-              <h2 className="text-secondary font-bold mb-5">Invoice Form</h2>
+            <div className="p-8 bg-white rounded shadow-lg">
+              <h2 className="text-2xl font-bold text-secondary mb-6">Invoice Form</h2>
               <form onSubmit={handleSubmit} className="w-full">
                 {/* Form fields go here */}
                 <div className="grid grid-cols-2 gap-4">
@@ -206,7 +232,7 @@ export default function HomeInvoice() {
                       name="invoiceNumber"
                       value={formData.invoiceNumber}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -224,7 +250,7 @@ export default function HomeInvoice() {
                       name="type"
                       value={formData.type}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -242,7 +268,7 @@ export default function HomeInvoice() {
                       name="partyId"
                       value={formData.partyId}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -260,7 +286,7 @@ export default function HomeInvoice() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -278,7 +304,7 @@ export default function HomeInvoice() {
                       name="partyName"
                       value={formData.partyName}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -296,7 +322,7 @@ export default function HomeInvoice() {
                       name="totalAmount"
                       value={formData.totalAmount}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -314,7 +340,7 @@ export default function HomeInvoice() {
                       name="totalGst"
                       value={formData.totalGst}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -332,7 +358,7 @@ export default function HomeInvoice() {
                       name="stateOfSupply"
                       value={formData.stateOfSupply}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -350,7 +376,7 @@ export default function HomeInvoice() {
                       name="cgst"
                       value={formData.cgst}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -368,7 +394,7 @@ export default function HomeInvoice() {
                       name="sgst"
                       value={formData.sgst}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -386,7 +412,7 @@ export default function HomeInvoice() {
                       name="igst"
                       value={formData.igst}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -404,7 +430,7 @@ export default function HomeInvoice() {
                       name="utgst"
                       value={formData.utgst}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -422,7 +448,7 @@ export default function HomeInvoice() {
                       name="details"
                       value={formData.details}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -440,7 +466,7 @@ export default function HomeInvoice() {
                       name="extraDetails"
                       value={formData.extraDetails}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -458,7 +484,7 @@ export default function HomeInvoice() {
                       name="items"
                       value={formData.items[0].itemId}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>
@@ -476,7 +502,7 @@ export default function HomeInvoice() {
                       name="userId"
                       value={formData.userId}
                       onChange={handleChange}
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       required
                     />
                   </div>

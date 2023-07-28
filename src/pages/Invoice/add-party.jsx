@@ -3,6 +3,7 @@ import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants";
 import PartyList from "./Lists/PartyList";
+import CustomerList from "./Lists/CustomerList";
 
 // const ENDPOINT = `https://mom.itaxeasy.com/api/gsp/search/gstin`;
 
@@ -37,12 +38,12 @@ export default function AddParty() {
     console.log(formData);
     let token = JSON.parse(localStorage.getItem("itaxData"));
     console.log(token.token);
-  
+
     // Replace 'your-api-endpoint' with your actual API endpoint
     await fetch(`${BASE_URL}/invoice/parties`, {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token.token}`,
       },
       body: rawData,
@@ -69,24 +70,29 @@ export default function AddParty() {
         <Topbar />
         <div className="inner-container w-full">
           <div className="flex justify-between item-center pt-4">
-        { !showForm && (<h6 className="text-secondary font-bold">Add New Party</h6>)}
-        <div className="grid justify-items-end mb-0 p-4">
-          {!showForm && (
-            <button
-              onClick={handleAddPartyClick}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 "
-            >
-              Add Party
-            </button>
-          )}
-         </div>
-         </div>
+            {!showForm && (
+              <h6 className="text-secondary font-bold">Add New Party</h6>
+            )}
+            <div className="grid justify-items-end mb-0 p-4">
+              {!showForm && (
+                <button
+                  onClick={handleAddPartyClick}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 "
+                >
+                  Add Party
+                </button>
+              )}
+            </div>
+          </div>
           <div className="flex items-center justify-center mt-1">
             {!showForm && <PartyList />}
           </div>
+          <div>
+          {!showForm && <CustomerList />}
+          </div>
           {showForm && (
-            <>
-              <h1 className="text-secondary font-bold">Add Parties</h1>
+            <div className="p-8 bg-white rounded shadow-lg">
+              <h1 className="text-2xl font-bold text-secondary mb-6">Add Parties</h1>
               <form onSubmit={handleSubmit} className="w-full">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="col-span-2 sm:col-span-1">
@@ -97,7 +103,7 @@ export default function AddParty() {
                       Party Name
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="partyName"
                       name="partyName"
                       type="text"
@@ -113,15 +119,18 @@ export default function AddParty() {
                     >
                       Type
                     </label>
-                    <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                    <select
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="type"
                       name="type"
-                      type="text"
                       value={formData.type}
                       onChange={handleChange}
                       required
-                    />
+                    >
+                      <option value="">Select Type</option>
+                      <option value="supplier">Supplier</option>
+                      <option value="customer">Customer</option>
+                    </select>
                   </div>
                   <div className="col-span-2 sm:col-span-1">
                     <label
@@ -131,7 +140,7 @@ export default function AddParty() {
                       GSTIN No.
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="gstin"
                       name="gstin"
                       type="text"
@@ -148,7 +157,7 @@ export default function AddParty() {
                       PAN
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="pan"
                       name="pan"
                       type="text"
@@ -165,7 +174,7 @@ export default function AddParty() {
                       UPI
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="upi"
                       name="upi"
                       type="text"
@@ -182,7 +191,7 @@ export default function AddParty() {
                       Email
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="email"
                       name="email"
                       type="email"
@@ -199,7 +208,7 @@ export default function AddParty() {
                       Phone
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="phone"
                       name="phone"
                       type="text"
@@ -216,7 +225,7 @@ export default function AddParty() {
                       Address
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="address"
                       name="address"
                       type="text"
@@ -233,7 +242,7 @@ export default function AddParty() {
                       Bank Name
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="bankName"
                       name="bankName"
                       type="text"
@@ -250,7 +259,7 @@ export default function AddParty() {
                       Bank Account Number
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="bankAccountNumber"
                       name="bankAccountNumber"
                       type="text"
@@ -267,7 +276,7 @@ export default function AddParty() {
                       Bank IFSC No.
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="bankIfsc"
                       name="bankIfsc"
                       type="text"
@@ -284,7 +293,7 @@ export default function AddParty() {
                       Bank Branch
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg"
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
                       id="bankBranch"
                       name="bankBranch"
                       type="text"
@@ -303,7 +312,7 @@ export default function AddParty() {
                   </button>
                 </div>
               </form>
-            </>
+            </div>
           )}
         </div>
       </div>
