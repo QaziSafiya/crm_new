@@ -1,4 +1,4 @@
-import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT, GSTR_MODE, GSTR_OBJ} from "./actions.js";
+import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT, GSTR_MODE, GSTR_OBJ, PDF_DOC_INVOICE} from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     console.log(type, payload);
@@ -60,6 +60,16 @@ export default function reducer(state, { type, payload }) {
 
         case GSTR_OBJ: 
             return {...state, gstr: {...state.gstr, gstrObj: payload}}
+            case PDF_DOC_INVOICE:
+      return {
+        ...state,
+        pdfDoc: {
+          title: payload.title,
+          column: payload.column,
+          data: payload.data,
+          generalData:payload.generalData,
+        },
+      };
         default:
             return state;
     }

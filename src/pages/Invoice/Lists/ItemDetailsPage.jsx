@@ -34,6 +34,31 @@ const ItemDetailsPage = () => {
     }
   };
 
+  const handleItemEdit = async (editedItem) => {
+    try {
+      let token = JSON.parse(localStorage.getItem('itaxData'));
+
+      const response = await fetch(`${BASE_URL}/invoice/items/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token.token}`,
+        },
+        body: JSON.stringify(editedItem),
+      });
+
+      if (response.ok) {
+        // Item successfully updated, you may want to display a success message or perform any other action.
+        console.log('Item updated successfully');
+        setItem(editedItem); // Update the local item state with the edited item data.
+      } else {
+        console.error('Failed to update item');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     getItemById();
   }, [id]);
@@ -44,17 +69,17 @@ const ItemDetailsPage = () => {
       <div className="main">
         <Topbar />
         <div className="inner-container w-full">
-    <div className="container mx-auto p-4">
-      {item ? (
-        <div className="p-4 bg-white rounded shadow">
-          <ItemDetails item={item} />
+          <div className="container mx-auto p-4">
+            {item ? (
+              <div className="p-4 bg-white rounded shadow">
+                <ItemDetails item={item} onEdit={handleItemEdit} />
+              </div>
+            ) : (
+              <p className="text-center text-gray-600">Loading...</p>
+            )}
+          </div>
         </div>
-      ) : (
-        <p className="text-center text-gray-600">Loading...</p>
-      )}
-    </div>
-    </div>
-    </div>
+      </div>
     </div>
   );
 };

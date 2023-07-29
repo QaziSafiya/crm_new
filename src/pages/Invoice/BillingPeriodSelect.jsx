@@ -14,6 +14,7 @@ const BillingPeriodSelect = ({ billingPeriod, onChange }) => {
         className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-400"
       >
         <option value="day">Day</option>
+        <option value="week">Week</option>
         <option value="month">Month</option>
         <option value="year">Year</option>
       </select>

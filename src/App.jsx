@@ -72,6 +72,11 @@ import PartyDetails from './pages/Invoice/Lists/PartyDetails'
 import PartyDetailsPage from './pages/Invoice/Lists/PartyDetailsPage'
 import ItemDetailsPage from './pages/Invoice/Lists/ItemDetailsPage'
 import InvoiceDetailsPage from './pages/Invoice/Lists/InvoiceDetailsPage'
+import InvoiceForm from './pages/Invoice/forms/InvoiceForm'
+import PartyForm from './pages/Invoice/forms/PartyForm'
+import ItemForm from './pages/Invoice/forms/ItemForm'
+import Show from './pages/Invoice/download/Show'
+import Invoice from './pages/Invoice/download/Invoice'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -216,6 +221,12 @@ function App() {
               <HomeInvoice />
             </PrivateRoute>
           } />
+           <Route path='/invoice/form' element={
+            <PrivateRoute>
+              <InvoiceForm />
+            </PrivateRoute>
+          } />
+
            <Route path='/invoice/invoices/:id' element={
             <PrivateRoute>
               <InvoiceDetailsPage />
@@ -226,6 +237,11 @@ function App() {
               <AddParty  />
             </PrivateRoute>
           } />
+           <Route path='/invoice/addparty/form' element={
+            <PrivateRoute>
+              <PartyForm  />
+            </PrivateRoute>
+          } />
           <Route path='/invoice/addparty/:id' element={
             <PrivateRoute>
               <PartyDetailsPage />
@@ -234,6 +250,17 @@ function App() {
            <Route path='/invoice/createitem' element={
             <PrivateRoute>
               <AddItem />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/createitem/form' element={
+            <PrivateRoute>
+              <ItemForm />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/pdf' element={
+            <PrivateRoute>
+             {/* <Invoice /> */}
+             <Show />
             </PrivateRoute>
           } />
           <Route path='/invoice/createitem/:id' element={
