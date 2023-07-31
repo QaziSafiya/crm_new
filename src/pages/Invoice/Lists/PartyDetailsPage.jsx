@@ -58,7 +58,7 @@ const PartyDetailsPage = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Party details updated:", data.party);
-        setParty(data.party);
+        setParty(data.party); // Update the party details in the state
       } else {
         console.error('Failed to update party details');
       }

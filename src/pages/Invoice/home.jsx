@@ -13,8 +13,6 @@ import InvoiceForm from "./forms/InvoiceForm";
 import { Link } from "react-router-dom";
 import Invoice from "./download/Invoice";
 
-
-
 export default function HomeInvoice() {
   const [showForm, setShowForm] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("day");
@@ -41,7 +39,7 @@ export default function HomeInvoice() {
 
           <div className="flex justify-between mb-0 text-primary">
             {!showForm && (
-              <div className="p-4 bg-white rounded shadow mb-4 w-52">
+              <div className="p-4 rounded shadow mb-4 w-52 bg-blue-500 text-white">
                 <p>Business Name</p>
                 <h2 className="text-lg font-bold mb-2">{`${businessName.user.firstName} ${businessName.user.lastName}`}</h2>
                 {/* Add additional information or functionality related to the business name block */}
@@ -54,32 +52,29 @@ export default function HomeInvoice() {
               </Link>
             </div> */}
 
-<div className="w-28">
-            {!showForm && (
-              <BillingPeriodSelect
-                billingPeriod={billingPeriod}
-                onChange={handleBillingPeriodChange}
-              />
-            )}
-          </div>
-       
+            <div className="w-28">
+              {!showForm && (
+                <BillingPeriodSelect
+                  billingPeriod={billingPeriod}
+                  onChange={handleBillingPeriodChange}
+                />
+              )}
+            </div>
+
             <div>
               {!showForm && (
                 <Link to={`/invoice/form`}>
-                 <button
-  onClick={handleAddPartyClick}
-  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  flex items-center space-x-2"
->
-  <AddCircleIcon />
-  <div>Create Invoice</div>
-</button>
-
+                  <button
+                    onClick={handleAddPartyClick}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline  flex items-center space-x-2"
+                  >
+                    <AddCircleIcon />
+                    <div>Create Invoice</div>
+                  </button>
                 </Link>
               )}
             </div>
           </div>
-
-         
 
           <div className="mt-5">
             {!showForm && (

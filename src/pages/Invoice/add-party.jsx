@@ -27,15 +27,13 @@ export default function AddParty() {
             <div className="grid justify-items-end mb-0 p-4">
               {!showForm && (
                 <Link to={`/invoice/addparty/form`}>
-                <button
-  onClick={handleAddPartyClick}
-  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 flex items-center space-x-2"
->
-  <AddCircleIcon />
-  <span>Add Party</span>
-</button>
-
-
+                  <button
+                    onClick={handleAddPartyClick}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 flex items-center space-x-2"
+                  >
+                    <AddCircleIcon />
+                    <span>Add Party</span>
+                  </button>
                 </Link>
               )}
             </div>

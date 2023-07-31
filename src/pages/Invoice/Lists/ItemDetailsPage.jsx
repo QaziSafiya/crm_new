@@ -69,9 +69,9 @@ const ItemDetailsPage = () => {
       <div className="main">
         <Topbar />
         <div className="inner-container w-full">
-          <div className="container mx-auto p-4">
+          <div className="container mx-auto p-4 w-full">
             {item ? (
-              <div className="p-4 bg-white rounded shadow">
+              <div className="p-4 bg-white rounded shadow w-full">
                 <ItemDetails item={item} onEdit={handleItemEdit} />
               </div>
             ) : (
