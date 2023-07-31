@@ -52,7 +52,7 @@ export default function HomeInvoice() {
               </Link>
             </div> */}
 
-            <div className="w-28">
+            <div className="w-28 ">
               {!showForm && (
                 <BillingPeriodSelect
                   billingPeriod={billingPeriod}
