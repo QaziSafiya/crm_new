@@ -22,16 +22,20 @@ const PartyForm = () => {
   const [fetchData, setFetchData] = useState({});
 
   const [loading, setLoading] = useState(false);
+  const [gstinError, setGstinError] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+
+    // Clear the error message when the user starts typing again
+    setGstinError(null);
   };
 
   useEffect(() => {
-    // Function to fetch GSTIN data
     const fetchGSTINData = async () => {
       try {
         if (formData.gstin) {
@@ -40,25 +44,19 @@ const PartyForm = () => {
             `${MOM_ITAX_URL}/gsp/search/gstin?gstin=${formData.gstin}`
           );
           const data = await response.json();
-          console.log(data.data);
-          setFetchData(data.data);
-          // Update the form data with the fetched data
-          setFormData((prevData) => ({
-            ...prevData,
-            ...data,
-          }));
+          setFetchData(data.data || {});
+          setLoading(false);
+          setGstinError(""); // Clear the error message on successful fetch
         }
       } catch (error) {
         console.error(error);
-        // Handle error if needed
-      } finally {
+        setFetchData({});
         setLoading(false);
+        setGstinError("Please input a valid GSTIN number."); // Set the error message if fetch fails
       }
     };
-
-    // Call the fetchGSTINData function when the GSTIN changes
     fetchGSTINData();
-  }, [formData.gstin]);
+  }, [formData.gstin]);;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -89,7 +87,6 @@ const PartyForm = () => {
 
   console.log(fetchData);
   return (
-    // ... your existing JSX code
     <div className="container">
       <Sidebar />
       <div className="main">
@@ -101,24 +98,40 @@ const PartyForm = () => {
             </h1>
             <form onSubmit={handleSubmit} className="w-full">
               <div className="grid grid-cols-2 gap-4">
-
               <div className="col-span-2 sm:col-span-1">
+        <label className="block text-sm font-bold text-gray-700 mb-2" htmlFor="gstin">
+          GSTIN No.
+        </label>
+        <input
+          className={`w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 ${
+            gstinError ? "border-red-500" : ""
+          }`}
+          id="gstin"
+          name="gstin"
+          type="text"
+          value={formData.gstin}
+          onChange={handleChange}
+          required
+        />
+        {gstinError && <p className="text-red-500">{gstinError}</p>}
+        {loading && <div>Loading...</div>}
+      </div>
+                <div className="col-span-2 sm:col-span-1">
                   <label
                     className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="gstin"
+                    htmlFor="partyName"
                   >
-                    GSTIN No.
+                    Party Name
                   </label>
                   <input
                     className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="gstin"
-                    name="gstin"
+                    id="partyName"
+                    name="partyName"
                     type="text"
-                    value={formData.gstin}
+                    value={fetchData.tradeNam}
                     onChange={handleChange}
                     required
                   />
-                  {loading && <div>Loading...</div>}
                 </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
@@ -328,8 +341,6 @@ const PartyForm = () => {
         </div>
       </div>
     </div>
-
-    // ... rest of your JSX code
   );
 };
 
