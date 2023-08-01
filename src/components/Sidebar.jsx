@@ -153,12 +153,12 @@ export default function Sidebar({ open }) {
              <SideNavLink
               icon={<UserIcon />}
               to="/invoice/addparty"
-              title="Add Party"
+              title="Parties"
             />
              <SideNavLink
               icon={<FileTransferIcon />}
               to="/invoice/createitem"
-              title="Add Item"
+              title="Items"
             />
             </Menu>
 

@@ -7,6 +7,8 @@ import ViewIcon from "../../../components/icons/ViewIcon";
 
 const PartyList = () => {
   const [parties, setParties] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const partiesPerPage = 5;
 
   useEffect(() => {
     // Fetch all parties when the component mounts
@@ -24,9 +26,9 @@ const PartyList = () => {
       });
 
       if (response.status === 200) {
-        let filtered=response.data.parties.filter((el)=>{
-          return el.type=="supplier"
-        })
+        let filtered = response.data.parties.filter((el) => {
+          return el.type === "supplier";
+        });
         setParties(filtered);
       }
     } catch (error) {
@@ -37,27 +39,35 @@ const PartyList = () => {
   const handleDeleteParty = async (deletedPartyId) => {
     try {
       const token = JSON.parse(localStorage.getItem("itaxData")).token;
-  
+
       await axios.delete(`${BASE_URL}/invoice/parties/${deletedPartyId}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-  
+
       // Update the parties list by removing the deleted party
       setParties(parties.filter((party) => party.id !== deletedPartyId));
     } catch (error) {
       console.error("Error deleting party:", error);
     }
   };
-  
+
+  // Calculate the index of the last party on the current page
+  const indexOfLastParty = currentPage * partiesPerPage;
+  // Calculate the index of the first party on the current page
+  const indexOfFirstParty = indexOfLastParty - partiesPerPage;
+  // Get the current page parties to display
+  const currentParties = parties.slice(indexOfFirstParty, indexOfLastParty);
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(parties.length / partiesPerPage);
 
   return (
     <div className="w-full mt-16">
       <h1 className="text-secondary font-bold mb-4">All Suppliers</h1>
       <div className="pt-10">
-        {parties.length === 0 ? (
+        {currentParties.length === 0 ? (
           <div className="text-center text-gray-500">
             <RiBillLine className="inline-block text-6xl mb-4" />
             <p>No Parties found</p>
@@ -78,7 +88,7 @@ const PartyList = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {parties.map((party, index) => (             
+                  {currentParties.map((party, index) => (
                     <tr key={party.id} className={`${index % 2 === 0 ? "bg-white" : "bg-blue-25"} border-b border-gray-300`}>
                       <td className="border border-gray-400 px-4 py-2">{party.partyName}</td>
                       <td className="border border-gray-400 px-4 py-2">{party.type}</td>
@@ -90,11 +100,9 @@ const PartyList = () => {
                           <ViewIcon className="mr-2" />
                           Details
                         </Link>
-                        {/* Add a "Delete" button */}
-                       
                       </td>
-                      <td className="border border-gray-400 px-4 py-2"> 
-                      <button onClick={() => handleDeleteParty(party.id)} className="ml-2 bg-red-500 text-white px-4 py-2 rounded">
+                      <td className="border border-gray-400 px-4 py-2">
+                        <button onClick={() => handleDeleteParty(party.id)} className="ml-2 bg-red-500 text-white px-4 py-2 rounded">
                           Delete
                         </button>
                       </td>
@@ -103,6 +111,29 @@ const PartyList = () => {
                 </tbody>
               </table>
             </div>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {parties.length > 0 && (
+          <div className="flex justify-center mt-4">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+              onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              Prev
+            </button>
+            <span className="text-blue-500 px-2 py-1 rounded">
+              {currentPage} / {totalPages}
+            </span>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+              onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
           </div>
         )}
       </div>

@@ -7,12 +7,8 @@ import ItemList from "./Lists/ItemList";
 import { Link } from "react-router-dom";
 import AddCircleIcon from "../../components/icons/AddCircleIcon";
 
-
-
 export default function AddItem() {
   const [showForm, setShowForm] = useState(false);
-
- 
 
   const handleAddPartyClick = () => {
     setShowForm(true);
@@ -31,14 +27,13 @@ export default function AddItem() {
             <div className="grid justify-items-end mb-0 p-4">
               {!showForm && (
                 <Link to={`/invoice/createitem/form`}>
-                <button
-  onClick={handleAddPartyClick}
-  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 flex items-center space-x-2"
->
-  <AddCircleIcon />
-  <div>Add Item</div>
-</button>
-
+                  <button
+                    onClick={handleAddPartyClick}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-40 flex items-center space-x-2"
+                  >
+                    <AddCircleIcon />
+                    <div>Add Item</div>
+                  </button>
                 </Link>
               )}
             </div>
@@ -46,8 +41,6 @@ export default function AddItem() {
           <div className="flex items-center justify-center mt-1">
             {!showForm && <ItemList />}
           </div>
-
-          
         </div>
       </div>
     </div>

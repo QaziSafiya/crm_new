@@ -101,6 +101,25 @@ const PartyForm = () => {
             </h1>
             <form onSubmit={handleSubmit} className="w-full">
               <div className="grid grid-cols-2 gap-4">
+
+              <div className="col-span-2 sm:col-span-1">
+                  <label
+                    className="block text-sm font-bold text-gray-700 mb-2"
+                    htmlFor="gstin"
+                  >
+                    GSTIN No.
+                  </label>
+                  <input
+                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    id="gstin"
+                    name="gstin"
+                    type="text"
+                    value={formData.gstin}
+                    onChange={handleChange}
+                    required
+                  />
+                  {loading && <div>Loading...</div>}
+                </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label
                     className="block text-sm font-bold text-gray-700 mb-2"
@@ -139,24 +158,7 @@ const PartyForm = () => {
                   </select>
                 </div>
 
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="gstin"
-                  >
-                    GSTIN No.
-                  </label>
-                  <input
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="gstin"
-                    name="gstin"
-                    type="text"
-                    value={formData.gstin}
-                    onChange={handleChange}
-                    required
-                  />
-                  {loading && <div>Loading...</div>}
-                </div>
+               
 
                 <div className="col-span-2 sm:col-span-1">
                   <label

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Topbar from "../../../components/Topbar";
 import { BASE_URL } from "../../../constants.js";
@@ -24,6 +24,91 @@ const initialFormData = {
 
 const InvoiceForm = () => {
   const [formData, setFormData] = useState(initialFormData);
+  const [partyList, setPartyList] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [itemList, setItemList] = useState([]);
+  const [showItemDropdown, setShowItemDropdown] = useState(false);
+
+  // Function to fetch all items
+  const fetchItems = async () => {
+    try {
+      let token = JSON.parse(localStorage.getItem("itaxData"))?.token;
+  
+      const response = await fetch(`${BASE_URL}/invoice/items`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      const data = await response.json();
+      setItemList(data.items);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleItemsFocus = () => {
+    fetchItems();
+    setShowItemDropdown(true);
+  };
+
+  const handleSelectItem = (item) => {
+    // Set the selected item when it's clicked in the dropdown.
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      items: [{ itemId: item.id }],
+    }));
+    setShowItemDropdown(false); // Hide the dropdown after selecting the item.
+  };
+
+
+  // Function to fetch all parties
+  const fetchParties = async () => {
+    try {
+      let token = JSON.parse(localStorage.getItem("itaxData"))?.token;
+  
+      const response = await fetch(`${BASE_URL}/invoice/parties`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      const data = await response.json();
+      console.log(data.parties)
+      setPartyList(data.parties);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handlePartyNameFocus = () => {
+    fetchParties();
+    setShowDropdown(true);
+    
+  };
+
+  const handleSelectParty = (party) => {
+    // Set the selected party when it's clicked in the dropdown.
+    console.log(party)
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      partyId: party.id,
+      partyName: party.partyName,
+      type: party.type,
+      phone: party.phone,
+      userId : party.userId,
+      stateOfSupply: party.address
+    }));
+    setShowDropdown(false); // Hide the dropdown after selecting the party.
+  };
+  
+
+  // Use useEffect to fetch parties when the component mounts
+  useEffect(() => {
+    fetchParties();
+  }, []);
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -33,7 +118,7 @@ const InvoiceForm = () => {
         : type === "number"
         ? parseFloat(value)
         : name === "items" // Handle the special case for items
-        ? [{ itemId: value }] // Convert the value to an array of object with itemId property
+        ? [{ itemId: value }] // Convert the value to an array of objects with itemId property
         : value;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: updatedValue }));
   };
@@ -101,6 +186,41 @@ const InvoiceForm = () => {
             <form onSubmit={handleSubmit} className="w-full">
               {/* Form fields go here */}
               <div className="grid grid-cols-2 gap-4">
+              <div className="mb-4 relative">
+        <label
+          htmlFor="partyName"
+          className="block text-sm font-bold text-gray-700 mb-2"
+        >
+          Party Name:
+        </label>
+        <input
+          type="text"
+          id="partyName"
+          name="partyName"
+          placeholder="+ Add Party"
+          value={formData.partyName}
+          onChange={handleChange}
+          onFocus={handlePartyNameFocus}
+          onBlur={() => setShowDropdown(false)}
+          className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+          required
+        />
+        {showDropdown && partyList.length > 0 && (
+          <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+             <p className="bg-blue-300 text white px-4"> Party Name </p>
+            {partyList.map((party) => (
+              <li
+                key={party.id}
+                onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
+                className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+              >
+                {party.partyName}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
                 <div className="mb-4">
                   <label
                     htmlFor="invoiceNumber"
@@ -172,23 +292,8 @@ const InvoiceForm = () => {
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="partyName"
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                  >
-                    Party Name:
-                  </label>
-                  <input
-                    type="text"
-                    id="partyName"
-                    name="partyName"
-                    value={formData.partyName}
-                    onChange={handleChange}
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
+                
+                 
 
                 <div className="mb-4">
                   <label
@@ -352,23 +457,43 @@ const InvoiceForm = () => {
                   />
                 </div>
 
-                <div className="mb-4">
-                  <label
-                    htmlFor="items"
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                  >
-                    Items:
-                  </label>
-                  <input
-                    type="text"
-                    id="items"
-                    name="items"
-                    value={formData.items[0].itemId}
-                    onChange={handleChange}
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
+                <div className="mb-4 relative">
+  <label
+    htmlFor="items"
+    className="block text-sm font-bold text-gray-700 mb-2"
+  >
+    Items:
+  </label>
+  <input
+    type="text"
+    id="items"
+    name="items"
+    placeholder="+ Add Item"
+
+    value={formData.items[0].itemId}
+    onChange={handleChange}
+    onFocus={handleItemsFocus}
+    onBlur={() => setShowItemDropdown(false)}
+    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+    required
+  />
+  {showItemDropdown && itemList.length > 0 && (
+    <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+      <p className="bg-blue-300 text-white px-4">Item Name</p>
+      {itemList.map((item) => (
+        <li
+          key={item.id}
+          onMouseDown={() => handleSelectItem(item)} // Use onMouseDown instead of onClick
+          className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+          title="Add"
+        >
+          {item.itemName}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
 
                 <div className="mb-4">
                   <label
@@ -406,4 +531,4 @@ const InvoiceForm = () => {
   );
 };
 
-export default InvoiceForm;
+export default InvoiceForm
