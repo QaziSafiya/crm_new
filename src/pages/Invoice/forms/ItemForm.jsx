@@ -95,22 +95,27 @@ const ItemForm = () => {
                   </div>
 
                   <div className="col-span-2 sm:col-span-1">
-                    <label
-                      className="block text-sm font-bold text-gray-700 mb-2"
-                      htmlFor="unit"
-                    >
-                      Unit
-                    </label>
-                    <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                      id="unit"
-                      name="unit"
-                      type="text"
-                      value={formData.unit}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+  <label className="block text-sm font-bold text-gray-700 mb-2" htmlFor="unit">
+    Unit
+  </label>
+  <select
+    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
+    id="unit"
+    name="unit"
+    value={formData.unit}
+    onChange={handleChange}
+    required
+  >
+    <option value="">Select Unit</option>
+    <option value="Piece">Piece</option>
+    <option value="Box">Box</option>
+    <option value="Dozen">Dozen</option>
+    <option value="Kilogram">Kilogram</option>
+    <option value="Meter">Meter</option>
+    <option value="Liter">Liter</option>
+  </select>
+</div>
+
 
                   <div className="col-span-2 sm:col-span-1">
                     <label
@@ -256,39 +261,21 @@ const ItemForm = () => {
                     />
                   </div>
 
-                  <div className="col-span-2 sm:col-span-1">
-                    <label
-                      className="block text-sm font-bold text-gray-700 mb-2"
-                      htmlFor="taxExempted"
-                    >
-                      Tax Exempted
-                    </label>
-                    <div className="flex gap-5">
-                      <div>Check if True</div>
-                      <input
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                        id="taxExempted"
-                        name="taxExempted"
-                        type="checkbox"
-                        value={formData.taxExempted}
-                        onChange={handleChange}
-                      />
-                    </div>
-                  </div>
+                  
 
                   <div className="col-span-2 sm:col-span-1">
                     <label
                       className="block text-sm font-bold text-gray-700 mb-2"
-                      htmlFor="description"
+                      htmlFor="userId"
                     >
-                      Description
+                      User Id
                     </label>
                     <input
                       className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                      id="description"
-                      name="description"
-                      type="text"
-                      value={formData.description}
+                      id="userId"
+                      name="userId"
+                      type="number"
+                      value={formData.userId}
                       onChange={handleChange}
                       required
                     />
@@ -311,26 +298,46 @@ const ItemForm = () => {
                       required
                     />
                   </div>
-
                   <div className="col-span-2 sm:col-span-1">
                     <label
                       className="block text-sm font-bold text-gray-700 mb-2"
-                      htmlFor="userId"
+                      htmlFor="taxExempted"
                     >
-                      User Id
+                      Tax Exempted
+                    </label>
+                    <div className="flex gap-5">
+                      <div>Check if True</div>
+                      <input
+                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 h-10"
+                        id="taxExempted"
+                        name="taxExempted"
+                        type="checkbox"
+                        value={formData.taxExempted}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+
+                 
+                  {/* Add more form fields here using the same pattern */}
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                    <label
+                      className="block text-sm font-bold text-gray-700 mb-2"
+                      htmlFor="description"
+                    >
+                      Description
                     </label>
                     <input
-                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                      id="userId"
-                      name="userId"
-                      type="number"
-                      value={formData.userId}
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 h-24"
+                      id="description"
+                      name="description"
+                      type="text"
+                      value={formData.description}
                       onChange={handleChange}
                       required
                     />
                   </div>
-                  {/* Add more form fields here using the same pattern */}
-                </div>
                 <div className="flex items-center justify-center mt-4">
                   <button
                     type="submit"

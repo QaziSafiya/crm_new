@@ -133,23 +133,7 @@ const PartyForm = () => {
                     required
                   />
                 </div>
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="partyName"
-                  >
-                    Party Name
-                  </label>
-                  <input
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="partyName"
-                    name="partyName"
-                    type="text"
-                    value={fetchData.tradeNam}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
+                
                 <div className="col-span-2 sm:col-span-1">
                   <label
                     className="block text-sm font-bold text-gray-700 mb-2"
@@ -158,7 +142,7 @@ const PartyForm = () => {
                     Type
                   </label>
                   <select
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
                     id="type"
                     name="type"
                     value={formData.type}
@@ -190,74 +174,7 @@ const PartyForm = () => {
                     required
                   />
                 </div>
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="upi"
-                  >
-                    UPI
-                  </label>
-                  <input
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="upi"
-                    name="upi"
-                    type="text"
-                    value={formData.upi}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="email"
-                  >
-                    Email
-                  </label>
-                  <input
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="col-span-2 sm:col-span-1">
-                  <label
-                    className="block text-sm font-bold text-gray-700 mb-2"
-                    htmlFor="phone"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="col-span-2 sm:col-span-1">
-  <label
-    className="block text-sm font-bold text-gray-700 mb-2"
-    htmlFor="address"
-  >
-    Address
-  </label>
-  <input
-    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-    id="address"
-    name="address"
-    type="text"
-    value={`${fetchData?.pradr?.addr?.dst || ""}, ${fetchData?.pradr?.addr?.stcd || ""}, ${fetchData?.pradr?.addr?.pncd || ""} `}
-    onChange={handleChange}
-    required
-  />
-</div>
+              
 
                 <div className="col-span-2 sm:col-span-1">
                   <label
@@ -328,6 +245,76 @@ const PartyForm = () => {
                   />
                 </div>
               </div>
+              <div className="flex justify-between gap-5 mt-4 mb-4">
+                <div className="col-span-2 sm:col-span-1 w-1/3">
+                  <label
+                    className="block text-sm font-bold text-gray-700 mb-2"
+                    htmlFor="upi"
+                  >
+                    UPI
+                  </label>
+                  <input
+                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    id="upi"
+                    name="upi"
+                    type="text"
+                    value={formData.upi}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="col-span-2 sm:col-span-1 w-1/3">
+                  <label
+                    className="block text-sm font-bold text-gray-700 mb-2"
+                    htmlFor="email"
+                  >
+                    Email
+                  </label>
+                  <input
+                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="col-span-2 sm:col-span-1 w-1/3">
+                  <label
+                    className="block text-sm font-bold text-gray-700 mb-2"
+                    htmlFor="phone"
+                  >
+                    Phone
+                  </label>
+                  <input
+                    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                </div>
+              <div className="col-span-2 sm:col-span-1">
+  <label
+    className="block text-sm font-bold text-gray-700 mb-2"
+    htmlFor="address"
+  >
+    Address
+  </label>
+  <input
+    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 h-24"
+    id="address"
+    name="address"
+    type="text"
+    value={fetchData.pradr && `${fetchData.pradr.addr.dst}, ${fetchData.pradr.addr.stcd}, ${fetchData.pradr.addr.pncd}`}
+    onChange={handleChange}
+    required
+  />
+</div>
               <div className="flex items-center justify-center mt-4">
                 <button
                   type="submit"

@@ -35,6 +35,7 @@ import { useEffect } from "react";
 import HandshakeIcon from "./icons/HandshakeIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
 import FileTransferIcon from "./icons/FileTransferIcon.jsx";
+// import OrderedListIcon from "./icons/OrderedListIcon.jsx";
 
 export default function Sidebar({ open }) {
   const [state, dispatch] = useContext(StoreContext);
@@ -156,9 +157,19 @@ export default function Sidebar({ open }) {
               title="Parties"
             />
              <SideNavLink
-              icon={<FileTransferIcon />}
+              icon={<MenuIcon />}
               to="/invoice/createitem"
               title="Items"
+            />
+             <SideNavLink
+              icon={<PercentageIcon />}
+              to="/invoice/purchase"
+              title="Purchase"
+            />
+             <SideNavLink
+              icon={<FileTransferIcon />}
+              to="/invoice/sales"
+              title="Sales"
             />
             </Menu>
 

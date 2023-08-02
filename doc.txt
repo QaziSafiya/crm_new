@@ -1,0 +1,38 @@
+(Alok Kumar Verma Work)
+
+In BillShill Repo 
+
+1-Loan section :-
+  -Made UI for Admin page of Loan
+  -Made UI for User Page of Loan 
+  -Made form of Loan application and for user doucumnet upload
+  -Integrated the Api's in create Loan, Loan Application and Loan documnetation
+
+2-Insurance section :- 
+  -Made UI of for landing page for different banks 
+  -Banks are attached with a Inquery form for respective banks
+  -API's are not available for this part
+  -Admin section to see the applied insurance
+
+3-Billshill Dashboard :-
+  -Made UI of dashboard to see financial details, financial Statistics
+  -Apis are not available to integrate 
+
+4-Easy GST :-
+ -Made the Dashboard of Easy GST
+ -Api is integrated for Login Detail, but on posting getting error endponit not found 
+
+5-Invoice section :-
+  - Invoice Login fixed by putting the correct API and corrected the code accordingly for successful Login
+  - It is done in Invoice repo
+  - All the pages are attached 
+  - Apis are integrated , working  on purchase and sales part
+  
+
+In Itaxweb Repo 
+
+1-Loan Calculators 
+  -Updated Loan Loan calculators in which added openning balance,EMI , interest, principal Repaid,closing Balance 
+  -Made new PDf downloader to download the  Installment or repayment schedule chart
+  -Fixed the Navbar opacity
+

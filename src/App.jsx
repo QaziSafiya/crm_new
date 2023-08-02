@@ -77,6 +77,10 @@ import PartyForm from './pages/Invoice/forms/PartyForm'
 import ItemForm from './pages/Invoice/forms/ItemForm'
 import Show from './pages/Invoice/download/Show'
 import Invoice from './pages/Invoice/download/Invoice'
+import Purchase from './pages/Invoice/Purchase'
+import Sales from './pages/Invoice/Sales'
+import CreatePurchase from './pages/Invoice/CreatePurchase'
+import CreateSales from './pages/Invoice/CreateSales'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -255,6 +259,26 @@ function App() {
           <Route path='/invoice/createitem/form' element={
             <PrivateRoute>
               <ItemForm />
+            </PrivateRoute>
+          } />
+           <Route path='/invoice/purchase' element={
+            <PrivateRoute>
+              <Purchase />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/create/purchase' element={
+            <PrivateRoute>
+              <CreatePurchase />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/create/sales' element={
+            <PrivateRoute>
+              <CreateSales />
+            </PrivateRoute>
+          } />
+          <Route path='/invoice/sales' element={
+            <PrivateRoute>
+              <Sales />
             </PrivateRoute>
           } />
           <Route path='/invoice/pdf' element={
