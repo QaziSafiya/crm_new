@@ -19,6 +19,7 @@ const initialFormData = {
     description: "",
     hsnCode: "",
     userId: null,
+    
   };
 
 const ItemForm = () => {
@@ -107,14 +108,53 @@ const ItemForm = () => {
     required
   >
     <option value="">Select Unit</option>
-    <option value="Piece">Piece</option>
-    <option value="Box">Box</option>
-    <option value="Dozen">Dozen</option>
-    <option value="Kilogram">Kilogram</option>
-    <option value="Meter">Meter</option>
-    <option value="Liter">Liter</option>
+    <option value="pieces">Piece</option>
+    <option value="box">Box</option>
+    <option value="dozen">Dozen</option>
+    <option value="kilogram">Kilogram</option>
+    <option value="meter">Meter</option>
+    <option value="liter">Liter</option>
   </select>
 </div>
+
+{/* <div className="col-span-2 sm:col-span-1">
+                    <label
+                      className="block text-sm font-bold text-gray-700 mb-2"
+                      htmlFor="invoiceQuantity"
+                    >
+                      Qauntity
+                    </label>
+                    <input
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                      id="invoiceQuantity"
+                      name="invoiceQuantity"
+                      type="number"
+                      value={Number(formData.invoiceQuantity)}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  
+                  <div className="col-span-2 sm:col-span-1">
+                    <label
+                      className="block text-sm font-bold text-gray-700 mb-2"
+                      htmlFor="invoiceDiscount"
+                    >
+                      Discount
+                    </label>
+                    <input
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                      id="invoiceDiscount"
+                      name="invoiceDiscount"
+                      type="number"
+                      value={Number(formData.invoiceDiscount)}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div> */}
+
+                  
 
 
                   <div className="col-span-2 sm:col-span-1">
@@ -355,3 +395,14 @@ const ItemForm = () => {
 }
 
 export default ItemForm
+
+
+
+
+
+
+
+
+
+
+

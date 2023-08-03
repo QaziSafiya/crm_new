@@ -18,7 +18,14 @@ const initialFormData = {
   utgst: null,
   details: "",
   extraDetails: "",
-  items: [{ itemId: "" }],
+  credit: null,
+  items: [
+    {
+      itemId: "",
+      quantity: null,
+      discount: null
+    },
+  ],
   userId: null,
 };
 
@@ -28,6 +35,29 @@ const InvoiceForm = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [showItemDropdown, setShowItemDropdown] = useState(false);
+
+
+
+  const handleItemChange = (index, field, value) => {
+    setFormData((prevFormData) => {
+      const updatedItems = [...prevFormData.items];
+      updatedItems[index][field] = value;
+      return { ...prevFormData, items: updatedItems };
+    });
+  };
+
+  // Use this function to handle changes in quantity for a specific item
+  const handleQuantityChange = (event, index) => {
+    const { value } = event.target;
+    handleItemChange(index, "quantity", parseFloat(value));
+  };
+
+  // Use this function to handle changes in discount for a specific item
+  const handleDiscountChange = (event, index) => {
+    const { value } = event.target;
+    handleItemChange(index, "discount", parseFloat(value));
+  }
+
 
   // Function to fetch all items
   const fetchItems = async () => {
@@ -109,16 +139,37 @@ const InvoiceForm = () => {
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
-    const updatedValue =
-      type === "checkbox"
-        ? checked
-        : type === "number"
-        ? parseFloat(value)
-        : name === "items" // Handle the special case for items
-        ? [{ itemId: value }] // Convert the value to an array of objects with itemId property
-        : value;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: updatedValue }));
+
+    if (name === "credit") {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        credit: checked,
+      }));
+    } else if (name.startsWith("items")) {
+      const itemsIndex = parseInt(name.split("_")[1]);
+      const updatedItems = [...formData.items];
+
+      if (name.endsWith("itemId")) {
+        updatedItems[itemsIndex].itemId = value;
+      }
+
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        items: updatedItems,
+      }));
+    } else {
+      const updatedValue =
+        type === "checkbox"
+          ? checked
+          : type === "number"
+          ? parseFloat(value)
+          : value;
+
+      setFormData((prevFormData) => ({ ...prevFormData, [name]: updatedValue }));
+    }
   };
+  
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -291,6 +342,25 @@ const InvoiceForm = () => {
                     required
                   />
                 </div>
+
+                <div className="mb-4">
+              <label
+                htmlFor="credit"
+                className="block text-sm font-bold text-gray-700 mb-2"
+              >
+                Credit:
+              </label>
+              <input
+                type="checkbox"
+                id="credit"
+                name="credit"
+                checked={formData.credit}
+                onChange={handleChange}
+                className="w-6 h-6 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500"
+              />
+            </div>
+
+            
 
                 <div className="mb-4">
                   <label
@@ -510,6 +580,47 @@ const InvoiceForm = () => {
 
                 {/* ... other form fields ... */}
               </div>
+
+              {formData.items.map((item, index) => (
+                <div key={index} className="grid grid-cols-2 gap-4">
+                  <div className="relative mb-4">
+                    <label
+                      htmlFor={`quantity_${index}`}
+                      className="block text-sm font-bold text-gray-700 mb-2"
+                    >
+                      Quantity:
+                    </label>
+                    <input
+                      type="number"
+                      id={`quantity_${index}`}
+                      name={`items_${index}_quantity`}
+                      value={item.quantity}
+                      onChange={(event) => handleQuantityChange(event, index)}
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                      required
+                    />
+                  </div>
+
+                  {/* Discount Field */}
+                  <div className="relative mb-4">
+                    <label
+                      htmlFor={`discount_${index}`}
+                      className="block text-sm font-bold text-gray-700 mb-2"
+                    >
+                      Discount:
+                    </label>
+                    <input
+                      type="number"
+                      id={`discount_${index}`}
+                      name={`items_${index}_discount`}
+                      value={item.discount}
+                      onChange={(event) => handleDiscountChange(event, index)}
+                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
+                      required
+                    />
+                  </div>
+                </div>
+              ))}
               <div className="flex items-center justify-center mt-4 ">
                 <button
                   type="submit"

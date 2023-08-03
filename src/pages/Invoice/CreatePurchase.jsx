@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants.js";
-import ItemDropdown from "./dropdowns/ItemDropdown";
-
+// import ItemDropdown from "./dropdowns/ItemDropdown";
+import DeleteIcon from "../../components/icons/DeleteIcon.jsx"
 const initialFormData = {
   invoiceNumber: null,
-  type: "Supplier",
+  type: "supplier",
   partyId: "",
   phone: "",
   partyName: "",
@@ -21,7 +21,7 @@ const initialFormData = {
   extraDetails: "",
   items: [{ itemId: "" }],
   userId: null,
-  purchaseDate: "",
+  credit: null,
   modeOfPayment: "",
 };
 
@@ -31,9 +31,61 @@ const CreatePurchase = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [showItemDropdown, setShowItemDropdown] = useState(false);
-  const [items, setItems] = useState([]);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [showPartyDropdown, setShowPartyDropdown] = useState(false);
   
+
+  const [items, setItems] = useState([
+    {
+      entryId: null,
+      id: null,
+      itemName: "",
+      price: 0,
+      quantity: 0,
+      discount: 0,
+      gst: 0,
+      unit: "",
+      hsnCode: "",
+    },
+  ]);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [item, setItem] = useState([
+    {
+      itemId: "",
+      quantity: 0,
+      discount: 0,
+    },
+  ]);
+const [partyState,setPartyState]=useState("")
+const [itemState,setItemState]=useState("")
+
+  // Function to handle changes in quantity for a specific item
+  const handleQuantityChange = (event, index) => {
+    const { value } = event.target;
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems[index].quantity = parseInt(value);
+      return updatedItems;
+    });
+  };
+
+  // Function to handle changes in discount for a specific item
+  const handleDiscountChange = (event, index) => {
+    const { value } = event.target;
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems[index].discount = parseFloat(value);
+      return updatedItems;
+    });
+  };
+  
+
+useEffect(() => {
+  setShowDropdown(new Array(items.length).fill(false));
+}, [items]);
+  
+
+
+
 
 
   // Function to fetch all items
@@ -55,15 +107,29 @@ const CreatePurchase = () => {
     }
   };
 
-  const handleItemsFocus = () => {
+  const handleItemsFocus = (index) => {
+    const updatedDropdown = new Array(items.length).fill(false);
+    updatedDropdown[index] = true;
+    setShowDropdown(updatedDropdown);
     fetchItems();
-    setShowItemDropdown(true);
   };
 
-  const handleSelectItem = (item) => {
-    setSelectedItem(item); // Set the selected item
-    setShowItemDropdown(false); // Hide the dropdown after selecting the item
-  };
+  const handleSelectItem = (item, index) => {
+    setItemState(item.stateOfSupply)
+  setItems((prevItems) => {
+    const updatedItems = [...prevItems];
+    updatedItems[index] = { ...updatedItems[index], selectedItem: item };
+    return updatedItems;
+  });
+  setShowDropdown((prevDropdown) => {
+    const updatedDropdown = [...prevDropdown];
+    updatedDropdown[index] = false;
+    return updatedDropdown;
+  });
+};
+  
+  
+  
   
   
   
@@ -81,8 +147,9 @@ const CreatePurchase = () => {
       });
 
       const data = await response.json();
-      console.log(data.parties);
-      setPartyList(data.parties);
+      // Filter the partyList to only include parties with type "customer"
+      const customers = data.parties.filter((party) => party.type === "supplier");
+      setPartyList(customers);
     } catch (error) {
       console.error(error);
     }
@@ -90,12 +157,11 @@ const CreatePurchase = () => {
 
   const handlePartyNameFocus = () => {
     fetchParties();
-    setShowDropdown(true);
+    setShowPartyDropdown(true);
   };
 
   const handleSelectParty = (party) => {
-    // Set the selected party when it's clicked in the dropdown.
-    console.log(party);
+    setPartyState(party.stateOfSupply)
     setFormData((prevFormData) => ({
       ...prevFormData,
       partyId: party.id,
@@ -103,9 +169,9 @@ const CreatePurchase = () => {
       type: party.type,
       phone: party.phone,
       userId: party.userId,
-      stateOfSupply: party.address,
+      
     }));
-    setShowDropdown(false); // Hide the dropdown after selecting the party.
+    setShowPartyDropdown(false);
   };
 
   // Use useEffect to fetch parties when the component mounts
@@ -179,8 +245,8 @@ const CreatePurchase = () => {
   };
 
   const handleAddItem = () => {
-    setItemList((items) => [
-      ...items,
+    setItems((prevItems) => [
+      ...prevItems,
       {
         entryId: null,
         id: null,
@@ -194,6 +260,26 @@ const CreatePurchase = () => {
       },
     ]);
   };
+
+  const calculateTotal = () => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.selectedItem ? ((Number(item.selectedItem.purchasePrice)*Number(item.quantity))-((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*(Number(item.discount)/100))) : 0;
+    });
+    return total;
+  };
+
+  const handleRemoveItem = (index) => {
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(index, 1); // Remove the item at the specified index
+      return updatedItems;
+    });
+  };
+
+  // Calculate the total GST based on the type of supply (intra-state or inter-state)
+ 
+console.log(itemState==partyState)
 
   return (
     <div className="container">
@@ -218,42 +304,39 @@ const CreatePurchase = () => {
                     </div>
 
                     <div className="mb-5 relative">
-                      <label
-                        htmlFor="partyName"
-                        className="block text-sm font-bold text-gray-700 mb-2"
-                      >
-                        Party Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="partyName"
-                        name="partyName"
-                        placeholder="+ Add Party"
-                        value={formData.partyName}
-                        onChange={handleChange}
-                        onFocus={handlePartyNameFocus}
-                        onBlur={() => setShowDropdown(false)}
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
-                        required
-                      />
-                      {showDropdown && partyList.length > 0 && (
-                        <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
-                          <p className="bg-blue-300 text white px-4">
-                            {" "}
-                            Party Name{" "}
-                          </p>
-                          {partyList.map((party) => (
-                            <li
-                              key={party.id}
-                              onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
-                              className="px-4 py-2 cursor-pointer hover:bg-gray-300"
-                            >
-                              {party.partyName}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+  <label
+    htmlFor="partyName"
+    className="block text-sm font-bold text-gray-700 mb-2"
+  >
+    Party Name:
+  </label>
+  <input
+    type="text"
+    id="partyName"
+    name="partyName"
+    placeholder="+ Add Party"
+    value={formData.partyName}
+    onChange={handleChange}
+    onFocus={handlePartyNameFocus}
+    onBlur={() => setShowPartyDropdown(false)}
+    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+    required
+  />
+  {showPartyDropdown && partyList.length > 0 && (
+    <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+      <p className="bg-blue-300 text white px-4">Party Name</p>
+      {partyList.map((party) => (
+        <li
+          key={party.id}
+          onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
+          className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+        >
+          {party.partyName}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
                     <div className="mb-5">
                       <label
                         htmlFor="partyId"
@@ -346,23 +429,23 @@ const CreatePurchase = () => {
                         required
                       />
                     </div>
+
                     <div className="mb-6">
-                      <label
-                        htmlFor="purchaseDate"
-                        className="block text-sm font-bold text-gray-700 mb-2"
-                      >
-                        Purchase Date:
-                      </label>
-                      <input
-                        type="date"
-                        id="purchaseDate"
-                        name="purchaseDate"
-                        value={formData.purchaseDate}
-                        onChange={handleChange}
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                        required
-                      />
-                    </div>
+              <label
+                htmlFor="credit"
+                className="block text-sm font-bold text-gray-700 mb-2"
+              >
+                Credit:
+              </label>
+              <input
+                type="checkbox"
+                id="credit"
+                name="credit"
+                checked={formData.credit}
+                onChange={handleChange}
+                className="w-6 h-6 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500 h-10"
+              />
+            </div>
 
                     <div className="mb-6">
                       <label
@@ -471,7 +554,7 @@ const CreatePurchase = () => {
                 <div className="border-2 p-5 mt-5">
                   <div direction="col" full>
                     <h3 className="text-lg p-4">Items</h3>
-                    {!itemList.length ? (
+                    {!items.length ? (
                       <span className="text-gray-700 px-4">
                         No items added.
                       </span>
@@ -489,63 +572,74 @@ const CreatePurchase = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {itemList.map((item, index) => {
+                          {items.map((item, index) => {
                             return (
                               <tr key={index}>
                                 <td className="p-4">
-                                <div className="mb-4 relative">
-  <label
-    htmlFor="items"
-    className="block text-sm font-bold text-gray-700 mb-2"
-  >
-    Items:
-  </label>
-  <input
-    type="text"
-    id="items"
-    name="items"
-    placeholder="+ Add Item"
-    value={selectedItem ? selectedItem.itemName : ""}
-    onChange={handleChange}
-    onFocus={handleItemsFocus}
-    onBlur={() => setShowItemDropdown(false)}
-    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
-    required
-  />
-  {showItemDropdown && itemList.length > 0 && (
-    <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
-     
-      {itemList.map((item) => (
-        <li
-          key={item.id}
-          onMouseDown={() => handleSelectItem(item)} // Use onMouseDown instead of onClick
-          className="px-4 py-2 cursor-pointer hover:bg-gray-300"
-          title="Add"
-        >
-          {item.itemName}
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
+                                <div key={index} className="mb-4 relative">
+    
+    <input
+      type="text"
+      id={`items${index}`} // Use a unique ID for each input element
+      name="items"
+      placeholder="+ Add Item"
+      value={item.selectedItem ? item.selectedItem.itemName : ""}
+      onChange={(event) => handleChange(event, index)} // Pass the index to handleChange
+      onFocus={() => handleItemsFocus(index)} // Pass the index to handleItemsFocus
+      onBlur={() => handleSelectItem(item.selectedItem, index)} // Pass the selected item and index to handleSelectItem
+      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+      required
+    />
+    {showDropdown[index] && itemList.length > 0 && (
+      <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+        {itemList.map((item) => (
+          <li
+            key={item.id}
+            onMouseDown={() => handleSelectItem(item, index)} // Pass the index to the function
+            className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+            title="Add"
+          >
+            {item.itemName}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
 
 
                                 </td>
-                                <td className="p-4">{item.price}</td>
+                                <td className="p-4">{item.selectedItem ? item.selectedItem.price : ""}</td>
                                 <td className="p-4">
-                                 
-                                  0
+                                <input
+                type="number"
+                value={item.quantity}
+                onChange={(event) => handleQuantityChange(event, index)}
+                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+              />
+                                  
                                 </td>
                                 <td className="p-4">
-                                 
-                                  0
+                                <input
+                type="number"
+                value={item.discount}
+                onChange={(event) => handleDiscountChange(event, index)}
+                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+              />
                                 </td>
                                 <td className="p-4">{item.gst || "-"}</td>
                                
                                 
                                 <td className="p-4">
-                                0
+                                {item.selectedItem ? (((item.selectedItem.purchasePrice)*(item.quantity))-(((item.selectedItem.purchasePrice)*(item.quantity))*((item.discount)/100))) : ""}
                                 </td>
+                                <td>
+                            <button
+                  className="ml-2 text-red-600"
+                  onClick={() => handleRemoveItem(index)}
+                >
+                  <DeleteIcon />
+                </button>
+                            </td>
                               </tr>
                             );
                           })}
@@ -554,7 +648,7 @@ const CreatePurchase = () => {
                           <tr>
                             <th className="p-2 bg-slate-200 w-52">Total</th>
                             <td className="p-2 px-12">
-                             
+                            {calculateTotal()}
                             </td>
                           </tr>
                           <tr>
@@ -570,6 +664,8 @@ const CreatePurchase = () => {
                             <td className="p-2 px-12">
                              
                             </td>
+
+                           
                           </tr>
                         </tfoot>
                       </table>

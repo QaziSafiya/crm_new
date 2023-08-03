@@ -27,6 +27,7 @@ In BillShill Repo
   - It is done in Invoice repo
   - All the pages are attached 
   - Apis are integrated , working  on purchase and sales part
+  - Gst Calculation is pending
   
 
 In Itaxweb Repo 

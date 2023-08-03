@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants.js";
-import ItemDropdown from "./dropdowns/ItemDropdown";
-
+// import ItemDropdown from "./dropdowns/ItemDropdown";
+import DeleteIcon from "../../components/icons/DeleteIcon.jsx"
 const initialFormData = {
   invoiceNumber: null,
-  type: "Customer",
+  type: "customer",
   partyId: "",
   phone: "",
   partyName: "",
@@ -21,7 +21,7 @@ const initialFormData = {
   extraDetails: "",
   items: [{ itemId: "" }],
   userId: null,
-  purchaseDate: "",
+  credit: null,
   modeOfPayment: "",
 };
 
@@ -31,8 +31,64 @@ const CreateSales = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [itemList, setItemList] = useState([]);
   const [showItemDropdown, setShowItemDropdown] = useState(false);
-  const [items, setItems] = useState([]);
+  const [showPartyDropdown, setShowPartyDropdown] = useState(false);
+  
+
+  const [items, setItems] = useState([
+    {
+      entryId: null,
+      id: null,
+      itemName: "",
+      price: 0,
+      quantity: 0,
+      discount: 0,
+      gst: 0,
+      unit: "",
+      hsnCode: "",
+    },
+  ]);
   const [selectedItem, setSelectedItem] = useState(null);
+  const [item, setItem] = useState([
+    {
+      itemId: "",
+      quantity: 0,
+      discount: 0,
+    },
+  ]);
+const [partyState,setPartyState]=useState("")
+const [itemState,setItemState]=useState("")
+const [itemObj,setItemObj]=useState({})
+
+
+  // Function to handle changes in quantity for a specific item
+  const handleQuantityChange = (event, index) => {
+    const { value } = event.target;
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems[index].quantity = parseInt(value);
+      return updatedItems;
+    });
+  };
+
+  // Function to handle changes in discount for a specific item
+  const handleDiscountChange = (event, index) => {
+    const { value } = event.target;
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems[index].discount = parseFloat(value);
+      return updatedItems;
+    });
+  };
+  
+
+useEffect(() => {
+  setShowDropdown(new Array(items.length).fill(false));
+}, [items]);
+  
+
+
+
+
 
   // Function to fetch all items
   const fetchItems = async () => {
@@ -53,20 +109,33 @@ const CreateSales = () => {
     }
   };
 
-  const handleItemsFocus = () => {
+  const handleItemsFocus = (index) => {
+    const updatedDropdown = new Array(items.length).fill(false);
+    updatedDropdown[index] = true;
+    setShowDropdown(updatedDropdown);
     fetchItems();
-    setShowItemDropdown(true);
   };
 
-  const handleSelectItem = (item) => {
-    // Update the formData with the selected item's itemId
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      items: [{ itemId: item.id }],
-    }));
-
-    setShowItemDropdown(false); // Hide the dropdown after selecting the item.
-  };
+  const handleSelectItem = (item, index) => {
+   setItemObj(item)
+    
+  setItems((prevItems) => {
+    const updatedItems = [...prevItems];
+    updatedItems[index] = { ...updatedItems[index], selectedItem: item };
+    return updatedItems;
+  });
+  setShowDropdown((prevDropdown) => {
+    const updatedDropdown = [...prevDropdown];
+    updatedDropdown[index] = false;
+    return updatedDropdown;
+  });
+};
+  
+  
+  
+  
+  
+  
 
   // Function to fetch all parties
   const fetchParties = async () => {
@@ -81,8 +150,9 @@ const CreateSales = () => {
       });
 
       const data = await response.json();
-      console.log(data.parties);
-      setPartyList(data.parties);
+      // Filter the partyList to only include parties with type "customer"
+      const customers = data.parties.filter((party) => party.type === "supplier");
+      setPartyList(customers);
     } catch (error) {
       console.error(error);
     }
@@ -90,12 +160,12 @@ const CreateSales = () => {
 
   const handlePartyNameFocus = () => {
     fetchParties();
-    setShowDropdown(true);
+    setShowPartyDropdown(true);
   };
 
   const handleSelectParty = (party) => {
-    // Set the selected party when it's clicked in the dropdown.
-    console.log(party);
+    // Set the partyState first
+   
     setFormData((prevFormData) => ({
       ...prevFormData,
       partyId: party.id,
@@ -103,10 +173,15 @@ const CreateSales = () => {
       type: party.type,
       phone: party.phone,
       userId: party.userId,
-      stateOfSupply: party.address,
+      // Set the stateOfSupply in the form data
     }));
-    setShowDropdown(false); // Hide the dropdown after selecting the party.
+   
+  
+    console.log(party)
+    setPartyState(party.address)
+    setShowPartyDropdown(false);
   };
+  
 
   // Use useEffect to fetch parties when the component mounts
   useEffect(() => {
@@ -120,11 +195,13 @@ const CreateSales = () => {
         ? checked
         : type === "number"
         ? parseFloat(value)
-        : name === "items" // Handle the special case for items
-        ? [{ itemId: value }] // Convert the value to an array of objects with itemId property
+        : name === "items"
+        ? [{ itemId: selectedItem ? selectedItem.id : "" }] // Use the selected item's itemId
         : value;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: updatedValue }));
   };
+  
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -177,8 +254,8 @@ const CreateSales = () => {
   };
 
   const handleAddItem = () => {
-    setItemList((items) => [
-      ...items,
+    setItems((prevItems) => [
+      ...prevItems,
       {
         entryId: null,
         id: null,
@@ -192,6 +269,65 @@ const CreateSales = () => {
       },
     ]);
   };
+
+  const calculateTotal = () => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.selectedItem ? ((Number(item.selectedItem.purchasePrice)*Number(item.quantity))-((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*(Number(item.discount)/100))) : 0;
+    });
+    return total;
+  };
+
+  const handleRemoveItem = (index) => {
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems.splice(index, 1); // Remove the item at the specified index
+      return updatedItems;
+    });
+  };
+  const handleStateOfSupplyChange = (event) => {
+    const { value } = event.target;
+    setItemState(value); // Update the itemState with the selected value
+    // You can also update the formData state if needed, but this is optional
+    setFormData((prevFormData) => ({ ...prevFormData, stateOfSupply: value }));
+  };
+  // Calculate the total GST based on the type of supply (intra-state or inter-state)
+ 
+ 
+
+  console.log(partyState==itemState)
+  console.log(formData.cgst)
+
+
+
+  // Calculate the total GST based on the type of supply (intra-state or inter-state)
+const calculateTotalGst = () => {
+  if (partyState === itemState) {
+    // Intra-State Transaction
+    const totalGst = (itemObj.cgst || 0) + (itemObj.sgst || 0);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      totalGst,
+    }));
+   
+  } else {
+    // Inter-State Transaction
+    const totalGst = itemObj.igst || 0;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      totalGst,
+    }));
+   
+  }
+};
+
+// Call the calculateTotalGst function whenever there are changes in cgst, sgst, igst, utgst, or stateOfSupply
+useEffect(() => {
+  calculateTotalGst();
+}, [itemObj.cgst, itemObj.sgst, itemObj.igst, itemObj.utgst, itemObj.stateOfSupply]);
+  
+
+
 
   return (
     <div className="container">
@@ -216,42 +352,40 @@ const CreateSales = () => {
                     </div>
 
                     <div className="mb-5 relative">
-                      <label
-                        htmlFor="partyName"
-                        className="block text-sm font-bold text-gray-700 mb-2"
-                      >
-                        Party Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="partyName"
-                        name="partyName"
-                        placeholder="+ Add Party"
-                        value={formData.partyName}
-                        onChange={handleChange}
-                        onFocus={handlePartyNameFocus}
-                        onBlur={() => setShowDropdown(false)}
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
-                        required
-                      />
-                      {showDropdown && partyList.length > 0 && (
-                        <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
-                          <p className="bg-blue-300 text white px-4">
-                            {" "}
-                            Party Name{" "}
-                          </p>
-                          {partyList.map((party) => (
-                            <li
-                              key={party.id}
-                              onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
-                              className="px-4 py-2 cursor-pointer hover:bg-gray-300"
-                            >
-                              {party.partyName}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
+  <label
+    htmlFor="partyName"
+    className="block text-sm font-bold text-gray-700 mb-2"
+  >
+    Party Name:
+  </label>
+  <input
+    type="text"
+    id="partyName"
+    name="partyName"
+    placeholder="+ Add Party"
+    value={formData.partyName}
+    onChange={handleChange}
+    onFocus={handlePartyNameFocus}
+    onBlur={() => setShowPartyDropdown(false)}
+    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+    required
+  />
+  {showPartyDropdown && partyList.length > 0 && (
+    <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+      <p className="bg-blue-300 text white px-4">Party Name</p>
+      {partyList.map((party) => (
+        <li
+          key={party.id}
+         
+          onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
+          className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+        >
+          {party.partyName}
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
                     <div className="mb-5">
                       <label
                         htmlFor="partyId"
@@ -325,9 +459,9 @@ const CreateSales = () => {
 
                   {/* purchase details */}
                   <div className="w-1/2 border-2 p-5 ">
-                    <p>Purchase Details</p>
+                    <p>Sale Details</p>
 
-                    <div className="mb-6 mt-12">
+                    <div className="mb-7 mt-12">
                       <label
                         htmlFor="invoiceNumber"
                         className="block text-sm font-bold text-gray-700 mb-2"
@@ -344,23 +478,23 @@ const CreateSales = () => {
                         required
                       />
                     </div>
+
                     <div className="mb-6">
-                      <label
-                        htmlFor="purchaseDate"
-                        className="block text-sm font-bold text-gray-700 mb-2"
-                      >
-                        Purchase Date:
-                      </label>
-                      <input
-                        type="date"
-                        id="purchaseDate"
-                        name="purchaseDate"
-                        value={formData.purchaseDate}
-                        onChange={handleChange}
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500"
-                        required
-                      />
-                    </div>
+              <label
+                htmlFor="credit"
+                className="block text-sm font-bold text-gray-700 mb-2"
+              >
+                Credit:
+              </label>
+              <input
+                type="checkbox"
+                id="credit"
+                name="credit"
+                checked={formData.credit}
+                onChange={handleChange}
+                className="w-6 h-6 border border-gray-400 rounded-lg focus:outline-none focus:border-blue-500 h-10"
+              />
+            </div>
 
                     <div className="mb-6">
                       <label
@@ -384,62 +518,65 @@ const CreateSales = () => {
                     </div>
 
                     <div className="mb-5">
-  <label
-    htmlFor="stateOfSupply"
-    className="block text-sm font-bold text-gray-700 mb-2"
-  >
-    State Of Supply:
-  </label>
-  <select
-    id="stateOfSupply"
-    name="stateOfSupply"
-    value={formData.stateOfSupply}
-    onChange={handleChange}
-    className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
-    required
-  >
-    <option value="">Select State</option>
-    <option value="Andhra Pradesh">Andhra Pradesh</option>
-    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-    <option value="Assam">Assam</option>
-    <option value="Bihar">Bihar</option>
-    <option value="Chhattisgarh">Chhattisgarh</option>
-    <option value="Goa">Goa</option>
-    <option value="Gujarat">Gujarat</option>
-    <option value="Haryana">Haryana</option>
-    <option value="Himachal Pradesh">Himachal Pradesh</option>
-    <option value="Jharkhand">Jharkhand</option>
-    <option value="Karnataka">Karnataka</option>
-    <option value="Kerala">Kerala</option>
-    <option value="Madhya Pradesh">Madhya Pradesh</option>
-    <option value="Maharashtra">Maharashtra</option>
-    <option value="Manipur">Manipur</option>
-    <option value="Meghalaya">Meghalaya</option>
-    <option value="Mizoram">Mizoram</option>
-    <option value="Nagaland">Nagaland</option>
-    <option value="Odisha">Odisha</option>
-    <option value="Punjab">Punjab</option>
-    <option value="Rajasthan">Rajasthan</option>
-    <option value="Sikkim">Sikkim</option>
-    <option value="Tamil Nadu">Tamil Nadu</option>
-    <option value="Telangana">Telangana</option>
-    <option value="Tripura">Tripura</option>
-    <option value="Uttar Pradesh">Uttar Pradesh</option>
-    <option value="Uttarakhand">Uttarakhand</option>
-    <option value="West Bengal">West Bengal</option>
-    <option value="Andaman and Nicobar Islands">
-      Andaman and Nicobar Islands
-    </option>
-    <option value="Chandigarh">Chandigarh</option>
-    <option value="Dadra and Nagar Haveli and Daman and Diu">
-      Dadra and Nagar Haveli and Daman and Diu
-    </option>
-    <option value="Lakshadweep">Lakshadweep</option>
-    <option value="Delhi">Delhi</option>
-    <option value="Puducherry">Puducherry</option>
-  </select>
-</div>
-
+                      <label
+                        htmlFor="stateOfSupply"
+                        className="block text-sm font-bold text-gray-700 mb-2"
+                      >
+                        State Of Supply:
+                      </label>
+                      <select
+        id="stateOfSupply"
+        name="stateOfSupply"
+        value={itemState} // Use the itemState value here instead of formData.stateOfSupply
+        onChange={handleStateOfSupplyChange} // Use the new handler for instant updates
+        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
+        required
+      >
+                        <option value="">Select State</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Arunachal Pradesh">
+                          Arunachal Pradesh
+                        </option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">
+                          Himachal Pradesh
+                        </option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madhya Pradesh">Madhya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Odisha">Odisha</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Uttarakhand">Uttarakhand</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option value="Andaman and Nicobar Islands">
+                          Andaman and Nicobar Islands
+                        </option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Dadra and Nagar Haveli and Daman and Diu">
+                          Dadra and Nagar Haveli and Daman and Diu
+                        </option>
+                        <option value="Lakshadweep">Lakshadweep</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Puducherry">Puducherry</option>
+                      </select>
+                    </div>
 
                     <div className="mb-5">
                       <label
@@ -466,7 +603,7 @@ const CreateSales = () => {
                 <div className="border-2 p-5 mt-5">
                   <div direction="col" full>
                     <h3 className="text-lg p-4">Items</h3>
-                    {!itemList.length ? (
+                    {!items.length ? (
                       <span className="text-gray-700 px-4">
                         No items added.
                       </span>
@@ -484,61 +621,74 @@ const CreateSales = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          {itemList.map((item, index) => {
+                          {items.map((item, index) => {
                             return (
                               <tr key={index}>
                                 <td className="p-4">
-                                  <div className="mb-5 relative">
-                                    <label
-                                      htmlFor="items"
-                                      className="block text-sm font-bold text-gray-700 mb-2"
-                                    >
-                                      Items:
-                                    </label>
-                                    <input
-                                      type="text"
-                                      id="items"
-                                      name="items"
-                                      placeholder="+ Add Item"
-                                      value={fetchItems.itemName}
-                                      //   onFocus={handleItemsFocus}
-                                      //   onBlur={() => setShowItemDropdown(false)}
-                                      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50"
-                                      required
-                                    />
-                                  </div>
+                                <div key={index} className="mb-4 relative">
+    
+    <input
+      type="text"
+      id={`items${index}`} // Use a unique ID for each input element
+      name="items"
+      placeholder="+ Add Item"
+      value={item.selectedItem ? item.selectedItem.itemName : ""}
+      onChange={(event) => handleChange(event, index)} // Pass the index to handleChange
+      onFocus={() => handleItemsFocus(index)} // Pass the index to handleItemsFocus
+      onBlur={() => handleSelectItem(item.selectedItem, index)} // Pass the selected item and index to handleSelectItem
+      className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 z-50" // Add z-50 class to make sure the input stays on top
+      required
+    />
+    {showDropdown[index] && itemList.length > 0 && (
+      <ul className="bg-white border border-gray-300 mt-2 rounded shadow-lg absolute z-40 w-full">
+        {itemList.map((item) => (
+          <li
+            key={item.id}
+            onMouseDown={() => handleSelectItem(item, index)} // Pass the index to the function
+            className="px-4 py-2 cursor-pointer hover:bg-gray-300"
+            title="Add"
+          >
+            {item.itemName}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+
+
                                 </td>
-                                <td className="p-4">{item.price}</td>
+                                <td className="p-4">{item.selectedItem ? item.selectedItem.price : ""}</td>
                                 <td className="p-4">
-                                  {/* <TextField 
-                                                                    disabled={!item.id} 
-                                                                    value={item.quantity} 
-                                                                    onChange={e => setItemProperty(item.entryId, 'quantity', e.target.value)} 
-                                                                /> */}
-                                  0
+                                <input
+                type="number"
+                value={item.quantity}
+                onChange={(event) => handleQuantityChange(event, index)}
+                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+              />
+                                  
                                 </td>
                                 <td className="p-4">
-                                  {/* <TextField 
-                                                                    symbol="%"
-                                                                    disabled={!item.id} 
-                                                                    value={item.discount} 
-                                                                    onChange={e => setItemProperty(item.entryId, 'discount', e.target.value)}
-                                                                /> */}
-                                  0
+                                <input
+                type="number"
+                value={item.discount}
+                onChange={(event) => handleDiscountChange(event, index)}
+                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+              />
                                 </td>
-                                <td className="p-4">{item.gst || "-"}</td>
-                                {/* <td className="p-4">{getPricePlusGST(item)}</td> */}
-                                <td className="p-4">{item.gst || "-"}</td>
+                                <td className="p-4">-</td>
+                               
+                                
                                 <td className="p-4">
-                                  {/* <button 
-                                                                    type="button" 
-                                                                    onClick={() => {
-                                                                        setItems(items => items.filter((_item) => item.entryId !== _item.entryId));
-                                                                    }}
-                                                                >
-                                                                    <TrashIcon className="icon" />
-                                                                </button> */}
+                                {item.selectedItem ? (((item.selectedItem.purchasePrice)*(item.quantity))-(((item.selectedItem.purchasePrice)*(item.quantity))*((item.discount)/100))) : ""}
                                 </td>
+                                <td>
+                            <button
+                  className="ml-2 text-red-600"
+                  onClick={() => handleRemoveItem(index)}
+                >
+                  <DeleteIcon />
+                </button>
+                            </td>
                               </tr>
                             );
                           })}
@@ -547,17 +697,13 @@ const CreateSales = () => {
                           <tr>
                             <th className="p-2 bg-slate-200 w-52">Total</th>
                             <td className="p-2 px-12">
-                              {/* {
-                                                        items.reduce((total, item) => total + getPriceAfterDiscount(item), 0)
-                                                    } */}
+                            {calculateTotal()}
                             </td>
                           </tr>
                           <tr>
                             <th className="p-2 bg-slate-200 w-52">GST</th>
                             <td className="p-2 px-12">
-                              {/* {
-                                                        items.reduce((total, item) => total + getGstAmount(item), 0)
-                                                    } */}
+                            
                             </td>
                           </tr>
                           <tr>
@@ -565,20 +711,19 @@ const CreateSales = () => {
                               Grand Total
                             </th>
                             <td className="p-2 px-12">
-                              {/* {
-                                                        items.reduce((total, item) => total + getPricePlusGST(item), 0)
-                                                    } */}
+                             
                             </td>
+
+                           
                           </tr>
                         </tfoot>
                       </table>
                     )}
                     <div className="p-4" onClick={handleAddItem}>
-                      {/* <OutlineButton type="button"  className="w-max">
-                                        <PlusCircleIcon className="icon" />
-                                        
-                                    </OutlineButton> */}
+                      
+                                    <button>
                       Add Item
+                      </button>
                     </div>
                   </div>
                 </div>
