@@ -37,6 +37,7 @@ const PartyList = () => {
   };
 
   const handleDeleteParty = async (deletedPartyId) => {
+    console.log(deletedPartyId)
     try {
       const token = JSON.parse(localStorage.getItem("itaxData")).token;
 

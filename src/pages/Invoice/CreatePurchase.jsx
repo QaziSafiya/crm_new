@@ -17,9 +17,14 @@ const initialFormData = {
   sgst: null,
   igst: null,
   utgst: null,
+  credit: null,
   details: "",
   extraDetails: "",
-  items: [{ itemId: "" }],
+  items: [{
+    itemId: "",
+    quantity: null,
+    discount: null
+  },],
   userId: null,
   credit: null,
   modeOfPayment: "",
@@ -57,6 +62,12 @@ const CreatePurchase = () => {
   ]);
 const [partyState,setPartyState]=useState("")
 const [itemState,setItemState]=useState("")
+const [itemObj,setItemObj]=useState({})
+const [totGst,setTotGst]=useState(null)
+const [quantity, setQuantity] = useState(1);
+  const [discount, setDiscount] = useState(0);
+  
+
 
   // Function to handle changes in quantity for a specific item
   const handleQuantityChange = (event, index) => {
@@ -65,6 +76,19 @@ const [itemState,setItemState]=useState("")
       const updatedItems = [...prevItems];
       updatedItems[index].quantity = parseInt(value);
       return updatedItems;
+    });
+
+    const newQuantity = parseInt(event.target.value);
+    setQuantity(newQuantity);
+
+    // Update the items array in formData by creating a new array and replacing the item at the specified index
+    setFormData((prevFormData) => {
+      const updatedItems = [...prevFormData.items];
+      updatedItems[index] = { ...updatedItems[index], quantity: newQuantity };
+      return {
+        ...prevFormData,
+        items: updatedItems,
+      };
     });
   };
 
@@ -76,6 +100,19 @@ const [itemState,setItemState]=useState("")
       updatedItems[index].discount = parseFloat(value);
       return updatedItems;
     });
+
+    const newDiscount = parseFloat(event.target.value);
+    setDiscount(newDiscount);
+
+    // Update the items array in formData by creating a new array and replacing the item at the specified index
+    setFormData((prevFormData) => {
+      const updatedItems = [...prevFormData.items];
+      updatedItems[index] = { ...updatedItems[index], discount: newDiscount };
+      return {
+        ...prevFormData,
+        items: updatedItems,
+      };
+    });
   };
   
 
@@ -84,6 +121,19 @@ useEffect(() => {
 }, [items]);
   
 
+// const updateItemInFormData = (index, updatedItem) => {
+//   setFormData((prevFormData) => {
+//     const updatedItems = [...prevFormData.items];
+//     updatedItems[index] = {
+//       ...updatedItems[index],
+//       ...updatedItem,
+//     };
+//     return {
+//       ...prevFormData,
+//       items: updatedItems,
+//     };
+//   });
+// };
 
 
 
@@ -115,18 +165,37 @@ useEffect(() => {
   };
 
   const handleSelectItem = (item, index) => {
-    setItemState(item.stateOfSupply)
-  setItems((prevItems) => {
-    const updatedItems = [...prevItems];
-    updatedItems[index] = { ...updatedItems[index], selectedItem: item };
-    return updatedItems;
-  });
-  setShowDropdown((prevDropdown) => {
-    const updatedDropdown = [...prevDropdown];
-    updatedDropdown[index] = false;
-    return updatedDropdown;
-  });
-};
+    setItemObj(item); // Set the selected item
+    
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems];
+      updatedItems[index] = { ...updatedItems[index], selectedItem: item };
+      return updatedItems;
+    });
+
+    const newItem = {
+      itemId: item.id,
+      quantity: 1, // You can set a default quantity here if needed
+      discount: 0, // You can set a default discount here if needed
+    };
+
+    // Update the items array in formData by creating a new array and replacing the item at the specified index
+    setFormData((prevFormData) => {
+      const updatedItems = [...prevFormData.items];
+      updatedItems[index] = newItem;
+      return {
+        ...prevFormData,
+        items: updatedItems,
+      };
+    });
+    setShowDropdown((prevDropdown) => {
+      const updatedDropdown = [...prevDropdown];
+      updatedDropdown[index] = false;
+      return updatedDropdown;
+    });
+  
+    calculateTotalGst(); // Call the calculateTotalGst function after selecting the item
+  };
   
   
   
@@ -161,7 +230,8 @@ useEffect(() => {
   };
 
   const handleSelectParty = (party) => {
-    setPartyState(party.stateOfSupply)
+    // Set the partyState first
+   
     setFormData((prevFormData) => ({
       ...prevFormData,
       partyId: party.id,
@@ -169,10 +239,15 @@ useEffect(() => {
       type: party.type,
       phone: party.phone,
       userId: party.userId,
-      
+      // Set the stateOfSupply in the form data
     }));
+   
+  
+    console.log(party)
+    setPartyState(party.address)
     setShowPartyDropdown(false);
   };
+  
 
   // Use useEffect to fetch parties when the component mounts
   useEffect(() => {
@@ -180,6 +255,7 @@ useEffect(() => {
   }, []);
 
   const handleChange = (event) => {
+   
     const { name, value, type, checked } = event.target;
     const updatedValue =
       type === "checkbox"
@@ -264,10 +340,27 @@ useEffect(() => {
   const calculateTotal = () => {
     let total = 0;
     items.forEach((item) => {
-      total += item.selectedItem ? ((Number(item.selectedItem.purchasePrice)*Number(item.quantity))-((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*(Number(item.discount)/100))) : 0;
+      total += item.selectedItem ? ((Number(item.selectedItem.purchasePrice)*Number(item.quantity))-((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*(Number(item.discount)/100))+((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*Number(totGst/100))) : 0;
     });
     return total;
   };
+
+  useEffect(() => {
+    const totalAmount = calculateTotal();
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      totalAmount,
+    }));
+  }, [items, totGst]);
+
+  const calculateGstOnly = () => {
+    let total = 0;
+    items.forEach((item) => {
+      total += item.selectedItem ? (((Number(item.selectedItem.purchasePrice)*Number(item.quantity))*Number(totGst/100))) : 0;
+    });
+    return total;
+  };
+
 
   const handleRemoveItem = (index) => {
     setItems((prevItems) => {
@@ -276,10 +369,61 @@ useEffect(() => {
       return updatedItems;
     });
   };
-
+  const handleStateOfSupplyChange = (event) => {
+    const { value } = event.target;
+    setItemState(value); // Update the itemState with the selected value
+    // You can also update the formData state if needed, but this is optional
+    setFormData((prevFormData) => ({ ...prevFormData, stateOfSupply: value }));
+  };
   // Calculate the total GST based on the type of supply (intra-state or inter-state)
  
-console.log(itemState==partyState)
+ 
+
+  console.log(partyState==itemState)
+  console.log(formData.cgst)
+
+
+
+  // Calculate the total GST based on the type of supply (intra-state or inter-state)
+  const calculateTotalGst = () => {
+    if (itemObj && partyState === itemState) {
+      // Intra-State Transaction
+      const totalGst = Number(itemObj.cgst || 0) + Number(itemObj.sgst || 0);
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        totalGst,
+        cgst: Number(itemObj.cgst),
+        igst: Number(itemObj.igst),
+        utgst: Number(itemObj.utgst),
+        sgst: Number(itemObj.sgst),
+      }));
+      setTotGst(totalGst);
+    } else if (itemObj) {
+      // Inter-State Transaction
+      const totalGst = Number(itemObj.igst) || 0;
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        totalGst,
+        cgst: Number(itemObj.cgst),
+        igst: Number(itemObj.igst),
+        utgst: Number(itemObj.utgst),
+        sgst: Number(itemObj.sgst),
+      }));
+      setTotGst(totalGst);
+    } else {
+      // Reset total GST when itemObj is null (no item selected)
+      setTotGst(null);
+    }
+  };
+
+// Call the calculateTotalGst function whenever there are changes in cgst, sgst, igst, utgst, or stateOfSupply
+useEffect(() => {
+  calculateTotalGst();
+}, [itemObj.cgst, itemObj.sgst, itemObj.igst, itemObj.utgst, itemObj.stateOfSupply,formData.stateOfSupply,
+  itemState,]);
+  
+
+
 
   return (
     <div className="container">
@@ -328,6 +472,7 @@ console.log(itemState==partyState)
       {partyList.map((party) => (
         <li
           key={party.id}
+         
           onMouseDown={() => handleSelectParty(party)} // Use onMouseDown instead of onClick
           className="px-4 py-2 cursor-pointer hover:bg-gray-300"
         >
@@ -412,7 +557,7 @@ console.log(itemState==partyState)
                   <div className="w-1/2 border-2 p-5 ">
                     <p>Purchase Details</p>
 
-                    <div className="mb-6 mt-12">
+                    <div className="mb-7 mt-12">
                       <label
                         htmlFor="invoiceNumber"
                         className="block text-sm font-bold text-gray-700 mb-2"
@@ -476,13 +621,13 @@ console.log(itemState==partyState)
                         State Of Supply:
                       </label>
                       <select
-                        id="stateOfSupply"
-                        name="stateOfSupply"
-                        value={formData.stateOfSupply}
-                        onChange={handleChange}
-                        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
-                        required
-                      >
+        id="stateOfSupply"
+        name="stateOfSupply"
+        value={itemState} // Use the itemState value here instead of formData.stateOfSupply
+        onChange={handleStateOfSupplyChange} // Use the new handler for instant updates
+        className="w-full border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 bg-white h-10"
+        required
+      >
                         <option value="">Select State</option>
                         <option value="Andhra Pradesh">Andhra Pradesh</option>
                         <option value="Arunachal Pradesh">
@@ -610,27 +755,27 @@ console.log(itemState==partyState)
                                 </td>
                                 <td className="p-4">{item.selectedItem ? item.selectedItem.price : ""}</td>
                                 <td className="p-4">
-                                <input
-                type="number"
-                value={item.quantity}
-                onChange={(event) => handleQuantityChange(event, index)}
-                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
-              />
-                                  
-                                </td>
-                                <td className="p-4">
-                                <input
-                type="number"
-                value={item.discount}
-                onChange={(event) => handleDiscountChange(event, index)}
-                className=" border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
-              />
-                                </td>
-                                <td className="p-4">{item.gst || "-"}</td>
+  <input
+    type="number"
+    value={item.quantity}
+    onChange={(event) => handleQuantityChange(event, index)}
+    className="border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+  />
+</td>
+<td className="p-4">
+  <input
+    type="number"
+    value={item.discount}
+    onChange={(event) => handleDiscountChange(event, index)}
+    className="border border-gray-400 px-3 py-2 rounded-lg focus:outline-none focus:border-blue-500 w-24"
+  />
+</td>
+
+                                <td className="p-4">{totGst}</td>
                                
                                 
                                 <td className="p-4">
-                                {item.selectedItem ? (((item.selectedItem.purchasePrice)*(item.quantity))-(((item.selectedItem.purchasePrice)*(item.quantity))*((item.discount)/100))) : ""}
+                                {item.selectedItem ? (((item.selectedItem.purchasePrice)*(item.quantity))-(((item.selectedItem.purchasePrice)*(item.quantity))*((item.discount)/100))+(((item.selectedItem.purchasePrice)*(item.quantity))*(totGst/100))) : ""}
                                 </td>
                                 <td>
                             <button
@@ -648,13 +793,13 @@ console.log(itemState==partyState)
                           <tr>
                             <th className="p-2 bg-slate-200 w-52">Total</th>
                             <td className="p-2 px-12">
-                            {calculateTotal()}
+                             {calculateTotal()-calculateGstOnly()}
                             </td>
                           </tr>
                           <tr>
                             <th className="p-2 bg-slate-200 w-52">GST</th>
                             <td className="p-2 px-12">
-                            
+                            {calculateGstOnly()}
                             </td>
                           </tr>
                           <tr>
@@ -662,7 +807,7 @@ console.log(itemState==partyState)
                               Grand Total
                             </th>
                             <td className="p-2 px-12">
-                             
+                             {calculateTotal()}
                             </td>
 
                            
@@ -670,9 +815,9 @@ console.log(itemState==partyState)
                         </tfoot>
                       </table>
                     )}
-                    <div className="p-4" onClick={handleAddItem}>
+                    <div className="p-4 bg-blue-500 text-white w-32 text-center rounded-xl mt-5" onClick={handleAddItem}>
                       
-                                    <button>
+                      <button >
                       Add Item
                       </button>
                     </div>

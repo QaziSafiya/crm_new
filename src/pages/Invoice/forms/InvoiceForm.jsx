@@ -5,7 +5,7 @@ import { BASE_URL } from "../../../constants.js";
 
 const initialFormData = {
   invoiceNumber: null,
-  type: "",
+  type: "supplier",
   partyId: "",
   phone: "",
   partyName: "",
@@ -16,17 +16,17 @@ const initialFormData = {
   sgst: null,
   igst: null,
   utgst: null,
+  credit: null,
   details: "",
   extraDetails: "",
-  credit: null,
-  items: [
-    {
-      itemId: "",
-      quantity: null,
-      discount: null
-    },
-  ],
+  items: [{
+    itemId: "",
+    quantity: null,
+    discount: null
+  },],
   userId: null,
+  credit: null,
+  modeOfPayment: "",
 };
 
 const InvoiceForm = () => {
