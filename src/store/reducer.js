@@ -1,4 +1,4 @@
-import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT, GSTR_MODE, GSTR_OBJ, PDF_DOC_INVOICE} from "./actions.js";
+import { AUTH_FROM_REDIRECT, AUTH_USER, CLEAR_REDIRECT, CLOSE_SIDEBAR, GST_LOGIN, LOGOUT, OPEN_SIDEBAR, SET_DASHBOARD_DATA, SET_GST_MONTH, SET_GST_YEAR, SET_USER_DETAILS, TOGGLE_SIDEBAR, UPDATE_USER , PDF_DOC, SET_GST_QUARTER, SET_REDIRECT, GSTR_MODE, GSTR_OBJ, PDF_DOC_INVOICE, LIB_PDF_DOC} from "./actions.js";
 
 export default function reducer(state, { type, payload }) {
     console.log(type, payload);
@@ -42,6 +42,11 @@ export default function reducer(state, { type, payload }) {
             return { ...state, gst: { ...state.gst, quarter: payload } }
         case SET_GST_YEAR:
             return { ...state, gst: { ...state.gst, year: payload }, };
+            case LIB_PDF_DOC:
+      return {
+        ...state,
+        libraryPdfDoc: payload,
+      };
         case PDF_DOC:
             return {
                 ...state,

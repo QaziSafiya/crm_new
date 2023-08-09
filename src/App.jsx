@@ -81,6 +81,10 @@ import Purchase from './pages/Invoice/Purchase'
 import Sales from './pages/Invoice/Sales'
 import CreatePurchase from './pages/Invoice/CreatePurchase'
 import CreateSales from './pages/Invoice/CreateSales'
+import Library from './pages/e-library/new-lib/library1'
+import CreateLibrary1 from './pages/e-library/new-lib/CreateLibrary1'
+import IndividualLibraryPage from './pages/e-library/new-lib/IndividualLibraryPage'
+
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -422,19 +426,20 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path='/e-library' element={
-            <ProtectedRoute>
-              <AllLibrary />
-            </ProtectedRoute>
+            <Library />
+           
           } />
           <Route path='/e-library/update-library/:id' element={
-            <ProtectedRoute>
-              <UpdateLibrary />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            //   <UpdateLibrary />
+            // </ProtectedRoute>
+           <IndividualLibraryPage  />
           } />
           <Route path='/e-library/add-library' element={
-            <ProtectedRoute>
-              <CreateLibrary />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            //   <CreateLibrary />
+            // </ProtectedRoute>
+            <CreateLibrary1 />
           } />
           <Route path='/gst/gstr' element={
             <PrivateRoute>

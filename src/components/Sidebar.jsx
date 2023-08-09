@@ -35,6 +35,7 @@ import { useEffect } from "react";
 import HandshakeIcon from "./icons/HandshakeIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
 import FileTransferIcon from "./icons/FileTransferIcon.jsx";
+import BookIcon from "./icons/BookIcon.jsx";
 // import OrderedListIcon from "./icons/OrderedListIcon.jsx";
 
 export default function Sidebar({ open }) {
@@ -189,6 +190,15 @@ export default function Sidebar({ open }) {
               title="Payment"
             />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Working Capital" />
+          </Menu>
+
+          <Menu icon={<BookIcon />} title="E-library">
+          <SideNavLink
+              icon={<HandshakeIcon />}
+              to="/e-library"
+              title="e-library"
+            />
+            {/* <SideNavLink icon={<BankIcon />} to="/loan" title="Loan" /> */}
           </Menu>
           <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
             <SideNavLink icon={<ArrowRightIcon />} to="/" title="Recipt" />

@@ -10,6 +10,7 @@ export default function StoreProvider({ children }) {
             pending: true,
         },
         user: {},
+        libraryPdfDoc:null,
         gst: {
             party_name: '',
             isLoggedIn: false,

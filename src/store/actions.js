@@ -34,4 +34,6 @@ export const GSTR_MODE = "gtr-mode";
 
 export const GSTR_OBJ = "gtr-object";
 
+export const LIB_PDF_DOC = "libraryPdfDoc";
+
 export const PDF_DOC_INVOICE="pdfDocInvoice"
