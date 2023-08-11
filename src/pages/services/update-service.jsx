@@ -41,7 +41,7 @@ export default function UpdateService() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/service/${id}`, {
+            const res = await fetch(`${BASE_URL}/services/${id}`, {
                 headers: new Headers({
                     'Authorization': `Basic ${token}`,
                 }),
@@ -115,15 +115,15 @@ export default function UpdateService() {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(JSON.stringify(service));
+        console.log(service);
         try {
             setUpdating(true);
             setError('');
 
-            const res = await fetch(`${BASE_URL}/service/${id}`, {
+            const res = await fetch(`${BASE_URL}/services/${id}`, {
                 method: 'PUT',
                 headers: new Headers({
-                    'Authorization': `Basic ${token}`,
+                    'Authorization': `Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiaVRheEVhc3kiLCJsYXN0TmFtZSI6IkFkbWluIiwiYWRkcmVzcyI6bnVsbCwiYWFkaGFhciI6bnVsbCwicGFuIjpudWxsLCJlbWFpbCI6ImFkbWluQGl0YXhlYXN5LmNvbSIsInBob25lIjpudWxsLCJ1c2VyVHlwZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjMtMDYtMjdUMDk6MTc6MzEuODA0WiIsImlhdCI6MTY4Nzg1NzY5NywiZXhwIjoxNzE5NDE1Mjk3LCJpc3MiOiJpVGF4RWFzeSJ9.4u41-IhAQzpZpkirYY6dBYlznbUuc8ScUqak0nXH7n0`,
                     'Content-Type': 'application/json',
                 }),
                 body: JSON.stringify(service),
@@ -141,6 +141,7 @@ export default function UpdateService() {
         }
     };
 
+    // console.log(service)
     return (
         <div className='container'>
             <Sidebar />
@@ -198,7 +199,7 @@ export default function UpdateService() {
                                         <div className="flex dir-col g-1rem">
                                             <h6 className="text-primary">Required Documents</h6>
                                             {
-                                                service.documents.length > 0
+                                                service.documents
                                                     ? (
                                                         <div className="flex dir-col g-1rem">
                                                             {

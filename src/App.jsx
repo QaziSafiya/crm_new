@@ -6,7 +6,9 @@ import Dashboard from './pages/Dashboard.jsx'
 import Login from './pages/Login.jsx'
 import MyAccount from './pages/Settings/MyAccount.jsx'
 import ChangePassword from './pages/Settings/ChangePassword.jsx'
-import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
+// import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
+import UpdateHomepage from './pages/update1/UpdateHomepage.jsx'
+
 import Users from './pages/Users.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import User from './pages/User/Layout.jsx'
@@ -22,7 +24,9 @@ import CustomerCompanyDetails from './pages/customers/CompanyDetails.jsx'
 import CustomerBankDetails from './pages/customers/BankDetails.jsx'
 import AddCustomer from './pages/AddCustomer.jsx'
 import UpdateCustomer from './pages/UpdateCustomer.jsx'
-import UpdateFooter from './pages/update/UpdateFooter.jsx'
+// import UpdateFooter from './pages/update/UpdateFooter.jsx'
+import UpdateFooter from './pages/update1/UpdateFooter.jsx'
+
 import Blog from './pages/blog/index.jsx'
 import NewPost from './pages/blog/NewPost.jsx'
 import GSTR from './pages/gst/gstr/gstr.jsx'
@@ -42,13 +46,19 @@ import InwardSupplies from './pages/gst-new/InwardSupplies'
 // import OutwardSupplies from './pages/gst/outward.jsx'
 import OutwardSupplies from './pages/gst-new/OutwardSupplies'
 import AllServices from './pages/services/AllServices'
+// import AllServices from './pages/services1/AllServices'
+
 import AddService from './pages/services/add-service.jsx'
+// import AddService from './pages/services1/add-service.jsx'
+
 import UpdateService from './pages/services/update-service.jsx'
+// import UpdateService from './pages/services1/update-service.jsx'
+
 import ProjectReport from './pages/ProjectReport'
 import PdfViewer from './components/pdfViewer'
 import AllLibrary from './pages/e-library/AllLibrary'
 import UpdateLibrary from './pages/e-library/UpdateLibrary'
-import CreateLibrary from './pages/e-library/CreateLibrary'
+// import CreateLibrary from './pages/e-library/CreateLibrary'
 import LoanIndex from './pages/loan/index.jsx'
 import ApplyForLoan from './pages/loan/apply.jsx'
 import LoanDetails from './pages/loan/details.jsx'
@@ -376,14 +386,16 @@ function App() {
             </ProtectedRoute>
           } />
           <Route path='/update/homepage' element={
-            <ProtectedRoute>
-              <UpdateHomepage />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            //   <UpdateHomepage />
+            // </ProtectedRoute>
+            <UpdateHomepage />
           } />
           <Route path='/update/footer' element={
-            <ProtectedRoute>
-              <UpdateFooter />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            //   <UpdateFooter />
+            // </ProtectedRoute>
+            <UpdateFooter />
           } />
           <Route path='/blog' element={
             <ProtectedRoute>
@@ -410,7 +422,7 @@ function App() {
               <Post />
             </ProtectedRoute>
           } />
-          <Route path='/services' element={
+          {/* <Route path='/services' element={
             <ProtectedRoute>
               <AllServices/>
             </ProtectedRoute>
@@ -424,22 +436,43 @@ function App() {
             <ProtectedRoute>
               <UpdateService/>
             </ProtectedRoute>
+          } /> */}
+
+           <Route path='/services' element={
+            // <ProtectedRoute>
+            //   <AllServices/>
+            // </ProtectedRoute>
+            <AllServices  />
+          } />
+          <Route path='/services/add-service' element={
+            // <ProtectedRoute>
+              <AddService/>
+            // </ProtectedRoute>
+          } />
+          <Route path='/services/update-service/:id' element={
+            // <ProtectedRoute>
+              <UpdateService/>
+            // </ProtectedRoute>
           } />
           <Route path='/e-library' element={
+            // <ProtectedRoute>
+            // <Library />
+            // </ProtectedRoute>
             <Library />
-           
           } />
           <Route path='/e-library/update-library/:id' element={
-            // <ProtectedRoute>
-            //   <UpdateLibrary />
-            // </ProtectedRoute>
-           <IndividualLibraryPage  />
+          //    <ProtectedRoute>
+          //   <IndividualLibraryPage  />
+          //  </ProtectedRoute>
+              // <UpdateLibrary />
+              <IndividualLibraryPage  />
           } />
           <Route path='/e-library/add-library' element={
-            // <ProtectedRoute>
-            //   <CreateLibrary />
-            // </ProtectedRoute>
-            <CreateLibrary1 />
+            //  <ProtectedRoute>
+           
+            // <CreateLibrary1 />
+            //  </ProtectedRoute>
+              <CreateLibrary1 />
           } />
           <Route path='/gst/gstr' element={
             <PrivateRoute>

@@ -92,7 +92,7 @@ export default function Sidebar({ open }) {
               />
             </Menu>
           </ProtectedMenu>
-          {["normal", "developer"].includes(state.auth.currentUser.user.userType) ? (
+          {["normal", "developer",'normal'].includes(state.auth.currentUser.user.userType) ? (
             <>
               <Menu icon={<UserIcon />} title="My Account">
                 <SideNavLink
@@ -192,14 +192,16 @@ export default function Sidebar({ open }) {
             <SideNavLink icon={<GlobeIcon />} to="/" title="Working Capital" />
           </Menu>
 
-          <Menu icon={<BookIcon />} title="E-library">
+          
+          {/* <Menu icon={<BookIcon />} title="E-library">
           <SideNavLink
               icon={<HandshakeIcon />}
               to="/e-library"
               title="e-library"
             />
             {/* <SideNavLink icon={<BankIcon />} to="/loan" title="Loan" /> */}
-          </Menu>
+          {/* </Menu> */}
+          
           <Menu icon={<TransactionIcon />} title="Transactions" upcoming>
             <SideNavLink icon={<ArrowRightIcon />} to="/" title="Recipt" />
             <SideNavLink icon={<ArrowLeftIcon />} to="/" title="Payment" />
@@ -236,6 +238,13 @@ export default function Sidebar({ open }) {
               upcoming
             />
           </Menu>
+          {/* <Menu icon={<BillIcon />} title="All Serices">
+          <SideNavLink
+                icon={<GlobeIcon />}
+                to="/services"
+                title="Services"
+              />
+          </Menu> */}
           {/* <Menu icon={<ReportsIcon />} title="Reports" upcoming>
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Trading Account" />
                         <SideNavLink icon={<GlobeIcon />} to='/' title="Profit &amp; Loss" />

@@ -26,17 +26,24 @@ export default function AddService() {
     const [success, setSuccess] = useState('');
 
     const handleDocChange = (e, id) => {
+        const updatedDocuments = service.documents.map((doc, idx) => {
+            if (idx !== id) {
+                return doc; // If not the targeted document, keep it unchanged
+            }
+    
+            // If the idx matches the targeted document, update the specific field
+            return {
+                ...doc, // Copy the existing document object
+                [e.target.name]: e.target.value // Update the specific field
+            };
+        });
+    
         setService({
             ...service,
-            documents: service.documents.map((doc, idx) => {
-                if(idx !== id) {
-                    return doc;
-                }
-    
-                return { ...doc, [e.target.name]: e.target.value };
-            })
+            documents: updatedDocuments
         });
     };
+    
 
     const handleChange = e => {
         setService({
@@ -54,12 +61,12 @@ export default function AddService() {
 
     const handleAddDoc = () => {
         const newDoc = {
-            name: '',
+            title: '',       // Fixed: Change 'name' to 'title'
             shortName: '',
             type: 'file',
             numInputs: '',
         };
-        
+
         setService({
             ...service,
             documents: [
@@ -71,34 +78,34 @@ export default function AddService() {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(service);
+        // console.log(service);
         try {
             setAdding(true);
             setError('');
-
-            const res = await fetch(`${BASE_URL}/service`, {
+    
+            const res = await fetch(`${BASE_URL}/services`, {
                 method: 'POST',
                 headers: new Headers({
-                    'Authorization': `Basic ${token}`,
+                    'Authorization': `Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiaVRheEVhc3kiLCJsYXN0TmFtZSI6IkFkbWluIiwiYWRkcmVzcyI6bnVsbCwiYWFkaGFhciI6bnVsbCwicGFuIjpudWxsLCJlbWFpbCI6ImFkbWluQGl0YXhlYXN5LmNvbSIsInBob25lIjpudWxsLCJ1c2VyVHlwZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjMtMDYtMjdUMDk6MTc6MzEuODA0WiIsImlhdCI6MTY4Nzg1NzY5NywiZXhwIjoxNzE5NDE1Mjk3LCJpc3MiOiJpVGF4RWFzeSJ9.4u41-IhAQzpZpkirYY6dBYlznbUuc8ScUqak0nXH7n0`,
                     'Content-Type': 'application/json',
                 }),
                 body: JSON.stringify({
-                    ...service,
-                    documents: JSON.stringify(service.documents),
+                    ...service, // Spread the service object
                 }),
             });
-
-            if(!res.ok) {
+    
+            if (!res.ok) {
                 throw new Error('Could not add service');
             }
-
+    
             setSuccess('Service has been added successfully');
-        } catch(e) {
+        } catch (e) {
             setError(e.message);
         } finally {
             setAdding(false);
         }
     };
+    
 
     return (
         <div className='container'>

@@ -15,6 +15,7 @@ import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants.js";
 import useAuth from "../../hooks/useAuth.js";
+import axios from "axios";
 
 const customStyles = {
     overlay: {
@@ -45,7 +46,7 @@ const AllServices = () => {
     const page = parseInt(search.get('page')) || 0;
 
     const fetchServices= useCallback(async () => {
-        const res = await fetch(`${BASE_URL}/service/all?pageNo=${page}`, {
+        const res = await fetch(`${BASE_URL}/services?pageNo=${page}`, {
             headers: new Headers({
                 'Authorization': `Basic ${token}`,
             })
@@ -55,32 +56,41 @@ const AllServices = () => {
     }, [page]);    
 
     const { data, isLoading, error: fetchError } = useQuery(['services', page], fetchServices);
+  console.log(data)
 
     const [service, setService] = useState(null);
 
-    const deleteService = useMutation((id) => {
-        return fetch(`${BASE_URL}/service/${service}`, {
-            method: 'DELETE',
-            headers: new Headers({
-                'Authorization': `Bearer ${token}`,
-            })
-        })
+    const deleteService = useMutation(async (serviceId) => {
+        try {
+            const response = await axios.delete(`${BASE_URL}/services/${serviceId}`, {
+                headers: {
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiaVRheEVhc3kiLCJsYXN0TmFtZSI6IkFkbWluIiwiYWRkcmVzcyI6bnVsbCwiYWFkaGFhciI6bnVsbCwicGFuIjpudWxsLCJlbWFpbCI6ImFkbWluQGl0YXhlYXN5LmNvbSIsInBob25lIjpudWxsLCJ1c2VyVHlwZSI6ImFkbWluIiwidmVyaWZpZWQiOnRydWUsImNyZWF0ZWRBdCI6IjIwMjMtMDYtMjdUMDk6MTc6MzEuODA0WiIsImlhdCI6MTY4Nzg1NzY5NywiZXhwIjoxNzE5NDE1Mjk3LCJpc3MiOiJpVGF4RWFzeSJ9.4u41-IhAQzpZpkirYY6dBYlznbUuc8ScUqak0nXH7n0`,
+                },
+            });
+            return response.data; // Return the response data if needed
+        } catch (error) {
+            throw error;
+        }
     }, {
-        onMutate: async (id) => {
-            await queryClient.cancelQueries(['services', id]);
-        
-            queryClient.setQueryData(['services', page], (old) => {
-                return {
-                    ...old,
-                    services: old.services.filter(service => service.id !== id)
-                };
+        onMutate: async (serviceId) => {
+            await queryClient.cancelQueries(['services', page]);
+
+            // Update the cache to remove the deleted service
+            queryClient.setQueryData(['services', page], (oldData) => {
+                if (oldData.data) {
+                    return {
+                        ...oldData,
+                        data: oldData.data.filter(service => service.id !== serviceId)
+                    };
+                }
+                return oldData;
             });
         }
     });
 
-    const handleDelete = service => {
+    const handleDelete = (serviceId) => {
         setIsOpen(true);
-        setService(service);
+        setService(serviceId);
     };
 
     const handleServiceDelete = async () => {
@@ -88,13 +98,7 @@ const AllServices = () => {
             setError('');
             setDeleting(true);
 
-            const res = await deleteService.mutateAsync(service);
-
-            console.log(res);
-
-            if(!res.ok) {
-                throw new Error('Could not delete service.');
-            }
+            await deleteService.mutateAsync(service); // Use service id
 
             setSuccess('Service deleted.');
         } catch(e) {
@@ -106,7 +110,10 @@ const AllServices = () => {
         }
     };
 
+
     const appElementRef = useRef();
+
+    
 
     return <>
         <div className="container" ref={appElementRef}>
@@ -140,7 +147,7 @@ const AllServices = () => {
                                 : (
                                     <>
                                     {
-                                        data.services.map(service => (
+                                     data.data.length>0 &&   data.data.map(service => (
                                             <div key={service.id} className="section">
                                                 <div className="flex dir-row ai-center jc-between">
                                                     <h6 className="title">{service.serviceName}</h6>

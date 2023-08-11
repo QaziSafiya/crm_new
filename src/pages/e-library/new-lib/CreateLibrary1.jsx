@@ -101,9 +101,9 @@ const CreateLibrary1 = () => {
       <Topbar />
       <div className="inner-container w-full">
     <div className="bg-white p-4">
-      <h1 className="text-2xl mb-4 text-center">E-Library Form</h1>
+      <h1 className="text-2xl mb-4 text-center pb-5">E-Library Form</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-2 gap-4 pl-32 pr-32">
+        <div className="grid grid-cols-2 gap-4 pl-5 pr-5">
         <div>
         <label htmlFor="pan" className="block mb-2 text-primary font-bold">
           PAN:

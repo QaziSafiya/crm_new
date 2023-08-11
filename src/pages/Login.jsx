@@ -15,6 +15,7 @@ import BackIcon from "../components/icons/BackIcon.jsx";
 
 export default function Login() {
     const { currentUser } = useAuth();
+    //console.log(currentUser)
 
     const [state, dispatch] = useContext(StoreContext);
 
@@ -84,8 +85,8 @@ export default function Login() {
             if(!success) {
                 throw new Error('Some error occured.');
             }
-
-            const userProfileRequest = await fetch(`${BASE_URL}/user/profile/${data.id}`, {
+            console.log(data.user.id)
+            const userProfileRequest = await fetch(`${BASE_URL}/user/profile/${data.user.id}`, {
                 headers: new Headers({
                     'Authorization': `Basic ${token}`,
                 }),
@@ -93,7 +94,7 @@ export default function Login() {
 
             const { data: userData = {} } = (await userProfileRequest?.json()) || {};
 
-            console.log(data, token);
+           // console.log(data, token);
             //  localStorage.setItem("itaxToken",JSON.stringify(token))
             localStorage.setItem("itaxData",JSON.stringify(data))
 
