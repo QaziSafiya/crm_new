@@ -23,7 +23,7 @@ export default function JobApplicationDetails() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/career/application/${id}`, {
+            const res = await fetch(`${BASE_URL}/career/findOne/${id}`, {
                 headers: new Headers({
                     'Authorization': `Basic ${token}`,
                 }),
