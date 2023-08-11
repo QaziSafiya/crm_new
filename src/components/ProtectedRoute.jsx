@@ -6,10 +6,8 @@ import { CLEAR_REDIRECT, SET_REDIRECT } from "../store/actions.js";
 import { StoreContext } from "../store/store-context.js";
 
 export default function ProtectedRoute({ children }) {
-    //  const { currentUser, redirect } = useAuth();
-    const { currentUser: { user: { userType } }, redirect } = useAuth();
-    
-    console.log(userType)
+    // const { currentUser, redirect } = useAuth();
+    const { currentUser, redirect } = useAuth();
     const [_, dispatch] = useContext(StoreContext);
 
     const location = useLocation();
@@ -39,7 +37,7 @@ export default function ProtectedRoute({ children }) {
         return <Navigate to='/login' replace />
     }
 
-    if(!(['admin', 'developer','normal'].includes(userType))) {
+    if(!(['admin', 'developer', 'normal'].includes(currentUser?.user?.userType))) {
         return <Navigate to='/' replace />
     }
 

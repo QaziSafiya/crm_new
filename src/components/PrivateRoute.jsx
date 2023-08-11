@@ -13,6 +13,7 @@ export default function PrivateRoute({ children }) {
     const { currentUser, redirect } = useAuth();
 
     useEffect(() => {
+
         if(currentUser || redirect) {
             if(location.pathname !== redirect) {
                 dispatch({
