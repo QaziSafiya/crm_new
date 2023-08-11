@@ -70,8 +70,7 @@ export default function Applications() {
                                                                 </td>
                                                                 <td>
                                                                     {
-                                                                        // postDateFormatter.format(new Date(application.createdAt))
-                                                                        postDateFormatter.format(new Date())
+                                                                        postDateFormatter.format(new Date(application.createdAt))
                                                                     }
                                                                 </td>
                                                                 <td>
