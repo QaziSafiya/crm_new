@@ -22,7 +22,7 @@ export default function Post() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/blog/get-post-byId?id=${id}`);
+            const res = await fetch(`${BASE_URL}/blog/posts?id=${id}`);
 
             if(!res.ok) {
                 throw new Error('Could not fetch blog.');

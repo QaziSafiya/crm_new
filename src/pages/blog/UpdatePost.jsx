@@ -121,8 +121,8 @@ export default function UpdatePost() {
 
             const content = draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
 
-            const response = await fetch(`${BASE_URL}/blog/update-post?id=${id}`, {
-                method: 'POST', 
+            const response = await fetch(`${BASE_URL}/blog/posts?id=${id}`, {
+                method: 'PUT', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ export default function UpdatePost() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/blog/get-post-byId?id=${id}`);
+            const res = await fetch(`${BASE_URL}/blog/posts?id=${id}`);
 
             if(!res.ok) {
                 throw new Error('Could not fetch blog.');

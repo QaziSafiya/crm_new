@@ -37,19 +37,19 @@ export default function Blog() {
 
     const [search, setSearch] = useSearchParams();
 
-    const page = parseInt(search.get('page')) || 0;
+    const page = parseInt(search.get('page')) || 1;
 
     const fetchBlogs = useCallback(async () => {
-        const res = await fetch(`${BASE_URL}/blog/get-all-post?pageNo=${page}`);
-    
-        return res.json();
+        const res = await fetch(`${BASE_URL}/blog/posts?page=${page}`);
+        const data = await res.json();
+        return data;
     }, [page]);    
 
     const { data, isLoading, error: fetchError } = useQuery(['blogs', page], fetchBlogs);
 
     const deletePost = useMutation((id) => {
-        return fetch(`${BASE_URL}/blog/delete?id=${post}`, {
-            method: 'POST',
+        return fetch(`${BASE_URL}/blog/posts?id=${post}`, {
+            method: 'DELETE',
             headers: new Headers({
                 'Authorization': `Bearer ${token}`,
             })
@@ -135,7 +135,7 @@ export default function Blog() {
                             : fetchError
                                 ? <ErrorMessage message='Could not load blogs.' />
                                 : (
-                                    data.data.map(post => (
+                                    data.data.posts.map(post => (
                                         <div key={post.id} className="section">
                                             <span className="text-secondary">
                                                 {postDateFormatter.format(new Date(post.createdAt))}

@@ -117,7 +117,7 @@ export default function NewPost() {
 
             const content = draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
 
-            const response = await fetch(`${BASE_URL}/blog/create-post`, {
+            const response = await fetch(`${BASE_URL}/blog/posts`, {
                 method: 'POST', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`,
