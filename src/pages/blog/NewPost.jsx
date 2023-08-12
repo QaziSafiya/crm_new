@@ -126,7 +126,7 @@ export default function NewPost() {
                 body: JSON.stringify({
                     title,
                     content,
-                    imageUrl: ''
+                    imageUrl: 'https://example.com/image.jpg'
                 })
             });
 
