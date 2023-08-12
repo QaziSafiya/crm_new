@@ -22,7 +22,7 @@ export default function Post() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/blog/posts?id=${id}`);
+            const res = await fetch(`${BASE_URL}/blog/posts/${id}`);
 
             if(!res.ok) {
                 throw new Error('Could not fetch blog.');
@@ -30,7 +30,7 @@ export default function Post() {
 
             const data = await res.json();
 
-            setBlog(data);
+            setBlog(data.data);
         } catch(e) {
             console.error(e);
             setError(e.message);
