@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../constants.js";
-
-const ENDPOINT = `${BASE_URL}/users/get-all-user`;
+import useAuth from "../hooks/useAuth.js";
+const ENDPOINT = `${BASE_URL}/user/get-all-users`;
 
 export default function useUsers(pageNo) {
+    const { token } = useAuth();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const [users, setUsers] = useState([]);
-    const [totalPages, setTotalPages] = useState(0);
-    const [currentPage, setCurrentPage] = useState(pageNo);
+    const [totalPages, setTotalPages] = useState();
+    const [currentPage, setCurrentPage] = useState();
 
     const fetchUsers = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${ENDPOINT}?page=${pageNo}`);
-            const { totalPages, data, currentPage } = await response.json();
+            const response = await fetch(`${ENDPOINT}?page=${pageNo}`,{
+                headers: new Headers({
+                    'Authorization': `Basic ${token}`,
+                })
+            });
 
-            setUsers(data);
-            setTotalPages(totalPages);
-            setCurrentPage(currentPage);
+            const { data } = await response.json();
+
+            setUsers(data.users);
+            setCurrentPage(data?.page ? data.page : pageNo);
+            setTotalPages(data?.page ? data.totalPage : 1);
         } catch(e) {
             console.log(e);
             setError(e.message);
