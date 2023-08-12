@@ -48,7 +48,7 @@ export default function Blog() {
     const { data, isLoading, error: fetchError } = useQuery(['blogs', page], fetchBlogs);
 
     const deletePost = useMutation((id) => {
-        return fetch(`${BASE_URL}/blog/posts?id=${post}`, {
+        return fetch(`${BASE_URL}/blog/posts/${post}`, {
             method: 'DELETE',
             headers: new Headers({
                 'Authorization': `Bearer ${token}`,
@@ -57,13 +57,15 @@ export default function Blog() {
     }, {
         onMutate: async (id) => {
             await queryClient.cancelQueries(['blogs', id]);
-        
             queryClient.setQueryData(['blogs', page], (old) => {
                 return {
                     ...old,
-                    data: old.data.filter(post => post.id !== id)
+                    data: {
+                        ...old.data,
+                        posts: old.data.posts.filter(post => post.id !== id)
+                    }
                 };
-            });
+            });            
         }
     });
     
