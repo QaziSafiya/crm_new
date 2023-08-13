@@ -131,6 +131,7 @@ export default function Sidebar({ open }) {
             <SideNavLink icon={<GlobeIcon />} to="/" title="Mutual Fund" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="SIP" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Sell of Share" />
+
             <SideNavLink
               icon={<GlobeIcon />}
               to="/"

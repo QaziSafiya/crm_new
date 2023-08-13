@@ -47,15 +47,15 @@ export default function OutwardSupplies() {
           <h6 className="text-secondary">Outward Supplies</h6>
           <div className="flex jc-between ai-center flex-wrap g-1rem">
             <div className="flex g-1rem ai-center flex-wrap">
-              <button className="button bg-blue-500 text-white is-small has-icon">
+              {/* <button className="button bg-blue-500 text-white is-small has-icon">
                 <UploadIcon />
                 Import Excel/Tally Data
-              </button>
-              <button className="button bg-blue-500 text-white is-small has-icon">
+              </button> */}
+              {/* <button className="button bg-blue-500 text-white is-small has-icon">
                 <HandshakeIcon />
                 Tally Reconcillation
-              </button>
-              <span className="text-secondary">Return not submitted</span>
+              </button> */}
+              {/* <span className="text-secondary">Return not submitted</span> */}
             </div>
             <div className="flex g-1rem flex-wrap">
               <button className="button bg-blue-500 text-white is-small has-icon">

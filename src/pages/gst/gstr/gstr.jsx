@@ -62,7 +62,7 @@ export default function GSTR1() {
 
   const handleClose = () => {
     setGstin("");
-    setUsername("");
+    setUsername(""); 
   };
 
   const setQuarter = (quarter) => {

@@ -15,7 +15,7 @@ export default function InwardSupplies() {
                 <div className="inner-container">
                     <h6 className="text-secondary">Inward Supplies</h6>
                     <div className="flex jc-between ai-center flex-wrap g-1rem">
-                        <div className="flex g-1rem ai-center flex-wrap">
+                        {/* <div className="flex g-1rem ai-center flex-wrap">
                             <button className="button bg-blue-500 text-white is-small has-icon">
                                 <UploadIcon />
                                 Import Excel/Tally Data
@@ -25,7 +25,7 @@ export default function InwardSupplies() {
                                 Tally Reconcillation
                             </button>
                             <span className="text-secondary">Return not submitted</span>
-                        </div>
+                        </div> */}
                         <div className="flex g-1rem flex-wrap">
                             <button className="button bg-blue-500 text-white is-small has-icon">
                                 <ViewIcon />

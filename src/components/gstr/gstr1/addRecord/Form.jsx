@@ -12,6 +12,7 @@ const Form = ({ setIsFormOpen, gstrFormData, setGstrFormData }) => {
   const handleSubmit = () => {
     setGstrFormData([...gstrFormData, formData]);
     setIsFormOpen(false);
+    console.log(formData)
   };
 
   return (
