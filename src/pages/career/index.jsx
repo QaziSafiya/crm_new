@@ -18,7 +18,7 @@ export default function Applications() {
     const page = parseInt(search.get('page')) || 0;
 
     const fetchApplications = useCallback(async () => {
-        const res = await fetch(`${BASE_URL}/career/application/all?pageNo=${page}`, {
+        const res = await fetch(`${BASE_URL}/career/findAll?page=${page}`, {
             headers: new Headers({
                 'Authorization': `Basic ${token}`,
             })
@@ -63,7 +63,7 @@ export default function Applications() {
                                                 </thead>
                                                 <tbody>
                                                     {
-                                                        data.application.map(application => (
+                                                        data.allCareer.map(application => (
                                                             <tr key={application.id}>
                                                                 <td>
                                                                     <h6 className="title">{application.name}</h6>

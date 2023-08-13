@@ -121,8 +121,8 @@ export default function UpdatePost() {
 
             const content = draftToMarkdown(convertToRaw(editorState.getCurrentContent()));
 
-            const response = await fetch(`${BASE_URL}/blog/update-post?id=${id}`, {
-                method: 'POST', 
+            const response = await fetch(`${BASE_URL}/blog/posts/${id}`, {
+                method: 'PUT', 
                 headers: new Headers({
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ export default function UpdatePost() {
                 body: JSON.stringify({
                     title,
                     content,
-                    imageUrl: ''
+                    imageUrl: 'https://example.com/image.jpg'
                 })
             });
 
@@ -151,13 +151,13 @@ export default function UpdatePost() {
         try {
             setLoading(true);
 
-            const res = await fetch(`${BASE_URL}/blog/get-post-byId?id=${id}`);
+            const res = await fetch(`${BASE_URL}/blog/posts/${id}`);
 
             if(!res.ok) {
                 throw new Error('Could not fetch blog.');
             }
 
-            const { title, content } = await res.json();
+            const { data: { title, content } } = await res.json();
 
             setTitle(title);
             setEditorState(EditorState.createWithContent(convertFromRaw(markdownToDraft(content))));

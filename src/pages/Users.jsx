@@ -55,8 +55,8 @@ export default function Users() {
                                                         users.map(user => {
                                                             return (
                                                                 <tr key={user.id}>
-                                                                    <td>{user.first_name}</td>
-                                                                    <td>{user.last_name}</td>
+                                                                    <td>{user.firstName}</td>
+                                                                    <td>{user.lastName}</td>
                                                                     <td>{user.email}</td>
                                                                     <td>{user.phone}</td>
                                                                     <td>{user.pincode}</td>

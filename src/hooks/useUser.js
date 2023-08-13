@@ -6,16 +6,14 @@ import useAuth from "./useAuth.js";
 
 export default function useUser(id) {
     const { token } = useAuth();
-
     const [state, dispatch] = useContext(StoreContext);
-
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
     const fetchUser = async () => {
         try {
-            console.log(state.user)
+            // console.log(state.user)
 
             if((state.user?.id === id) || !id) {
                 setUser(state.user);
@@ -25,7 +23,7 @@ export default function useUser(id) {
             }
             
             const response = await fetch(
-                `${BASE_URL}/cms/get-user?id=${id}`,
+                `${BASE_URL}/user/profile/${id}`,
                 {
                     method: "GET",
                     headers: new Headers({
@@ -36,14 +34,16 @@ export default function useUser(id) {
             );
 
             const { message, data } = await response.json();
+            
+            const responseData = data.user;
 
             if(!response.ok) {
                 throw new Error(message);
             }
 
             const user = {
-                ...data,
-                fullName: data.last_name ? `${data.first_name} ${data.last_name}` : data.first_name
+                ...responseData,
+                fullName: responseData.lastName ? `${responseData.firstName} ${responseData.lastName}` : responseData.firstName
             };
 
             setUser(user);

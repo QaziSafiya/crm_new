@@ -23,7 +23,9 @@ export async function verifyEmail({ otpId, otp, email }) {
         throw new Error(result.message);
     }
 
-    const { success, data, token, } = result;
+    const { success, data } = result;
+
+    const token = data.token;
 
     return { success, data, token };
 };
