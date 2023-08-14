@@ -56,6 +56,24 @@ body {
     transform: scale(1.05);
   }
   
+  .custom-button2 {
+    border: 2px solid;
+    border-color: transparent;
+    padding: 0.5rem 0.5rem;
+    margin-top: 0.10rem;
+    background-image: linear-gradient(to right, #3b82f6, #93c5fd);
+    color: white;
+    border-radius: 0.25rem;
+    width: 8rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    width: 13rem;
+    height: 2.5rem;
+  }
+  
+  .custom-button2:hover {
+    transform: scale(1.05);
+  }
   
   .inner-container {
     display: flex;

@@ -23,6 +23,7 @@ export default function useUsers(pageNo) {
             const { data } = await response.json();
 
             setUsers(data.users);
+           
             setCurrentPage(data?.page ? data.page : pageNo);
             setTotalPages(data?.page ? data.totalPage : 1);
         } catch(e) {

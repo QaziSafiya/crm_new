@@ -10,7 +10,7 @@ import { BASE_URL } from "../../../constants.js";
 import useAuth from '../../../hooks/useAuth.js';
 
 const postNewCards = async (newNavCards, token) => {
-    return fetch(`${BASE_URL}/users/updateNavcard`, {
+   return fetch(`${BASE_URL}/cms/navcards`, {
         method: 'POST',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -154,6 +154,7 @@ const EditableCard = ({ card, cards, name, navCards, setNavCards, setDeleteCard,
 
 export default function UpdateNavCards({ data }) {
     const [navCards, setNavCards] = useState(data);
+    // console.log( "nav",navCardName,data)
 
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showAddNavCardModel, setShowAddNavCardModel] = useState(false);
@@ -278,7 +279,7 @@ export default function UpdateNavCards({ data }) {
                     ) : null
             }
             {
-                navCards.map((navCard) => {
+               navCards && navCards.map((navCard) => {
                     return (
                         <div className="section" key={navCard.name}>
                             <div className="scrollable">

@@ -7,7 +7,7 @@ import Login from './pages/Login.jsx'
 import MyAccount from './pages/Settings/MyAccount.jsx'
 import ChangePassword from './pages/Settings/ChangePassword.jsx'
 // import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
-import UpdateHomepage from './pages/update1/UpdateHomepage.jsx'
+import UpdateHomepage from './pages/update/UpdateHomepage.jsx'
 
 import Users from './pages/Users.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
@@ -25,7 +25,7 @@ import CustomerBankDetails from './pages/customers/BankDetails.jsx'
 import AddCustomer from './pages/AddCustomer.jsx'
 import UpdateCustomer from './pages/UpdateCustomer.jsx'
 // import UpdateFooter from './pages/update/UpdateFooter.jsx'
-import UpdateFooter from './pages/update1/UpdateFooter.jsx'
+import UpdateFooter from './pages/update/UpdateFooter.jsx'
 
 import Blog from './pages/blog/index.jsx'
 import NewPost from './pages/blog/NewPost.jsx'
@@ -94,6 +94,8 @@ import CreateSales from './pages/Invoice/CreateSales'
 import Library from './pages/e-library/new-lib/library1'
 import CreateLibrary1 from './pages/e-library/new-lib/CreateLibrary1'
 import IndividualLibraryPage from './pages/e-library/new-lib/IndividualLibraryPage'
+import CareerForm from './pages/career/career-form'
+import NewOrderForm from './pages/account/NewOrderForm'
 
 
 const ITAX_URL = 'https://itaxeasy.com';
@@ -341,6 +343,11 @@ function App() {
               <Orders />
             </PrivateRoute>
           } />
+           <Route path='/orders/create' element={
+            <PrivateRoute>
+              <NewOrderForm  />
+            </PrivateRoute>
+          } />
           <Route
             path="/insurance"
             element={
@@ -378,6 +385,11 @@ function App() {
           <Route path='/career' element={
             <ProtectedRoute>
               <Applications />
+            </ProtectedRoute>
+          } />
+           <Route path='/career/create' element={
+            <ProtectedRoute>
+              <CareerForm />
             </ProtectedRoute>
           } />
           <Route path='/career/application/:id' element={

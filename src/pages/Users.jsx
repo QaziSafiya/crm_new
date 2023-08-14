@@ -8,81 +8,74 @@ import Topbar from "../components/Topbar.jsx";
 import useUsers from "../hooks/useUsers.js";
 
 export default function Users() {
-    const [search, setSearch] = useSearchParams();
-    const pageNo = search.get('page') || 0;
-    const { users, loading, error, totalPages, currentPage } = useUsers(pageNo);
+  const [search, setSearch] = useSearchParams();
+  const pageNo = search.get("page") || 0;
+  const { users, loading, error, totalPages, currentPage } = useUsers(pageNo);
 
-    useEffect(() => console.log(users), [loading]);
+  useEffect(() => console.log(users), [loading]);
 
-    return (
-        <div className='container'>
-           <Sidebar />
-            <div className="main">
-                <Topbar />
-                <div className="inner-container">
-                    <h6 className="text-secondary">Users</h6>
-                    {
-                        loading
-                            ? (
-                                <div className="flex jc-center ai-center">
-                                    <span className="spinner medium"></span>
-                                </div>
-                            )
-                            : 
-                                error 
-                                    ? (
-                                        <div className="error-message">
-                                            <CloseCircleIcon />
-                                            {error}
-                                        </div>
-                                    )
-                                    : (
-                                        <>
-                                            <table className="users-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>First Name</th>
-                                                        <th>Last Name</th>
-                                                        <th>Email</th>
-                                                        <th>Mobile No.</th>
-                                                        <th>Pincode</th>
-                                                        <th>User Type</th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {
-                                                        users.map(user => {
-                                                            return (
-                                                                <tr key={user.id}>
-                                                                    <td>{user.firstName}</td>
-                                                                    <td>{user.lastName}</td>
-                                                                    <td>{user.email}</td>
-                                                                    <td>{user.phone}</td>
-                                                                    <td>{user.pincode}</td>
-                                                                    <td>{user.userType}</td>
-                                                                    <td>
-                                                                        <Link to={`/user/${user.id}`} className="button has-icon reveal-button is-small">
-                                                                            <ViewIcon />
-                                                                            Details
-                                                                        </Link>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })
-                                                    }
-                                                </tbody>
-                                            </table>
-                                            <Pagination 
-                                                totalPages={totalPages} 
-                                                currentPage={currentPage} 
-                                                setSearch={setSearch} 
-                                            />
-                                        </>
-                                    )
-                    }
-                </div>
+  return (
+    <div className="container">
+      <Sidebar />
+      <div className="main">
+        <Topbar />
+        <div className="inner-container">
+          <h6 className="text-secondary">Users</h6>
+          {loading ? (
+            <div className="flex jc-center ai-center">
+              <span className="spinner medium"></span>
             </div>
+          ) : error ? (
+            <div className="error-message">
+              <CloseCircleIcon />
+              {error}
+            </div>
+          ) : (
+            <>
+              <table className="users-table w-full border-collapse">
+                <thead className="bg-gray-100">
+                  <tr className="text-left">
+                    <th className="py-2 px-4 font-medium">First Name</th>
+                    <th className="py-2 px-4 font-medium">Last Name</th>
+                    <th className="py-2 px-4 font-medium">Email</th>
+                    <th className="py-2 px-4 font-medium">Mobile No.</th>
+                    <th className="py-2 px-4 font-medium">Pan No.</th>
+                    <th className="py-2 px-4 font-medium">User Type</th>
+                    <th className="py-2 px-4 font-medium"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((user) => (
+                    <tr key={user.id} className="border-b hover:bg-gray-50">
+                      <td className="py-2 px-4">{user.firstName}</td>
+                      <td className="py-2 px-4">{user.lastName}</td>
+                      <td className="py-2 px-4">{user.email}</td>
+                      <td className="py-2 px-4">{user.phone}</td>
+                      <td className="py-2 px-4">{user.pan}</td>
+                      <td className="py-2 px-4">{user.userType}</td>
+                      <td className="py-2 px-4">
+                        <Link
+                          to={`/user/${user.id}`}
+                          className="inline-block px-3 py-1 text-blue-500 hover:underline"
+                        >
+                          <ViewIcon className="mr-1 h-4 w-4 inline" />
+                          Details
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setSearch={setSearch}
+              />
+            </>
+          )}
         </div>
-    )
+      </div>
+    </div>
+  );
 }

@@ -279,10 +279,10 @@ export default function Sidebar({ open }) {
           </ProtectedMenu>
           <ProtectedMenu>
             <Menu icon={<AccountIcon />} title="Admin">
-              <SideNavLink
+              <SideNavLink  
                 icon={<GlobeIcon />}
                 to="/admin/insurance"
-                title="Insourance"
+                title="Insurance"
               />
             </Menu>
           </ProtectedMenu>

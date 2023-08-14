@@ -7,7 +7,7 @@ import UpdateUpper from "./sections/UpdateUpper.jsx";
 
 export default function UpdateHomepage() {
     const [data, loading, error] = useHomescreen();
-
+       console.log("debug", data)
     return (
         <div className="container">
             <Sidebar />
@@ -31,8 +31,8 @@ export default function UpdateHomepage() {
                                 )
                                 : (
                                     <div className="flex dir-col g-1rem">
-                                        <UpdateUpper data={data?.upper} />
-                                        <UpdateNavCards data={data?.navcards} />
+                                        <UpdateUpper data={data.home?.upper} />
+                                        <UpdateNavCards data={data.home?.navcards} />
                                     </div>
                                 )
                     }

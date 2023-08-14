@@ -167,7 +167,6 @@ export default function Library() {
               </div>
             ) : (
               <div>
-
                 <div>
                   <h3 className="text-2xl mx-10 text-bold m-8 font-medium leading-tight text-blue-600 pl-2">
                     {" "}
@@ -176,17 +175,18 @@ export default function Library() {
                 </div>
                 {/* <div class="container mx-auto mt-8 mb-12"> */}
 
-
-
                 <div className="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-10 mx-4 md:mx-0">
-
-
                   <div className="md:pl-12 flex flex-col md:flex-row md:gap-3 mb-4 h-10">
-                    <div className=" text-center m-auto flex gap-3 mb-4 h-10">
-                      <label htmlFor="filter">Filter by:</label>
+                    <div className="flex items-center justify-center gap-3 mb-4 h-10">
+                      <label
+                        htmlFor="filter"
+                        className="text-sm font-medium text-gray-600"
+                      >
+                        Filter:
+                      </label>
                       <select
                         name="filter"
-                        className="w-auto px-2 py-1 rounded-lg border-gray-300 border focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:border-2 focus:outline-none"
+                        className="w-36 py-2 px-3 rounded-lg border-gray-300 border focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:border-2 focus:outline-none shadow-sm"
                         value={selectedFilter}
                         onChange={(e) => setSelectedFilter(e.target.value)}
                       >
@@ -201,8 +201,6 @@ export default function Library() {
                         <option value="assessment_year">Assessment Year</option>
                       </select>
                     </div>
-
-
 
                     <div class="w-11/12 text-center m-auto flex gap-3 mb-4">
                       {selectedFilter == "section" && (
@@ -308,8 +306,6 @@ export default function Library() {
                           />
                         </div>
                       )}
-
-
                     </div>
                   </div>
 
@@ -320,11 +316,8 @@ export default function Library() {
                     >
                       <AddCircleIcon className="mr-2 pr-2 " />
                       <p className="pl-2">Create Library</p>
-
                     </Link>
                   </div>
-
-
                 </div>
                 <div className="max-h-80 overflow-x-auto border w-full md:w-11/12 m-auto border-gray-300 rounded-lg">
                   <table class=" table-auto ">
@@ -343,9 +336,7 @@ export default function Library() {
 
                         {/* <th class="sticky top-0">Itat No</th> */}
 
-
                         <th class="sticky top-0">View</th>
-
                       </tr>
                     </thead>
                     <tbody>
@@ -356,11 +347,8 @@ export default function Library() {
                   </table>
                 </div>
               </div>
-
             )}
           </div>
-
-
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ import Topbar from "../../components/Topbar.jsx";
 import { BASE_URL } from "../../constants.js";
 import useAuth from "../../hooks/useAuth.js";
 import { postDateFormatter } from "../../lib/formatter.js";
+import AddCircleIcon from "../../components/icons/AddCircleIcon.jsx";
 
 export default function Applications() {
     const { token } = useAuth();
@@ -37,6 +38,15 @@ export default function Applications() {
                 <div className="inner-container">
                     <div className="flex jc-between ai-center">
                         <h6 className="text-secondary">Applications</h6>
+                        <div>
+            <Link
+              to="/career/create"
+              className="button bg-blue-600 text-white is-small has-icon"
+            >
+              <AddCircleIcon />
+              Create Career
+            </Link>
+                        </div>
                     </div>
                     {
                         isLoading

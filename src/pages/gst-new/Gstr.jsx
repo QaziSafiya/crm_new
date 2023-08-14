@@ -668,7 +668,7 @@ const Gstr = () => {
             <div className="border-2 w-1/4 pt-10 ">
               <Link to="/gst/outward-supplies">
                 <div className="flex justify-between pr-1 pl-1 mt-2">
-                  <div className="custom-button">
+                  <div className="custom-button2">
                     Outward Supplies
                   </div>
                   <div className="text-sm text-gray-900">A</div>
@@ -677,7 +677,7 @@ const Gstr = () => {
 
               <Link to="/gst/inward-supplies">
                 <div className="flex justify-between pr-1 pl-1 mt-1">
-                  <div className="custom-button">
+                  <div className="custom-button2">
                   Inward Supplies
                   </div>
                   <div className="text-sm text-gray-900">B</div>
@@ -708,7 +708,7 @@ const Gstr = () => {
                 <div className="text-sm text-gray-900">F</div>
               </div>
 
-              <div className="flex justify-between align-center pt-2 pb-2 pl-1 pr-1 mt-1">
+              <div className="flex justify-between align-center pt-1 pb-2 pl-1 pr-1 mt-1">
                 <div className="text-sm text-gray-900">Less: Utilized Cash Balance</div>
                 <div className="text-sm text-gray-900">G</div>
               </div>
