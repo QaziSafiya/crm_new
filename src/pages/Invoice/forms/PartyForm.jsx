@@ -152,6 +152,10 @@ const PartyForm = () => {
                     <option value="">Select Type</option>
                     <option value="supplier">Supplier</option>
                     <option value="customer">Customer</option>
+                    <option value="sales">Sales</option>
+
+
+
                   </select>
                 </div>
 

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import Topbar from "../../components/Topbar";
+import { BASE_URL } from "../../constants";
 // import { withRouter } from "react-router-dom";
 const InsForm = ({name, handleGoBack }) => {
   const [formDatanew, setFormDatanew] = useState({
     name: "",
-    email: "",
+    // email: "",
+    type:"",
     mobile: "",
     address: "",
     dob: "",
@@ -22,13 +24,35 @@ const InsForm = ({name, handleGoBack }) => {
     }));
   };
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Handle form submission logic here
-
+    const rawData = JSON.stringify(formDatanew);
     console.log(formDatanew);
+
+    
+    let token = JSON.parse(localStorage.getItem("itaxData"));
+    await fetch(`${BASE_URL}/insourance/apply`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.token}`,
+      },
+      body: rawData,
+    })
+      .then((response) => {
+        response.json();
+        console.log(response);
+      })
+      .then((data) => {
+        console.log(data);
+        // Do something with the response data if needed
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error if needed
+      });
   
-   
   };
 
 const storedData = JSON.parse(localStorage.getItem('itaxData'));
@@ -71,13 +95,13 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                       id="name"
                       name="name"
                       className="input is-small flex 1"
-                      value={`${storedData.user.firstName} ${storedData.user.lastName}`}
+                      value={formDatanew.name}
                       onChange={handleChange}
                       required
                     />
                   </div>
 
-                  <div className="field ">
+                  {/* <div className="field ">
                     <label htmlFor="email" className="label text-primary">
                       Email:
                     </label>
@@ -87,6 +111,21 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                       name="email"
                       className="input is-small"
                       value={storedData.user.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div> */}
+
+                   <div className="field ">
+                    <label htmlFor="email" className="label text-primary">
+                      Type:
+                    </label>
+                    <input
+                      type="text"
+                      id="type"
+                      name="type"
+                      className="input is-small"
+                      value={formDatanew.type}
                       onChange={handleChange}
                       required
                     />
@@ -101,7 +140,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                       id="mobile"
                       name="mobile"
                       className="input is-small "
-                      value={storedData.user.phone}
+                      value={formDatanew.mobile}
                       onChange={handleChange}
                       required
                     />
@@ -114,7 +153,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                       id="address"
                       name="address"
                       className="input is-small "
-                      value={storedData.user.address}
+                      value={formDatanew.address}
                       onChange={handleChange}
                       required
                     />

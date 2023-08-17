@@ -11,12 +11,45 @@ import { BASE_URL } from "../../constants.js";
 import BillingPeriodSelect from "./BillingPeriodSelect";
 import InvoiceForm from "./forms/InvoiceForm";
 import { Link } from "react-router-dom";
-import Invoice from "./download/Invoice";
+import ArrowDownIcon from "../../components/icons/ArrowDownIcon";
+import ArrowUpIcon from "../../components/icons/ArrowUpIcon";
+// import Invoice from "./download/Invoice";
 
 export default function HomeInvoice() {
+  const [invoices, setInvoices] = useState([]);
+
   const [showForm, setShowForm] = useState(false);
   const [billingPeriod, setBillingPeriod] = useState("day");
 
+  useEffect(() => {
+    // Fetch all invoices when the component mounts
+    getInvoices();
+  }, []);
+
+  const getInvoices = async () => {
+    let token = JSON.parse(localStorage.getItem("itaxData"));
+    console.log(token.token);
+
+    // Replace 'your-api-endpoint' with your actual API endpoint
+    await fetch(`${BASE_URL}/invoice/invoices`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setInvoices(data.invoices);
+        // Do something with the response data if needed
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error if needed
+      });
+  };
+  
   const handleBillingPeriodChange = (e) => {
     setBillingPeriod(e.target.value);
   };
@@ -27,6 +60,13 @@ export default function HomeInvoice() {
 
   let businessName = JSON.parse(localStorage.getItem("itaxData"));
 
+  const totalSalePrice = invoices
+  .filter(invoice => invoice.type === 'sales') // Filter invoices with type 'sale'
+  .reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
+
+  const totalPurchasePrice = invoices
+  .filter(invoice => invoice.type === 'purchase') // Filter invoices with type 'sale'
+  .reduce((total, invoice) => Number(total) + Number(invoice.totalAmount), 0);
   return (
     <div className="container">
       <Sidebar />
@@ -81,9 +121,10 @@ export default function HomeInvoice() {
               <div className="flex gap-2 items-center justify-center">
                 <div className="border-2 w-1/2 h-36 flex justify-between items-center pl-6 pr-4 rounded-xl bg-blue-300">
                   <div>
-                    <h4>₹ 0</h4>
+                    <h4 >₹ {totalPurchasePrice} </h4>
                     <br></br>
                     <p className="text-green-500">To collect</p>
+                    <ArrowDownIcon  />
                   </div>
                   <div>
                     <AiOutlineRight />
@@ -92,9 +133,10 @@ export default function HomeInvoice() {
 
                 <div className="border-2 w-1/2 h-36 flex justify-between items-center pl-6 pr-4 rounded-xl bg-blue-300">
                   <div>
-                    <h4>₹ 0</h4>
+                    <h4>₹ {totalSalePrice}</h4>
                     <br></br>
                     <p className="text-rose-500">To Pay</p>
+                    <ArrowUpIcon  />
                   </div>
                   <div>
                     <AiOutlineRight />
@@ -126,6 +168,7 @@ export default function HomeInvoice() {
                 <div className="border-2 w-1/2 h-36 flex justify-between items-center pl-6 pr-4 rounded-xl bg-blue-300">
                   <div>
                     <h4>Total Balance</h4>
+                    <h4>₹ {totalPurchasePrice+totalSalePrice}</h4>
                     <br></br>
                     <p>Cash+Bank Balance</p>
                   </div>
@@ -151,6 +194,7 @@ export default function HomeInvoice() {
           <div className="flex items-center justify-center mt-2">
             {!showForm && <InvoicesList />}
           </div>
+
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@ import { postDateFormatter } from "../../lib/formatter.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { PDFDownloadLink, Page, Text, View, Document } from "@react-pdf/renderer"; // Import react-pdf components
 
 export default function JobApplicationDetails() {
   const { token } = useAuth();
@@ -21,26 +22,54 @@ export default function JobApplicationDetails() {
   const [application, setApplication] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [pdfContent, setPdfContent] = useState(null);
+
   const navigate = useNavigate();
+
+
+  // Fetch the PDF content from the URL in application.cv
+  const fetchPdfContent = async () => {
+    try {
+      const response = await axios.get(application.cv, {
+        responseType: 'arraybuffer', // Set the response type to arraybuffer
+      });
+
+      // Convert the arraybuffer to base64
+      const base64Pdf = btoa(
+        new Uint8Array(response.data).reduce(
+          (data, byte) => data + String.fromCharCode(byte),
+          ''
+        )
+      );
+
+      setPdfContent(base64Pdf);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPdfContent();
+  }, []);
 
   const fetchApplication = async () => {
     try {
       setLoading(true);
       console.log(id);
-  
+
       const response = await axios.get(`${BASE_URL}/career/findOne/${id}`, {
         headers: {
           Authorization: `Basic ${token}`,
         },
       });
-  
+
       if (response.status !== 200) {
         throw new Error("Could not fetch application.");
       }
-  
+
       const application = response.data;
       console.log(application);
-  
+
       setApplication(application);
     } catch (e) {
       console.error(e);
@@ -49,7 +78,16 @@ export default function JobApplicationDetails() {
       setLoading(false);
     }
   };
-  
+
+  const PdfDocument = () => (
+    <Document>
+      <Page>
+        <View>
+          <Text>{pdfContent}</Text>
+        </View>
+      </Page>
+    </Document>
+  );
 
   const handleDeleteApplication = async () => {
     try {
@@ -125,14 +163,29 @@ export default function JobApplicationDetails() {
                 <DetailField label="Gender" value={application.gender} />
                 <div className="flex g-1rem ai-center">
                   <span className="label text-primary">CV</span>
-                  <a
-                    href={application.cv}
-                    target="_blank"
-                    className="button has-icon reveal-button is-small w-max-content"
+                  <PDFDownloadLink
+                    document={<PdfDocument />}
+                    fileName="cv.pdf"
                   >
-                    <ViewIcon />
-                    View
-                  </a>
+                    {({ blob, url, loading, error }) =>
+                      loading ? (
+                        <button className="button has-icon reveal-button is-small w-max-content">
+                          <ViewIcon />
+                          Generating PDF...
+                        </button>
+                      ) : (
+                        <a
+                          href={url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="button has-icon reveal-button is-small w-max-content"
+                        >
+                          <ViewIcon />
+                          View PDF
+                        </a>
+                      )
+                    }
+                  </PDFDownloadLink>
                 </div>
                 <div className="flex g-1rem ai-center">
                   <button

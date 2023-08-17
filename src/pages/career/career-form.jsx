@@ -100,18 +100,24 @@ const CareerForm = () => {
                     required
                   />
                 </div>
+
                 <div className="mb-4">
                   <label className="block mb-2 text-primary font-bold">
-                    Address
+                    Gender
                   </label>
-                  <textarea
-                    name="address"
-                    value={formData.address}
+                  <select
+                    name="gender"
+                    value={formData.gender}
                     onChange={handleInputChange}
                     className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                     required
-                  />
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
+               
                 <div className="mb-4">
                   <label className="block mb-2 text-primary font-bold">
                     PIN
@@ -164,21 +170,18 @@ const CareerForm = () => {
                     required
                   />
                 </div>
+                
                 <div className="mb-4">
                   <label className="block mb-2 text-primary font-bold">
-                    Gender
+                    Address
                   </label>
-                  <select
-                    name="gender"
-                    value={formData.gender}
+                  <textarea
+                    name="address"
+                    value={formData.address}
                     onChange={handleInputChange}
                     className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
                     required
-                  >
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
+                  />
                 </div>
                 <div className="mb-4">
                   <label className="block mb-2 text-primary font-bold">

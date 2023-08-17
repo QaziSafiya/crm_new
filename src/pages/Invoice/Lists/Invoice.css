@@ -1,0 +1,13 @@
+.cool-rectangular-block {
+    background-color: #cae0f9ae; /* Dark background color */
+    border: 1px solid #34495e; /* Border color and width */
+    border-radius: 10px; /* Rounded corners */
+    padding: 30px; /* Padding inside the block */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for a lifted effect */
+    width: 80%; /* Set the width of the block */
+    max-width: 600px; /* Limit the maximum width of the block */
+    color: #ecf1f1; /* Text color */
+   
+  }
+  
+  

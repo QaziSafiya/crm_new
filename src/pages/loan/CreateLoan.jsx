@@ -9,6 +9,7 @@ const CreateLoan = () => {
     name: "",
     shortName: "",
     description: "",
+    interest: null,
     documents: [
       {
         id: "doc1",
@@ -17,8 +18,6 @@ const CreateLoan = () => {
         mandatory: true,
         type: "pdf",
         description: "Proof of identity",
-        isChecked: false,
-        file: null,
       },
       {
         id: "doc2",
@@ -27,16 +26,13 @@ const CreateLoan = () => {
         mandatory: true,
         type: "pdf",
         description: "Proof of income",
-        isChecked: false,
-        file: null,
       },
     ],
     maxAmount: 0,
     minAmount: 0,
   });
 
-const storedData = JSON.parse(localStorage.getItem('itaxData'));
-
+  // const storedData = JSON.parse(localStorage.getItem('itaxData'));
 
   const handleLoanDataChange = (e) => {
     const { name, value } = e.target;
@@ -45,7 +41,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
 
   const handleDocumentChange = (index) => {
     const newDocuments = [...loanData.documents];
-    newDocuments[index].isChecked = !newDocuments[index].isChecked;
+    newDocuments[index].mandatory = !newDocuments[index].mandatory;
     setLoanData((prevData) => ({ ...prevData, documents: newDocuments }));
   };
 
@@ -61,8 +57,6 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
           mandatory: false,
           type: "pdf",
           description: "New document description",
-          isChecked: false,
-          file: null,
         },
       ],
     }));
@@ -76,55 +70,32 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(loanData);
-    const uniqueId = uuidv4();
-    // console.log(storedData.token)
+    const token = JSON.parse(localStorage.getItem("itaxData")).token;
 
     try {
-      // Perform your API call or form submission logic here
       const response = await fetch("https://api.itaxeasy.com/loan/loans", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${storedData.token}`,
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(loanData),
+        body: JSON.stringify({
+          ...loanData,
+          maxAmount: parseFloat(loanData.maxAmount),
+          minAmount: parseFloat(loanData.minAmount),
+          interest: parseFloat(loanData.interest),
+        }),
       });
-      console.log(response);
 
       if (response.ok) {
-        // Handle success
         console.log("Loan created successfully");
-        console.log(response);
-
-        // Reset the form
         setLoanData({
           type: "",
           name: "",
           shortName: "",
           description: "",
-          documents: [
-            {
-              id: "doc1",
-              name: "Identification Document",
-              shortName: "ID Doc",
-              mandatory: true,
-              type: "pdf",
-              description: "Proof of identity",
-              isChecked: false,
-              file: null,
-            },
-            {
-              id: "doc2",
-              name: "Income Proof",
-              shortName: "Income Doc",
-              mandatory: true,
-              type: "pdf",
-              description: "Proof of income",
-              isChecked: false,
-              file: null,
-            },
-          ],
+          interest: null,
+          documents: [],
           maxAmount: 0,
           minAmount: 0,
         });
@@ -145,7 +116,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
             onSubmit={handleSubmit}
             className="p-4 rounded-lg shadow-lg border border-gray-300"
           >
-            {/* ... Rest of the form code ... */}
+            {/* Loan Type */}
             <div className="mb-4">
               <label
                 htmlFor="type"
@@ -158,20 +129,17 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                 name="type"
                 value={loanData.type}
                 onChange={handleLoanDataChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white h-12"
               >
                 <option value="">Select Loan Type</option>
-                <option value="business">Business Loan</option>
-                <option value="car">Car Loan</option>
                 <option value="personal">Personal Loan</option>
-                <option value="home">Home Loan</option>
-                <option value="property">Loan against Property</option>
+                {/* Add other loan types here */}
               </select>
             </div>
+
+            {/* Applicant Name */}
             <div className="mb-4">
-              <label className="block mb-2 text-primary font-bold">
-                Applicant Name
-              </label>
+              <label className="block mb-2 text-primary font-bold">Name</label>
               <input
                 type="text"
                 name="name"
@@ -180,7 +148,10 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                 className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div className="mb-4">
+         
+            <div className="flex justify-between gap-10">
+            {/* Short Name */}
+            <div className="mb-4 w-1/2">
               <label className="block mb-2 text-primary font-bold">
                 Short Name
               </label>
@@ -192,6 +163,55 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                 className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
+
+             {/* Interest Rate */}
+             <div className="mb-4 w-1/2">
+              <label className="block mb-2 text-primary font-bold">
+                Interest Rate
+              </label>
+              <input
+                type="number"
+                name="interest"
+                value={loanData.interest}
+                onChange={handleLoanDataChange}
+                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            </div>
+
+            <div className="flex justify-between gap-10">
+              {/* Max Amount */}
+              <div className="mb-4 w-1/2">
+                <label className="block mb-2 text-primary font-bold">
+                  Max Amount
+                </label>
+                <input
+                  type="number"
+                  name="maxAmount"
+                  value={loanData.maxAmount}
+                  onChange={handleLoanDataChange}
+                  className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              {/* Min Amount */}
+              <div className="mb-4 w-1/2">
+                <label className="block mb-2 text-primary font-bold">
+                  Min Amount
+                </label>
+                <input
+                  type="number"
+                  name="minAmount"
+                  value={loanData.minAmount}
+                  onChange={handleLoanDataChange}
+                  className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+
+           
+
+            {/* Description */}
             <div className="mb-4">
               <label className="block mb-2 text-primary font-bold">
                 Description
@@ -203,30 +223,8 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                 className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               ></textarea>
             </div>
-            <div className="mb-4">
-              <label className="block mb-2 text-primary font-bold">
-                Max Amount
-              </label>
-              <input
-                type="number"
-                name="maxAmount"
-                value={loanData.maxAmount}
-                onChange={handleLoanDataChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-2 text-primary font-bold">
-                Min Amount
-              </label>
-              <input
-                type="number"
-                name="minAmount"
-                value={loanData.minAmount}
-                onChange={handleLoanDataChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+
+            {/* Documents */}
             <h6 className="text-blue-900 mt-6">Documents</h6>
             {loanData.documents.map((document, index) => (
               <div key={document.id} className="mb-4">
@@ -235,21 +233,13 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                 </label>
                 <input
                   type="checkbox"
-                  checked={document.isChecked}
                   onChange={() => handleDocumentChange(index)}
                   className="mt-1"
                 />
-                {document.mandatory ? null : (
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveDocument(index)}
-                    className="mt-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-                  >
-                    Remove
-                  </button>
-                )}
+                {/* Add additional document-related fields here */}
               </div>
             ))}
+
             <button
               type="button"
               onClick={handleAddDocument}
@@ -259,7 +249,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
             </button>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded ml-5"
             >
               Submit
             </button>

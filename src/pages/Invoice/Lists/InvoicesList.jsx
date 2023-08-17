@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 
 const InvoicesList = () => {
   const [invoices, setInvoices] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
 
   useEffect(() => {
     // Fetch all invoices when the component mounts
@@ -59,11 +62,16 @@ const InvoicesList = () => {
     }
   };
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = invoices.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(invoices.length / itemsPerPage);
+
   return (
     <div className="w-full mt-16 ">
       <h1 className="text-secondary font-bold mb-4">All Invoices</h1>
       <div className="pt-10">
-        {invoices.length === 0 ? (
+        {currentItems.length === 0 ? (
           <div className="text-center text-gray-500">
             <RiBillLine className="inline-block text-6xl mb-4" />
             <p>No invoices found</p>
@@ -91,10 +99,13 @@ const InvoicesList = () => {
                     <th className="border border-gray-400 px-4 py-2">
                       Details
                     </th>
+                    <th className="border border-gray-400 px-4 py-2 pl-7">
+                      Delete
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {invoices.map((invoice, index) => (
+                  {currentItems.map((invoice, index) => (
                     <tr
                       key={invoice.invoiceNumber}
                       className={`${
@@ -140,10 +151,38 @@ const InvoicesList = () => {
                   ))}
                 </tbody>
               </table>
+              
             </div>
+            
           </div>
         )}
       </div>
+      {/* Pagination */}
+      {invoices.length > 0 && (
+  <div className="flex justify-center mt-4">
+    <button
+      className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+      onClick={() =>
+        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
+      }
+      disabled={currentPage === 1}
+    >
+      Prev
+    </button>
+    <span className="text-blue-500 px-2 py-1 rounded">
+      {currentPage} / {totalPages}
+    </span>
+    <button
+      className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+      onClick={() =>
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))
+      }
+      disabled={currentPage === totalPages}
+    >
+      Next
+    </button>
+  </div>
+)}
     </div>
   );
 };

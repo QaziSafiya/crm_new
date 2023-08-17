@@ -22,7 +22,7 @@ const invoiceData = {
   updatedAt: "2023-07-29T08:48:12.361Z",
 };
 
-const Show = () => {
+const Show = ({invoiceData}) => {
   return (
     <div>
       <Invoice invoiceData={invoiceData} />
