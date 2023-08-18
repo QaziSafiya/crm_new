@@ -12,7 +12,7 @@ export default function reducer(state, { type, payload }) {
     console.log(type, payload);
     switch (type) {
         case AUTH_USER:
-            setStorageItem('AUTH_USER', payload, sessionStorage);
+            setStorageItem('AUTH_USER', payload);
             return { ...state, auth: { ...state.auth, currentUser: payload.user, token: payload.token, pending: false } };
         case AUTH_FROM_REDIRECT:
             return { ...state, auth: { ...state.auth, currentUser: payload.user, token: payload.token, pending: false, redirect: payload.redirect } };
@@ -23,7 +23,7 @@ export default function reducer(state, { type, payload }) {
         case UPDATE_USER:
             return { ...state, auth: { ...state.auth, currentUser: { ...state.auth.currentUser, ...payload } } };
         case LOGOUT:
-            sessionStorage.removeItem('AUTH_USER');
+            localStorage.removeItem('AUTH_USER');
             localStorage.removeItem('SET_DASHBOARD_DATA');
             localStorage.removeItem('SET_USER_DETAILS');
             localStorage.removeItem('GST_LOGIN');

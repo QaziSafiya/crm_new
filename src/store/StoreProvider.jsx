@@ -12,7 +12,7 @@ function getStoragedItem(key, storageType = localStorage) {
     }
 }
   
-  const storedAuth = getStoragedItem("AUTH_USER", sessionStorage);
+  const storedAuth = getStoragedItem("AUTH_USER");
   const storedUserDetails = getStoragedItem("SET_USER_DETAILS");
   const storedLibPdfDoc = getStoragedItem("LIB_PDF_DOC");
   const storedGstLogin = getStoragedItem("GST_LOGIN");
