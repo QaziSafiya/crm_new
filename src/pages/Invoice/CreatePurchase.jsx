@@ -4,6 +4,9 @@ import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants.js";
 // import ItemDropdown from "./dropdowns/ItemDropdown";
 import DeleteIcon from "../../components/icons/DeleteIcon.jsx";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const initialFormData = {
   invoiceNumber: null,
   type: "",
@@ -277,6 +280,7 @@ const CreatePurchase = () => {
       .then((response) => {
         response.json();
         console.log(response);
+        toast.success("Form submitted successfully!");
       })
       .then((data) => {
         console.log(data);
@@ -284,6 +288,7 @@ const CreatePurchase = () => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error("An error occurred. Please try again later.");
         // Handle error if needed
       });
 
@@ -328,8 +333,8 @@ const CreatePurchase = () => {
     let total = 0;
     items.forEach((item) => {
       total += item.selectedItem
-        ? Number(item.selectedItem.purchasePrice) * Number(item.quantity) +
-          Number(item.selectedItem.purchasePrice) *
+        ? Number(item.selectedItem.price) * Number(item.quantity) +
+          Number(item.selectedItem.price) *
             Number(item.quantity) *
             Number(totGst / 100)
         : 0;
@@ -349,7 +354,7 @@ const CreatePurchase = () => {
     let total = 0;
     items.forEach((item) => {
       total += item.selectedItem
-        ? Number(item.selectedItem.purchasePrice) *
+        ? Number(item.selectedItem.price) *
           Number(item.quantity) *
           Number(totGst / 100)
         : 0;
@@ -377,6 +382,7 @@ const CreatePurchase = () => {
 
   // Calculate the total GST based on the type of supply (intra-state or inter-state)
   const calculateTotalGst = () => {
+    console.log(itemObj,partyState,itemState)
     if (itemObj && partyState === itemState) {
       // Intra-State Transaction
       const totalGst = Number(itemObj.cgst || 0) + Number(itemObj.sgst || 0);
@@ -747,7 +753,7 @@ const CreatePurchase = () => {
                         <tbody>
                           {items.map((item, index) => {
                             return (
-                              <tr key={index}>
+                              <tr key={index+1}>
                                 <td className="p-4">
                                   <div key={index} className="mb-4 relative">
                                     <input
@@ -820,9 +826,9 @@ const CreatePurchase = () => {
 
                                 <td className="p-4">
                                   {item.selectedItem
-                                    ? item.selectedItem.purchasePrice *
+                                    ? item.selectedItem.price *
                                         item.quantity +
-                                      item.selectedItem.purchasePrice *
+                                      item.selectedItem.price *
                                         item.quantity *
                                         (totGst / 100)
                                     : ""}
@@ -877,6 +883,7 @@ const CreatePurchase = () => {
                 >
                   Submit
                 </button>
+                <ToastContainer />
               </div>
             </form>
           </div>

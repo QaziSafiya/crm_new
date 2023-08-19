@@ -37,3 +37,10 @@ In Itaxweb Repo
   -Made new PDf downloader to download the  Installment or repayment schedule chart
   -Fixed the Navbar opacity
 
+Date - 19-08-2023  
+
+-Added new Login page in gstr 
+-In insurance section implemented the Get APi , Delete Api ,Show detail by Id  Api
+-In invoice section (create purchase, create sale) added Toast messeges by react toastify
+-Added forms for inward supplies with validation
+-Changed the ui of inward supply section

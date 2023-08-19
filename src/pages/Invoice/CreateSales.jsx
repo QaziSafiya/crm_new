@@ -4,6 +4,8 @@ import Topbar from "../../components/Topbar";
 import { BASE_URL } from "../../constants.js";
 // import ItemDropdown from "./dropdowns/ItemDropdown";
 import DeleteIcon from "../../components/icons/DeleteIcon.jsx";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const initialFormData = {
   invoiceNumber: null,
   type: "",
@@ -275,6 +277,7 @@ const CreateSales = () => {
       .then((response) => {
         response.json();
         console.log(response);
+        toast.success("Form submitted successfully!");
       })
       .then((data) => {
         console.log(data);
@@ -282,6 +285,7 @@ const CreateSales = () => {
       })
       .catch((error) => {
         console.error(error);
+        toast.error("An error occurred. Please try again later.");
         // Handle error if needed
       });
 
@@ -326,8 +330,8 @@ const CreateSales = () => {
     let total = 0;
     items.forEach((item) => {
       total += item.selectedItem
-        ? Number(item.selectedItem.purchasePrice) * Number(item.quantity) +
-          Number(item.selectedItem.purchasePrice) *
+        ? Number(item.selectedItem.price) * Number(item.quantity) +
+          Number(item.selectedItem.price) *
             Number(item.quantity) *
             Number(totGst / 100)
         : 0;
@@ -347,11 +351,12 @@ const CreateSales = () => {
     let total = 0;
     items.forEach((item) => {
       total += item.selectedItem
-        ? Number(item.selectedItem.purchasePrice) *
+        ? Number(item.selectedItem.price) *
           Number(item.quantity) *
           Number(totGst / 100)
         : 0;
     });
+    
     return total;
   };
 
@@ -364,9 +369,12 @@ const CreateSales = () => {
   };
   const handleStateOfSupplyChange = (event) => {
     const { value } = event.target;
+    console.log("state",value)
+    console.log(event)
     setItemState(value); // Update the itemState with the selected value
     // You can also update the formData state if needed, but this is optional
     setFormData((prevFormData) => ({ ...prevFormData, stateOfSupply: value }));
+    calculateTotalGst()
   };
   // Calculate the total GST based on the type of supply (intra-state or inter-state)
 
@@ -375,6 +383,7 @@ const CreateSales = () => {
 
   // Calculate the total GST based on the type of supply (intra-state or inter-state)
   const calculateTotalGst = () => {
+    console.log(itemObj,partyState,itemState)
     if (itemObj && partyState === itemState) {
       // Intra-State Transaction
       const totalGst = Number(itemObj.cgst || 0) + Number(itemObj.sgst || 0);
@@ -386,6 +395,7 @@ const CreateSales = () => {
         utgst: Number(itemObj.utgst),
         sgst: Number(itemObj.sgst),
       }));
+      console.log("first",totGst)
       setTotGst(totalGst);
     } else if (itemObj) {
       // Inter-State Transaction
@@ -398,6 +408,7 @@ const CreateSales = () => {
         utgst: Number(itemObj.utgst),
         sgst: Number(itemObj.sgst),
       }));
+      console.log("second",totGst)
       setTotGst(totalGst);
     } else {
       // Reset total GST when itemObj is null (no item selected)
@@ -408,6 +419,7 @@ const CreateSales = () => {
   // Call the calculateTotalGst function whenever there are changes in cgst, sgst, igst, utgst, or stateOfSupply
   useEffect(() => {
     calculateTotalGst();
+   
   }, [
     itemObj.cgst,
     itemObj.sgst,
@@ -416,6 +428,8 @@ const CreateSales = () => {
     itemObj.stateOfSupply,
     formData.stateOfSupply,
     itemState,
+    partyState,
+    totGst
   ]);
 
   return (
@@ -580,7 +594,7 @@ const CreateSales = () => {
                   <div className="w-1/2 border-2 p-5 ">
                     <p>Purchase Details</p>
 
-                    <div className="mb-7 mt-12">
+                    <div className="mb-7 mt-4">
                       <label
                         htmlFor="invoiceNumber"
                         className="block text-sm font-bold text-gray-700 mb-2"
@@ -817,11 +831,11 @@ const CreateSales = () => {
 
                                 <td className="p-4">
                                   {item.selectedItem
-                                    ? item.selectedItem.purchasePrice *
-                                        item.quantity +
-                                      item.selectedItem.purchasePrice *
+                                    ? (item.selectedItem.price *
+                                        item.quantity) +
+                                      (item.selectedItem.price *
                                         item.quantity *
-                                        (totGst / 100)
+                                        (totGst / 100))
                                     : ""}
                                 </td>
                                 <td>
@@ -874,6 +888,7 @@ const CreateSales = () => {
                 >
                   Submit
                 </button>
+                <ToastContainer />
               </div>
             </form>
           </div>

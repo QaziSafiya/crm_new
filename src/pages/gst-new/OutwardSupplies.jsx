@@ -89,7 +89,7 @@ export default function OutwardSupplies() {
                       <h6 className="text-secondary">Ledger Balances</h6>
                     </div>
                     <table>
-                      <thead>
+                      <thead className="bg-gray-300">
                         <tr>
                           <th>SN</th>
                           <th>Nature</th>

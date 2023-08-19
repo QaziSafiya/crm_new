@@ -135,7 +135,7 @@ const totalPages = Math.ceil(invoices.length / itemsPerPage);
                       <tbody>
                         {currentItems.map((invoice, index) => (
                           <tr
-                            key={invoice.invoiceNumber}
+                            key={index+1}
                             className={`${
                               index % 2 === 0 ? "bg-white" : "bg-blue-25"
                             } border-b border-gray-300`}

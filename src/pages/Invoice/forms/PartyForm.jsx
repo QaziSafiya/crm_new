@@ -26,14 +26,27 @@ const PartyForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+  
+    // Convert GSTIN to uppercase if the field is gstin
+    const newValue = name === 'gstin' ? value.toUpperCase() : value;
+  
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: newValue,
     }));
-
+  
     // Clear the error message when the user starts typing again
     setGstinError(null);
+  
+    // Validate GSTIN format
+    if (name === "gstin") {
+      const gstinRegex = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9A-Z]{1}$/;
+      if (!gstinRegex.test(newValue)) {
+        setGstinError("Please input a valid GSTIN number.");
+      }
+    }
   };
+  
 
   useEffect(() => {
     const fetchGSTINData = async () => {
@@ -56,7 +69,7 @@ const PartyForm = () => {
       }
     };
     fetchGSTINData();
-  }, [formData.gstin]);;
+  }, [formData.gstin]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,7 +127,8 @@ const PartyForm = () => {
           required
         />
         {gstinError && <p className="text-red-500">{gstinError}</p>}
-        {loading && <div>Loading...</div>}
+        {/* {loading && <div>Loading...</div>} */}
+        
       </div>
                 <div className="col-span-2 sm:col-span-1">
                   <label

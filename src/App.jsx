@@ -96,7 +96,16 @@ import CreateLibrary1 from './pages/e-library/new-lib/CreateLibrary1'
 import IndividualLibraryPage from './pages/e-library/new-lib/IndividualLibraryPage'
 import CareerForm from './pages/career/career-form'
 import NewOrderForm from './pages/account/NewOrderForm'
-
+import OTPPage from './pages/gst-new/login-page'
+import TaxableSuppliesForm from './pages/gst-new/supplies/taxable-supplies'
+import NonTaxableSuppliesForm from './pages/gst-new/supplies/non-taxable-supplies'
+import DebitCreditNotes from './pages/gst-new/supplies/debit-credit-notes'
+import IsdTdsTcsForm from './pages/gst-new/supplies/isd-tds-tcs'
+import InwardAttractReverse from './pages/gst-new/supplies/inward-attract-reverse-charge'
+import AdvancePaid from './pages/gst-new/supplies/advance-paid'
+import AdvanceAdjusted from './pages/gst-new/supplies/advance-adjusted'
+import ReversalOfCredit from './pages/gst-new/supplies/reversal-of-credit'
+import MismatchAdjustment from './pages/gst-new/supplies/mismatch-adjusted'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -493,6 +502,67 @@ function App() {
               <Gstr />
             </PrivateRoute>
           } />
+
+          <Route path='/gst/login' element={
+            <PrivateRoute>
+             <OTPPage  />
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/taxable-supplies' element={
+            <PrivateRoute>
+             <TaxableSuppliesForm />
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/non-taxable-supplies' element={
+            <PrivateRoute>
+             <NonTaxableSuppliesForm/>
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/debit-credit' element={
+            <PrivateRoute>
+             <DebitCreditNotes/>
+            </PrivateRoute>
+          } />
+
+           <Route path='/gst/isd-tds' element={
+            <PrivateRoute>
+             <IsdTdsTcsForm/>
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/iarc' element={
+            <PrivateRoute>
+             <InwardAttractReverse/>
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/advance-paid' element={
+            <PrivateRoute>
+             <AdvancePaid/>
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/advances-adjusted' element={
+            <PrivateRoute>
+             <AdvanceAdjusted/>
+            </PrivateRoute>
+          } />
+          
+          <Route path='/gst/roc' element={
+            <PrivateRoute>
+             <ReversalOfCredit/>
+            </PrivateRoute>
+          } />
+
+          <Route path='/gst/mismatch-adjustments' element={
+            <PrivateRoute>
+             <MismatchAdjustment/>
+            </PrivateRoute>
+          } />
+
           <Route path='/gst/gstr1' element={
             <PrivateRoute>
               <GSTR1 />

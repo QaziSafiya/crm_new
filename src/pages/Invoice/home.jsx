@@ -101,7 +101,7 @@ export default function HomeInvoice() {
               )}
             </div>
 
-            <div>
+            {/* <div>
               {!showForm && (
                 <Link to={`/invoice/form`}>
                   <button
@@ -113,7 +113,7 @@ export default function HomeInvoice() {
                   </button>
                 </Link>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-5">

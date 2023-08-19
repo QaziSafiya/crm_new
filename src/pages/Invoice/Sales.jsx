@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ViewIcon from "../../components/icons/ViewIcon";
 import { RiBillLine } from "react-icons/ri";
 import { BASE_URL } from "../../constants.js";
+import axios from "axios";
 // import Show from "./download/Show";
 
 const Sales = () => {
@@ -132,7 +133,7 @@ const totalPages = Math.ceil(invoices.length / itemsPerPage);
                       <tbody>
                         {currentItems.map((invoice, index) => (
                           <tr
-                            key={invoice.invoiceNumber}
+                            key={index+1}
                             className={`${
                               index % 2 === 0 ? "bg-white" : "bg-blue-25"
                             } border-b border-gray-300`}

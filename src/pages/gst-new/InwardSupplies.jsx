@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DownloadIcon from "../../components/icons/DownloadIcon.jsx";
 import HandshakeIcon from "../../components/icons/HandshakeIcon.jsx";
 import UploadIcon from "../../components/icons/UploadIcon.jsx";
@@ -27,7 +28,7 @@ export default function InwardSupplies() {
                             <span className="text-secondary">Return not submitted</span>
                         </div> */}
                         <div className="flex g-1rem flex-wrap">
-                            <button className="button bg-blue-500 text-white is-small has-icon">
+                            <button className="custom-button1 button bg-blue-500 text-white is-small has-icon w-44">
                                 <ViewIcon />
                                 Display Form
                             </button>
@@ -45,10 +46,10 @@ export default function InwardSupplies() {
                     <div className="scrollable">
                         <div className="p-1rem">
                         </div>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Inward Supplies Details</th>
+                            <table >
+                                <thead className="bg-gray-300">
+                                    <tr  >
+                                        <th> Inward Supplies Details</th>
                                         <th>IGST</th>
                                         <th>CGST</th>
                                         <th>SGST</th>
@@ -57,11 +58,13 @@ export default function InwardSupplies() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/taxable-supplies'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Taxable Supplies
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -79,11 +82,13 @@ export default function InwardSupplies() {
                                             <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                        <Link to={'/gst/non-taxable-supplies'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Non-Taxable Supplies
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -101,11 +106,13 @@ export default function InwardSupplies() {
                                             <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                        <Link to={'/gst/debit-credit'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Debit/Credit Notes
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -124,11 +131,13 @@ export default function InwardSupplies() {
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                        <Link to={'/gst/isd-tds'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 ISD/TDS/TCS Credits
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -147,11 +156,13 @@ export default function InwardSupplies() {
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                        {/* <Link to={'/gst/taxable-supplies'}> */}
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 HSN Wise Inward Summary
                                             </button>
+                                            {/* </Link> */}
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -200,8 +211,8 @@ export default function InwardSupplies() {
                             <h6 className="text-secondary">Ledger Balances</h6>
                         </div>
                             <table>
-                                <thead>
-                                    <tr>
+                                <thead className="bg-gray-300">
+                                    <tr >
                                         <th>Inward Supplies Details</th>
                                         <th>Supply Values</th>
                                         <th>IGST</th>
@@ -211,11 +222,13 @@ export default function InwardSupplies() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/iarc'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Inward Attract Reverse Charge
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -234,11 +247,13 @@ export default function InwardSupplies() {
                                             <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/advance-paid'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Advances Paid
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -257,11 +272,13 @@ export default function InwardSupplies() {
                                             <input type="text" className="input is-small" />
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/advances-adjusted'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Advances Adjusted
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -281,11 +298,13 @@ export default function InwardSupplies() {
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/roc'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Reversal of Credit
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />
@@ -305,11 +324,13 @@ export default function InwardSupplies() {
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr className="bg-white">
                                         <th>
-                                            <button className="button bg-blue-500 text-white is-small w-100pc">
+                                            <Link to={'/gst/mismatch-adjustments'}>
+                                            <button className="custom-button1 button bg-blue-500 text-white is-small w-100pc flex justify-start">
                                                 Mismatch Adjustments
                                             </button>
+                                            </Link>
                                         </th>
                                         <td>
                                             <input type="text" className="input is-small" />

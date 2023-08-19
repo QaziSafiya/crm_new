@@ -6,7 +6,7 @@ import { BASE_URL } from "../../constants";
 const InsForm = ({name, handleGoBack }) => {
   const [formDatanew, setFormDatanew] = useState({
     name: "",
-    // email: "",
+   email: "",
     type:"",
     mobile: "",
     address: "",
@@ -101,7 +101,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                     />
                   </div>
 
-                  {/* <div className="field ">
+                  <div className="field ">
                     <label htmlFor="email" className="label text-primary">
                       Email:
                     </label>
@@ -114,7 +114,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
                       onChange={handleChange}
                       required
                     />
-                  </div> */}
+                  </div>
 
                    <div className="field ">
                     <label htmlFor="email" className="label text-primary">

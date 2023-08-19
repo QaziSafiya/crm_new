@@ -13,11 +13,14 @@ const InvoicesList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-
   useEffect(() => {
     // Fetch all invoices when the component mounts
     getInvoices();
   }, []);
+
+  useEffect(() => {
+    handlePageChange(currentPage);
+  }, [currentPage]);
 
   const getInvoices = async () => {
     let token = JSON.parse(localStorage.getItem("itaxData"));
@@ -62,11 +65,18 @@ const InvoicesList = () => {
     }
   };
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = invoices.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(invoices.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, invoices.length);
+  const currentItems = invoices.slice(startIndex, endIndex);
 
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
+  console.log(startIndex, endIndex, currentItems);
   return (
     <div className="w-full mt-16 ">
       <h1 className="text-secondary font-bold mb-4">All Invoices</h1>
@@ -107,7 +117,7 @@ const InvoicesList = () => {
                 <tbody>
                   {currentItems.map((invoice, index) => (
                     <tr
-                      key={invoice.invoiceNumber}
+                      key={index+1}
                       className={`${
                         index % 2 === 0 ? "bg-white" : "bg-blue-25"
                       } border-b border-gray-300`}
@@ -151,38 +161,34 @@ const InvoicesList = () => {
                   ))}
                 </tbody>
               </table>
-              
             </div>
-            
           </div>
         )}
       </div>
       {/* Pagination */}
       {invoices.length > 0 && (
-  <div className="flex justify-center mt-4">
-    <button
-      className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-      onClick={() =>
-        setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))
-      }
-      disabled={currentPage === 1}
-    >
-      Prev
-    </button>
-    <span className="text-blue-500 px-2 py-1 rounded">
-      {currentPage} / {totalPages}
-    </span>
-    <button
-      className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
-      onClick={() =>
-        setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))
-      }
-      disabled={currentPage === totalPages}
-    >
-      Next
-    </button>
-  </div>
-)}
+        <div className="flex justify-center mt-4">
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+          <span className="text-blue-500 px-2 py-1 rounded">
+            {currentPage} / {totalPages}
+          </span>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded ml-2"
+            onClick={() =>
+              handlePageChange(Math.min(currentPage + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
 };

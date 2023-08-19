@@ -36,7 +36,7 @@ const ItemList = () => {
   const handleDeleteItem = async (deletedItemId) => {
     try {
       const token = JSON.parse(localStorage.getItem("itaxData")).token;
-
+        
       await axios.delete(`${BASE_URL}/invoice/items/${deletedItemId}`, {
         headers: {
           'Content-Type': 'application/json',
