@@ -13,44 +13,11 @@ import accepted from "../../components/images/accepted.png";
 import pending from "../../components/images/pending.png";
 import rejected from "../../components/images/rejected.png";
 import total from "../../components/images/total.png";
+import axios from "axios";
+import { BASE_URL } from "../../constants.js";
 // ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data = {
-  loans: [
-    {
-      id: 1,
-      type: "Business Loan",
-      amount: 10_000,
-      date_applied: new Date(),
-      last_update: new Date(),
-      status: "pending",
-    },
-    {
-      id: 2,
-      type: "Business Loan",
-      amount: 10_000,
-      date_applied: new Date(),
-      last_update: new Date(),
-      status: "pending",
-    },
-    {
-      id: 3,
-      type: "Car Loan",
-      amount: 10_000,
-      date_applied: new Date(),
-      last_update: new Date(),
-      status: "rejected",
-    },
-    {
-      id: 4,
-      type: "Business Loan",
-      amount: 10_000,
-      date_applied: new Date(),
-      last_update: new Date(),
-      status: "approved",
-    },
-  ],
-};
+
 
 const badgeColors = {
   pending: "secondary",
@@ -65,6 +32,8 @@ const handleClick = () => {
   });
 };
 
+
+
 // const storedData = JSON.parse(localStorage.getItem("itaxData"));
 // console.log(storedData.user.userType)
 //   let user=storedData.user.userType
@@ -74,7 +43,32 @@ const handleClick = () => {
 
 export default function LoanIndex() {
   const [search, setSearch] = useSearchParams();
+  const [fetchedData, setFetchedData] = useState([]);
+ 
+  useEffect(() => {
+    fetchData();
+  }, []);
 
+  const fetchData = async () => {
+    const storedData = JSON.parse(localStorage.getItem('itaxData'));
+    try {
+      const response = await axios.get(`${BASE_URL}/loan/applications`, {
+        headers: {
+          Authorization: `Bearer ${storedData.token}`,
+        },
+      });
+
+      if (response.status === 200) {
+       
+        console.log(response.data.data.applications)
+        setFetchedData(response.data.data.applications); // Set fetched data in the state
+      } else {
+        console.error('Failed to fetch data');
+      }
+    } catch (error) {
+      console.error('Failed to fetch API', error);
+    }
+  }
   // if(user==="normal"){
   //  return <Navigate to="/loan/apply" />
   //  }
@@ -283,7 +277,7 @@ export default function LoanIndex() {
               <table>
                 <thead className="bg-blue-300">
                   <tr>
-                    <th>Loan Type</th>
+                    <th>Sr no.</th>
                     <th>Applied on</th>
                     <th>Status</th>
                     <th>Last Update</th>
@@ -292,7 +286,7 @@ export default function LoanIndex() {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.loans.map((loan, index) => (
+                  {fetchedData && fetchedData.map((loan, index) => (
                     <tr
                       key={loan.id}
                       className={`${
@@ -300,14 +294,14 @@ export default function LoanIndex() {
                       } border-b border-gray-300`}
                     >
                       <td>
-                        <h6 className="title">{loan.type}</h6>
+                        <h6 className="title">{index+1}</h6>
                       </td>
                       <td>{postDateFormatter.format(loan.date_applied)}</td>
                       <td>
                         <span
-                          className={`badge ${badgeColors[loan.status]} w-40`}
+                          className={`badge ${badgeColors[loan.loanStatus]} w-40`}
                         >
-                          {loan.status}
+                          {loan.loanStatus}
                         </span>
                       </td>
                       <td>{postDateFormatter.format(loan.last_update)}</td>

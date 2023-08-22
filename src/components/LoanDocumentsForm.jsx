@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { LOAN_TYPES } from "../pages/loan/data.js";
+import { BASE_URL } from "../constants.js";
 
 const getRequiredDocuments = (type, salaried) =>
   LOAN_TYPES[type][salaried === "true" ? "salaried" : "nonSalaried"].documents;
@@ -14,9 +15,10 @@ const LoanDocumentsForm = ({ type, salaried }) => {
     Object.fromEntries(requiredDocuments.map((doc) => [doc, null]))
   );
   const handleClick = async () => {
+    console.log(documents)
     try {
       const response = await fetch(
-        "https://api.itaxeasy.com/documents/upload",
+        `${BASE_URL}/documents/upload`,
         {
           method: "POST",
           headers: {
@@ -103,6 +105,7 @@ const LoanDocumentsForm = ({ type, salaried }) => {
               </>
             )}
           </div>
+          
         </div>
       ))}
       <button className="button is-primary" onClick={handleClick}>

@@ -1,31 +1,33 @@
 import React, { useState } from 'react';
+import { BASE_URL } from '../../constants';
+import axios from 'axios';
 
 const ApplyLoan = ({ formData }) => {
   
   const [loanData, setLoanData] = useState({
-    id:'',
-    loanId: '',
-    amount: '',
-    loanStatus:'',
-    description: '',
-    documents: [],
+    
+    loanId: '408b9539-08fc-4cbd-8fdd-bf4c5200cdec',
+    amount: 5000,
+    description: 'Business Loan',
+    documents: ["f7e083b8-153a-49b1-91ea-477221332ff2","df526c19-39a5-4ac5-a70b-83a9eb565117"],
     applicantDetails: {
-      applicantAge: '',
-      applicantGender: '',
-      nationality: '',
-      salaried: false,
-      phone: '',
-      email: '',
-      permanentAddress: '',
-      country: '',
-      address: '',
+      applicantName:"Alok",
+      applicantAge: 25,
+      applicantGender: 'male',
+      nationality: 'resident',
+      salaried: true,
+      phone: "7275965874",
+      email: 'ab@gmail.com',
+      permanentAddress: 'Lucknow',
+      country: 'India',
+      address: 'Lucknow',
       bankDetails: {
-        accountHolderName: '',
-        bankName: '',
-        bankAccountNo: '',
-        bankAccountType: '',
-        bankIfsc: '',
-        bankBranch: '',
+        accountHolderName: 'Alok Kumar Verma',
+        bankName: 'ICIC',
+        bankAccountNo: '12365',
+        bankAccountType: 'savings',
+        bankIfsc: 'ICIC12563',
+        bankBranch: 'Lucknow',
       },
     },
   });
@@ -42,13 +44,27 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
   };
 
   const handleApplicantDetailsChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+  
+    // Convert the string value to a boolean if the input type is a checkbox
+    const newValue = type === 'checkbox' ? checked : value;
+  
     setLoanData((prevData) => ({
       ...prevData,
       applicantDetails: {
         ...prevData.applicantDetails,
-        [name]: value,
+        [name]: name === 'salaried' ? (newValue === 'true') : newValue,
       },
+    }));
+  };
+  
+  
+
+  const handleDocumentsChange = (event) => {
+    const newDocuments = event.target.value.split(','); // Assuming documents are separated by commas
+    setLoanData((prevLoanData) => ({
+      ...prevLoanData,
+      documents: newDocuments,
     }));
   };
 
@@ -67,18 +83,20 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(loanData);
-   
+    e.preventDefault();
+     
     console.log(loanData)
+    console.log(storedData.token)
     try {
-      const response = await fetch('https://api.itaxeasy.com/loan/applications', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${storedData.token}`,
-        },
-        body: JSON.stringify(loanData),
-      });
+      const response = await axios.post(
+        `${BASE_URL}/loan/applications`,
+        loanData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedData.token}`,
+          },
+        });
 
       console.log(response)
 
@@ -88,14 +106,15 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
        
         // Reset the form
         setLoanData({
-          id:'',
+         
           loanId: '',
-          amount: '',
+          amount: null,
           loanStatus:'',
           description: '',
           documents: [],
           applicantDetails: {
-            applicantAge: '',
+            applicantName:"",
+            applicantAge: null,
             applicantGender: '',
             nationality: '',
             salaried: false,
@@ -133,7 +152,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
           <input
             type="text"
             name="loanId"
-            value={formData.id}
+            value={loanData.loanId}
             onChange={handleLoanDataChange}
             className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
           />
@@ -148,6 +167,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
             className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
           />
         </div>
+       
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold">Loan Description</label>
           <input
@@ -155,6 +175,28 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
             name="description"
             value={loanData.description}
             onChange={handleLoanDataChange}
+            className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
+          />
+        </div>
+  <div className="mb-4">
+  <label className="block mb-2 text-primary font-bold">Documents</label>
+  <input
+    type="text"
+    name="documents"
+    value={loanData.documents.join(', ')} // Join array elements with commas and spaces
+    onChange={handleDocumentsChange}
+    className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
+    placeholder="Document 1, Document 2, ..."
+  />
+</div>
+
+<div className="mb-4">
+          <label className="block mb-2 text-primary font-bold">Applicant Age</label>
+          <input
+            type="text"
+            name="applicantName"
+            value={loanData.applicantDetails.applicantName}
+            onChange={handleApplicantDetailsChange}
             className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
           />
         </div>
@@ -183,26 +225,34 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
   </select>
 </div>
 
+<div className="mb-4">
+  <label className="block mb-2 text-primary font-bold">Nationality</label>
+  <select
+    name="nationality"
+    value={loanData.applicantDetails.nationality}
+    onChange={handleApplicantDetailsChange}
+    className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline bg-white h-10"
+  >
+    <option value="">Select Nationality</option>
+    <option value="resident">Resident</option>
+    <option value="nri">NRI</option>
+    <option value="foreign">Foreign</option>
+  </select>
+</div>
+
         <div className="mb-4">
-          <label className="block mb-2 text-primary font-bold">Nationality</label>
-          <input
-            type="text"
-            name="nationality"
-            value={loanData.applicantDetails.nationality}
-            onChange={handleApplicantDetailsChange}
-            className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block mb-2 text-primary font-bold">Salaried</label>
-          <input
-            type="checkbox"
-            name="salaried"
-            checked={loanData.applicantDetails.salaried}
-            onChange={handleApplicantDetailsChange}
-            className="mt-1"
-          />
-        </div>
+  <label className="block mb-2 text-primary font-bold">Salaried</label>
+  <input
+    type="checkbox"
+    name="salaried"
+    checked={loanData.applicantDetails.salaried}
+    onChange={handleApplicantDetailsChange}
+    className="mt-1"
+    value={loanData.applicantDetails.salaried} // Add this line
+  />
+</div>
+
+
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold">Phone</label>
           <input
@@ -216,7 +266,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={loanData.applicantDetails.email}
             onChange={handleApplicantDetailsChange}
@@ -284,15 +334,24 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-primary font-bold">Bank Account Type</label>
-          <input
-            type="text"
-            name="bankAccountType"
-            value={loanData.applicantDetails.bankDetails.bankAccountType}
-            onChange={handleBankDetailsChange}
-            className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
-          />
-        </div>
+  <label className="block mb-2 text-primary font-bold">Bank Account Type</label>
+  <select
+    name="bankAccountType"
+    value={loanData.applicantDetails.bankDetails.bankAccountType}
+    onChange={handleBankDetailsChange}
+    className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline bg-white h-10"
+  >
+    <option value="">Select Account Type</option>
+    <option value="savings">Savings</option>
+    <option value="current">Current</option>
+    <option value="nri">NRI</option>
+    <option value="fcnr">FCNR</option>
+    <option value="rd">RD</option>
+    <option value="fd">FD</option>
+    <option value="salary">Salary</option>
+  </select>
+</div>
+
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold">Bank IFSC</label>
           <input

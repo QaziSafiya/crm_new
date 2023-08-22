@@ -16,7 +16,7 @@ const initialFormData = {
   sgst: null,
   igst: null,
   utgst: null,
-  credit: null,
+  
   details: "",
   extraDetails: "",
   items: [{
