@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../../constants';
 import axios from 'axios';
 
@@ -6,10 +6,11 @@ const ApplyLoan = ({ formData }) => {
   
   const [loanData, setLoanData] = useState({
     
-    loanId: '408b9539-08fc-4cbd-8fdd-bf4c5200cdec',
-    amount: 5000,
+    loanId: '',
+    amount:5000,
+    loanType:"",
     description: 'Business Loan',
-    documents: ["f7e083b8-153a-49b1-91ea-477221332ff2","df526c19-39a5-4ac5-a70b-83a9eb565117"],
+    documents: ["9de52c81-a78f-49fb-8368-5fbf7707ee15"],
     applicantDetails: {
       applicantName:"Alok",
       applicantAge: 25,
@@ -31,6 +32,7 @@ const ApplyLoan = ({ formData }) => {
       },
     },
   });
+
 
 const storedData = JSON.parse(localStorage.getItem('itaxData'));
 // console.log(storedData.token)
@@ -109,9 +111,10 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
          
           loanId: '',
           amount: null,
-          loanStatus:'',
+         
           description: '',
           documents: [],
+          loanType:"",
           applicantDetails: {
             applicantName:"",
             applicantAge: null,
@@ -141,7 +144,19 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
       console.error('Failed to fetch API', error);
     }
   };
+  // const loanId =  JSON.parse(localStorage.getItem('loanId'));
+  
+  useEffect(() => {
+    // Retrieve loanId from localStorage
+    const storedLoanId = JSON.parse(localStorage.getItem('loanId'));
 
+    // Update loanId in loanData state
+    setLoanData(prevLoanData => ({
+      ...prevLoanData,
+      loanId: storedLoanId,
+    }));
+  }, []); 
+  
   return (
     <div >
       <h6 className="text-blue-900 ml-4">Loan Application</h6>
@@ -167,6 +182,24 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
             className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
           />
         </div>
+
+        <div className="mb-4">
+  <label className="block mb-2 text-primary font-bold">Loan Type</label>
+  <select
+    name="loanType"
+    value={loanData.loanType}
+    onChange={handleLoanDataChange}
+    className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline h-10 bg-white"
+  >
+    <option value="personal">Personal</option>
+    <option value="education">Education</option>
+    <option value="home">Home</option>
+    <option value="business">Business</option>
+    <option value="car">Car</option>
+    <option value="property">Property</option>
+  </select>
+</div>
+
        
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold">Loan Description</label>

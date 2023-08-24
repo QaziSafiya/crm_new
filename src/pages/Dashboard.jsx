@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer.jsx";
 import CloseCircleIcon from "../components/icons/CloseCircleIcon.jsx";
 import UserIcon from "../components/icons/UserIcon.jsx";
@@ -6,6 +6,8 @@ import Sidebar from "../components/Sidebar.jsx";
 import Topbar from "../components/Topbar.jsx";
 import useDashboard from "../hooks/useDashboard.js";
 import { Pie } from "react-chartjs-2";
+import { BASE_URL } from "../constants.js";
+import axios from "axios";
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 // import { Bar } from "react-chartjs-2";
@@ -13,6 +15,11 @@ import { Pie } from "react-chartjs-2";
 
 export default function Dashboard() {
   const [data, loading, error] = useDashboard();
+  const [invoices,setInvoices]=useState([])
+  const [fetchedData, setFetchedData] = useState([]);
+  const [insuranceList, setInsuranceList] = useState([]);
+
+
   const insuranceChartData = {
     labels: [
       "Policies Sold",
@@ -104,14 +111,99 @@ export default function Dashboard() {
   };
 
   const statsData = [
-    { category: "Insurance", totalApplications: 10 },
-    { category: "Loans", totalApplications: 15 },
-    { category: "Invoice", totalApplications: 8 },
-    { category: "Electricity Bill", totalApplications: 12 },
+    { category: "Insurance", totalApplications: `${insuranceList.length}` },
+    { category: "Loans", totalApplications: `${fetchedData.length}` },
+    { category: "Invoice", totalApplications: `${invoices.length}` },
+    { category: "Electricity Bill", totalApplications: 0 },
   ];
 
   //   const labels = Utils.months({count: 7});
 
+  const getInvoices = async () => {
+    let token = JSON.parse(localStorage.getItem("itaxData"));
+    console.log(token.token);
+
+    // Replace 'your-api-endpoint' with your actual API endpoint
+    await fetch(`${BASE_URL}/invoice/invoices`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setInvoices(data.invoices);
+        // Do something with the response data if needed
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error if needed
+      });
+  };
+
+  useEffect(()=>{
+    getInvoices()
+  },[])
+
+ 
+ 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const storedData = JSON.parse(localStorage.getItem('itaxData'));
+    try {
+      const response = await axios.get(`${BASE_URL}/loan/applications`, {
+        headers: {
+          Authorization: `Bearer ${storedData.token}`,
+        },
+      });
+
+      if (response.status === 200) {
+       
+        console.log(response.data.data.applications)
+        setFetchedData(response.data.data.applications); // Set fetched data in the state
+       
+      } else {
+        console.error('Failed to fetch data');
+      }
+    } catch (error) {
+      console.error('Failed to fetch API', error);
+    }
+  }
+
+
+  useEffect(() => {
+    fetchInsuranceList();
+  }, []);
+
+  const fetchInsuranceList = async () => {
+    let token = JSON.parse(localStorage.getItem("itaxData"));
+    console.log(token.token);
+
+    // Replace 'your-api-endpoint' with your actual API endpoint
+    await fetch(`${BASE_URL}/insourance/getAll`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token.token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setInsuranceList(data.applications
+          );
+        // Do something with the response data if needed
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error if needed
+      });
+  };
   return (
     <div className="container">
       <Sidebar />
@@ -151,7 +243,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                   <div className="card-body">
-                    <h5>0</h5>
+                    <h5>{invoices.length+fetchedData.length+insuranceList.length}</h5>
                   </div>
                 </div>
               </div>

@@ -83,14 +83,10 @@ const Gstr = () => {
   const [detail, setDetail] = useState(false);
   const [selectedRegistrationType, setSelectedRegistrationType] = useState("");
   const [selectedReturnType, setSelectedReturnType] = useState("");
-  const [otpPage,setOtpPage]=useState(false)
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLogin = () => {
-    setOtpPage(true);
-    localStorage.setItem("isLoggedIn", "true");
-  };
-
+  
   const isLogged = localStorage.getItem("isLoggedIn");
   // useEffect(()=>{
   //         handleLogin()
@@ -332,10 +328,7 @@ const Gstr = () => {
     }
   };
 
-  useEffect(()=>{
-    const storedIsLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setOtpPage(storedIsLoggedIn)
-  },[])
+ 
   
   // if (isLoggedIn === "true") {
   //   // User is logged in
@@ -350,10 +343,10 @@ const Gstr = () => {
         <Topbar />
         <div className="inner-container">
           <h6 className="text-secondary ml-1 mb-2">GSTR Page</h6>
-          {isLogged!=="true" && <div>
+          {/* {isLogged!=="true" && <div>
             <OTPPage onLogin={handleLogin}/>
-          </div>}
-          { isLogged=="true" && <div>
+          </div>} */}
+          <div>
           <div className="flex justify-between w-full">
             <div className="flex gap-2 pl-1 ">
               <div className=" flex flex-col space-y-2">
@@ -788,7 +781,7 @@ const Gstr = () => {
               </div>
             </div>
           </div>
-          </div>}
+          </div>
           {/* } */}
         </div>
       </div>

@@ -13,6 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { PDFDownloadLink, Page, Text, View, Document } from "@react-pdf/renderer"; // Import react-pdf components
+import PdfViewer from "./test.jsx";
 
 export default function JobApplicationDetails() {
   const { token } = useAuth();
@@ -28,29 +29,7 @@ export default function JobApplicationDetails() {
 
 
   // Fetch the PDF content from the URL in application.cv
-  const fetchPdfContent = async () => {
-    try {
-      const response = await axios.get(application.cv, {
-        responseType: 'arraybuffer', // Set the response type to arraybuffer
-      });
-
-      // Convert the arraybuffer to base64
-      const base64Pdf = btoa(
-        new Uint8Array(response.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          ''
-        )
-      );
-
-      setPdfContent(base64Pdf);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPdfContent();
-  }, []);
+ 
 
   const fetchApplication = async () => {
     try {
@@ -161,32 +140,20 @@ export default function JobApplicationDetails() {
                 />
                 <DetailField label="Skills" value={application.skills} />
                 <DetailField label="Gender" value={application.gender} />
+               {/* <PdfViewer /> */}
                 <div className="flex g-1rem ai-center">
-                  <span className="label text-primary">CV</span>
-                  <PDFDownloadLink
-                    document={<PdfDocument />}
-                    fileName="cv.pdf"
-                  >
-                    {({ blob, url, loading, error }) =>
-                      loading ? (
-                        <button className="button has-icon reveal-button is-small w-max-content">
-                          <ViewIcon />
-                          Generating PDF...
-                        </button>
-                      ) : (
-                        <a
-                          href={url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="button has-icon reveal-button is-small w-max-content"
-                        >
-                          <ViewIcon />
-                          View PDF
-                        </a>
-                      )
-                    }
-                  </PDFDownloadLink>
-                </div>
+  <span className="label text-primary">CV</span>
+  <a
+    href={application.cv} // Assuming 'application.cv' contains the PDF filename
+    target="_blank"
+    rel="noopener noreferrer"
+    className="button has-icon reveal-button is-small w-max-content"
+  >
+    <ViewIcon />
+    View PDF
+  </a>
+</div>
+
                 <div className="flex g-1rem ai-center">
                   <button
                     onClick={handleDeleteApplication}

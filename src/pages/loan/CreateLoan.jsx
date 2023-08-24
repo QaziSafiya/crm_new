@@ -116,6 +116,25 @@ const CreateLoan = () => {
             onSubmit={handleSubmit}
             className="p-4 rounded-lg shadow-lg border border-gray-300"
           >
+
+<div className="mb-4">
+  <label className="block mb-2 text-primary font-bold">Loan Name</label>
+  <select
+    name="name"
+    value={loanData.name}
+    onChange={handleLoanDataChange}
+    className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white h-12"
+  >
+    <option value="">Loan Name</option>
+
+    <option value="Personal Loan">Personal Loan</option>
+    <option value="Car Loan">Car Loan</option>
+    <option value="Home Loan">Home Loan</option>
+    <option value="Business Loan">Business Loan</option>
+    <option value="Loan Against Property">Loan Against Property</option>
+  </select>
+</div>
+
             {/* Loan Type */}
             <div className="mb-4">
               <label
@@ -133,21 +152,19 @@ const CreateLoan = () => {
               >
                 <option value="">Select Loan Type</option>
                 <option value="personal">Personal Loan</option>
+                <option value="car">Car Loan</option>
+                <option value="home">Home Loan</option>
+                <option value="business">Business Loan</option>
+                <option value="property">Loan Against Property</option>
+
+
+
                 {/* Add other loan types here */}
               </select>
             </div>
 
             {/* Applicant Name */}
-            <div className="mb-4">
-              <label className="block mb-2 text-primary font-bold">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={loanData.name}
-                onChange={handleLoanDataChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
+            
          
             <div className="flex justify-between gap-10">
             {/* Short Name */}

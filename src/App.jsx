@@ -106,6 +106,12 @@ import AdvancePaid from './pages/gst-new/supplies/advance-paid'
 import AdvanceAdjusted from './pages/gst-new/supplies/advance-adjusted'
 import ReversalOfCredit from './pages/gst-new/supplies/reversal-of-credit'
 import MismatchAdjustment from './pages/gst-new/supplies/mismatch-adjusted'
+import CarLoan from './pages/loan/loan-types/car-loan'
+import BusinessLoan from './pages/loan/loan-types/business-loan'
+import HomeLoan from './pages/loan/loan-types/home-loan'
+import PersonalLoan from './pages/loan/loan-types/personal-loan'
+import PropertyLoan from './pages/loan/loan-types/property-loan'
+import LoanApplication from './pages/loan/loan-types/loan-application'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -345,6 +351,36 @@ function App() {
           <Route path='/loan/l/:id' element={
             <PrivateRoute>
               <LoanDetails />
+            </PrivateRoute>
+          } />
+           <Route path='/loan/car' element={
+            <PrivateRoute>
+              <CarLoan  />
+            </PrivateRoute>
+          } />
+           <Route path='/loan/business' element={
+            <PrivateRoute>
+              <BusinessLoan  />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/home' element={
+            <PrivateRoute>
+              <HomeLoan  />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/personal' element={
+            <PrivateRoute>
+              <PersonalLoan  />
+            </PrivateRoute>
+          } />
+          <Route path='/loan/property' element={
+            <PrivateRoute>
+              <PropertyLoan  />
+            </PrivateRoute>
+          } />
+           <Route path='/loan/application' element={
+            <PrivateRoute>
+              <LoanApplication />
             </PrivateRoute>
           } />
           <Route path='/orders' element={

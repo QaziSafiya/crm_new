@@ -12,6 +12,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textDecoration: 'underline',
   },
+  brdr:{
+  //  border:"1px solid grey",
+   padding:10,
+  //  display:"flex",
+  //  flexDirection:"column",
+  textAlign:"left",
+  alignItems:"flex-start",
+  border: "0.8px solid black", // Add a border
+    padding: "10px", // Add padding for spacing
+    borderRadius: "5px", // Add rounded corners
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+
+  },
   section: {
     marginBottom: 10,
     // border:"1px solid green"
@@ -26,7 +39,7 @@ const styles = StyleSheet.create({
     // border:"1px solid green"
   },
   section2: {
-    margin: "auto",
+    // margin: "auto",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -34,12 +47,31 @@ const styles = StyleSheet.create({
     // backgroundColor: "#f2f2f2", // Add background color
     // borderRadius: "8px", // Add border radius for a rectangular block look
    
-    gap:"140px"
+    
    
 
   },
+  logoCss: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center", // Vertically center the items
+    border: "0.8px solid black", // Add a border
+    padding: "10px", // Add padding for spacing
+    borderRadius: "5px", // Add rounded corners
+    boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)", // Add a subtle box shadow
+  },
+  logoCss1: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center", // Vertically center the items
+    
+    padding: "10px", // Add padding for spacing
+   
+  },
   section3: {
-    margin: "auto",
+    
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -47,7 +79,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#f2f2f2", // Add background color
     // borderRadius: "8px", // Add border radius for a rectangular block look
    
-    gap:"250px",
+    // gap:"250px",
     // marginTop:"15px"
    
 
@@ -68,6 +100,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom:15
   },
+  
+ sign:{
+   display:"flex",
+   justifyContent:"flex-end",
+   alignItems:"flex-end",
+   marginTop:20,
+ 
+ },
+ signImg:{
+  paddingTop:20
+ },
+  table1: {
+    display: 'table',
+    width: '200px',
+    marginTop: 10,
+    marginBottom:15
+  },
   tableHeader: {
     backgroundColor: '#e5e5e5',
     fontWeight: 'bold',
@@ -78,9 +127,18 @@ const styles = StyleSheet.create({
   },
   tableCell: {
     padding: 5,
+    border: '1 solid black',
+    color: '#333',
+    fontSize: 12,
+    borderRadius:"20%"
+  },
+  tableCell1: {
+    padding: 5,
     border: '1 solid #ccc',
     color: '#333',
     fontSize: 12,
+    width:120,
+    height:20
   },
   totalAmountContainer: {
     flexDirection: 'row',
@@ -94,6 +152,14 @@ const styles = StyleSheet.create({
   logo: {
     width: 150,
     height: 100,
+  },
+  btm:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between", 
+  },
+  logobdr:{
+    border:"1px solid grey"
   },
   bdr: {
     // border: "1px solid gray",
@@ -111,6 +177,8 @@ const styles = StyleSheet.create({
 
 const Invoice = ({ invoiceData }) => {
   const [uploadedLogo, setUploadedLogo] = useState(null);
+  const [uploadedSign, setUploadedSign] = useState(null);
+
 
   // Function to handle logo upload
   const handleLogoUpload = (event) => {
@@ -123,16 +191,49 @@ const Invoice = ({ invoiceData }) => {
       reader.readAsDataURL(logoFile);
     }
   };
+
+  const handleSignUpload = (event) => {
+    const logoFile = event.target.files[0];
+    if (logoFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUploadedSign(reader.result);
+      };
+      reader.readAsDataURL(logoFile);
+    }
+  };
   const MyDoc = () => (
     <Document>
       <Page size="A4" style={styles.page}>
         <View>
           {/* <View style={styles.logoContainer}> */}
+          <div style={styles.logoCss}>
+          <div>
           {uploadedLogo && (
             <View style={styles.logoContainer}>
               <Image style={styles.logo} src={uploadedLogo} />
             </View>
           )}
+          </div>
+          <div>
+          <Text style={[styles.tableCell]}>Tax Invoice/Bill</Text>
+          </div>    
+          </div>
+
+          <View style={styles.logoCss1}>
+          <View style={styles.table}>
+            {/* <View style={[styles.tableRow, styles.tableHeader]}> */}
+            <Text style={[styles.tableCell]}>Party Details</Text>
+            {/* </View> */}
+          </View>
+
+          <View style={styles.table}>
+          {/* <View style={[styles.tableRow, styles.tableHeader]}> */}
+            <Text style={[styles.tableCell]}>Invoice Details</Text>
+            {/* </View> */}
+          </View>
+          </View>
+
           {/* </View> */}
 
           {/* <Text style={styles.title}>Invoice</Text> */}
@@ -141,11 +242,9 @@ const Invoice = ({ invoiceData }) => {
           
 
           <View style={styles.section1}>
-          <View style={styles.table}>
-          <View style={[styles.tableRow, styles.tableHeader]}>
-            <Text style={[styles.tableCell]}>Party Details</Text>
-            </View>
-          </View>
+         
+
+          <View style={styles.brdr}>
            <View style={styles.bdr}>
             <Text style={styles.label}>Party Name:</Text>
             <Text style={styles.value}>{invoiceData.partyName}</Text>
@@ -166,14 +265,13 @@ const Invoice = ({ invoiceData }) => {
             <Text style={styles.value}>{invoiceData.id}</Text>
             </View>
            
+            </View>
           </View>
 
           <View style={styles.section1}>
-          <View style={styles.table}>
-          <View style={[styles.tableRow, styles.tableHeader]}>
-            <Text style={[styles.tableCell]}>Invoice Details</Text>
-            </View>
-          </View>
+         
+
+          <View style={styles.brdr}>
           <View style={styles.totalAmountContainer}>
           <Text style={styles.label}>Invoice Type: </Text>
           <Text style={styles.value}>{invoiceData.type}</Text>
@@ -188,7 +286,7 @@ const Invoice = ({ invoiceData }) => {
           <Text style={styles.label}>Mode Of Payment: </Text>
           <Text style={styles.value}>{invoiceData.modeOfPayment}</Text>
           </View>
-
+          </View>
           </View>
           
           </View>
@@ -203,7 +301,7 @@ const Invoice = ({ invoiceData }) => {
             {/* Loop through invoiceData.items and render the table rows */}
             {invoiceData.items && invoiceData.items.map((item) => (
               <View style={styles.tableRow} key={item.id}>
-                <Text style={[styles.tableCell, { flex: 1 }]}>{item.description}</Text>
+                <Text style={[styles.tableCell, { flex: 1 }]}>{item.id}</Text>
                 <Text style={[styles.tableCell]}>{item.quantity}</Text>
                 <Text style={[styles.tableCell]}>{item.price}</Text>
                 <Text style={[styles.tableCell]}>{item.quantity * item.price}</Text>
@@ -233,9 +331,26 @@ const Invoice = ({ invoiceData }) => {
             <Text style={styles.value}>{invoiceData.totalGst}</Text>
           </View>
           </View>
-
          
           </View>
+         
+      
+          <View style={styles.btm}>
+        <div style={{marginTop:"20px"}}>
+        <Text style={styles.tableCell}>Generated by ItaxEasy</Text>
+        </div>  
+      <View style={styles.sign}>
+        <Text style={styles.tableCell}>Authorized signatory for Business Name</Text>
+        <View style={styles.signImg}>
+          {uploadedSign && (
+            <View style={styles.logoContainer}>
+              <Image style={styles.logo} source={uploadedSign} />
+            </View>
+          )}
+        </View>
+      </View>
+    </View>
+
         </View>
       </Page>
     </Document>
@@ -245,10 +360,21 @@ const Invoice = ({ invoiceData }) => {
     <div className='flex justify-between'> 
     {/* Add input element to allow the user to upload the logo */}
     
-    <div>
+    <div className='whitespace-normal'>
     <span className='bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-16'>Upload Logo </span>
     <br></br><br></br>
-    <input type="file" accept="image/*" onChange={handleLogoUpload} style={{color:"blue"}} />
+    <div className='overflow-hidden w-32'>
+  <input type="file" accept="image/*" onChange={handleLogoUpload} style={{ color: "blue" }} />
+</div>
+
+    </div>
+
+    <div >
+    <span className='bg-blue-700 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded h-16'>Upload Sign </span>
+    <br></br><br></br>
+    <div className='overflow-hidden w-32'>
+    <input type="file" accept="image/*" onChange={handleSignUpload} style={{color:"blue"}} />
+    </div>
     </div>
     
     <div>

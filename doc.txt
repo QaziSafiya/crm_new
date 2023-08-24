@@ -44,3 +44,11 @@ Date - 19-08-2023
 -In invoice section (create purchase, create sale) added Toast messeges by react toastify
 -Added forms for inward supplies with validation
 -Changed the ui of inward supply section
+
+24-08-2023 
+
+-Made new pdf for Invoice Section with dynamic Logo , Auth Sign 
+-Made landing Page of billshill dynamic 
+-Updated Apply for loan ui and functionality , according to Updated Api
+-tried to resolve the upload documnet section in Loan 
+-My account section Api need to be fixed , checked on postman

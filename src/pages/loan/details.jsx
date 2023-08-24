@@ -60,6 +60,20 @@ export default function LoanDetails() {
         {/* <div className="mb-4">
         <DetailField label="Loan Type" value="Personal Loan" />
         </div> */}
+
+        <div className="mb-4">
+          <label className="block mb-2 text-primary font-bold ">Loan Type</label>
+          <h4>{loanApplication.loanType}</h4>
+        </div>
+        {/* <DetailField
+          label="Last Update"
+          value={loanApplication.updatedAt}
+        /> */}
+        <div className="mb-4">
+          <label className="block mb-2 text-primary font-bold ">Status</label>
+          <h4>{loanApplication.loanStatus}</h4>
+        </div>
+
         <div className="mb-4">
           <label className="block mb-2 text-primary font-bold ">Applied on</label>
           <h4>{loanApplication.createdAt}</h4>
@@ -72,14 +86,8 @@ export default function LoanDetails() {
           <label className="block mb-2 text-primary font-bold ">Last Update</label>
           <h4>{loanApplication.updatedAt}</h4>
         </div>
-        {/* <DetailField
-          label="Last Update"
-          value={loanApplication.updatedAt}
-        /> */}
-        <div className="mb-4">
-          <label className="block mb-2 text-primary font-bold ">Status</label>
-          <h4>{loanApplication.loanStatus}</h4>
-        </div>
+
+       
         {/* <DetailField label="Status" value={loanApplication.loanStatus} /> */}
         
         {/* <DetailField label="Bank Name" value={loanApplication.bankName} /> */}

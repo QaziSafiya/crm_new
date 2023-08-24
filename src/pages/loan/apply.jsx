@@ -13,27 +13,11 @@ import personal_loan_icon from "../../components/images/personal_loan_icon.jpg";
 import property_loan_icon from "../../components/images/property_loan_icon.jpg";
 import ApplyLoan from "./ApplyLoan.jsx";
 import { BASE_URL } from "../../constants.js";
+import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const data1 = {
-  loan1: [
-    {
-      id: 1,
-      name: "Alok",
-      type: "Business",
-      minAmount: 5000,
-      maxAmount: 20000,
-    },
-    {
-      id: 2,
-      name: "Abhi",
-      type: "Personal",
-      minAmount: 50000,
-      maxAmount: 200000,
-    },
-  ],
-};
+
 
 export default function ApplyForLoan() {
   const [search, setSearch] = useSearchParams();
@@ -42,19 +26,45 @@ export default function ApplyForLoan() {
   const [showDocuments, setShowDocuments] = useState(true);
   const [showApplyLoan, setShowApplyLoan] = useState(false);
   const [loans, setLoans] = useState([]);
-  const [loggedInUser, setLoggedInUser] = useState({
-    name: "",
-    email: "",
-  });
-  const [showForm, setShowForm] = useState(false);
+  
   const [formData, setFormData] = useState({
     id: "",
   });
+  
+const storedData = JSON.parse(localStorage.getItem('itaxData'));
+ 
+  // const [fetchedData, setFetchedData] = useState([]);
+ 
+ 
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const handleClick = (loanId) => {
-    setShowForm(true);
-    setFormData((prevFormData) => ({ ...prevFormData, id: loanId }));
-  };
+  // const fetchData = async () => {
+  //   const storedData = JSON.parse(localStorage.getItem('itaxData'));
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/loan/loans/getAll`, {
+  //       headers: {
+  //         Authorization: `Bearer ${storedData.token}`,
+  //       },
+  //     });
+
+  //     if (response.status === 200) {
+       
+  //       console.log(response.data.data.applications)
+  //       setFetchedData(response.data.data.applications); // Set fetched data in the state
+       
+  //     } else {
+  //       console.error('Failed to fetch data');
+  //     }
+  //   } catch (error) {
+  //     console.error('Failed to fetch API', error);
+  //   }
+  // }
+ 
+  // const countPendingDocuments = () => {
+  //   return fetchedData.filter(item => item.type === "pending").length;
+  // };
 
   useEffect(() => {
     // Use the formData state in any way you need
@@ -64,7 +74,12 @@ export default function ApplyForLoan() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://api.itaxeasy.com/loan/loans");
+        const response = await fetch("https://api.itaxeasy.com/loan/loans",{
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${storedData.token}`,
+          },
+        });
         const data = await response.json();
         setLoans(data);
       } catch (error) {
@@ -110,15 +125,19 @@ export default function ApplyForLoan() {
   };
 
   const loanTypeIcons = {
-    "Business Loan": business_loan_icon,
-    "Personal Loan": personal_loan_icon,
-    "Home Loan": Home_loan_icon,
-    "Loan Against Property": property_loan_icon,
-    "Car Loan": car_loan_icon,
+    business: business_loan_icon,
+    personal: personal_loan_icon,
+    home: Home_loan_icon,
+    property: property_loan_icon,
+    car: car_loan_icon,
     // Add other loan types and their corresponding icons
   };
 
   // USER Dashboard data
+
+  const loanId =  JSON.parse(localStorage.getItem('loanId'));
+  console.log(loanId)
+
   const loanOptions = [
     {
       name: "Loan Option 1",
@@ -143,6 +162,10 @@ export default function ApplyForLoan() {
     },
   ];
 
+ 
+  
+
+
   return (
     <div className="container">
       <Sidebar />
@@ -154,7 +177,7 @@ export default function ApplyForLoan() {
             <div className="">
               <div className="section">
                 <div className="mt-4">
-                <button
+                  <button
                     className={`button ${
                       showDocuments ? "is-primary" : "bg-gray-200"
                     } pl-5 pr-5`}
@@ -170,12 +193,11 @@ export default function ApplyForLoan() {
                   >
                     Loan Application
                   </button>
-                 
                 </div>
                 {showApplyLoan && (
                   <>
                     {/* <ApplyLoan /> */}
-                    {showForm && <ApplyLoan formData={formData} />}
+                   <ApplyLoan formData={loanId} />
                   </>
                 )}
                 {showDocuments && salaried !== "" && (
@@ -199,22 +221,26 @@ export default function ApplyForLoan() {
           ) : (
             <div>
               <div className="flex gap-5">
-                {Object.keys(LOAN_TYPES).map((type) => (
-                  <div
-                    key={type}
-                    // onClick={() => setSearch({ loanType: type })}
-                    className={`card hoverable jc-center ai-center gap-2 bg-white border border-gray-300 rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:bg-amber-100`}
-                  >
-                    <img
-                      src={loanTypeIcons[type]}
-                      alt={`${type} Icon`}
-                      className="icon w-10"
-                    />
-                    <h6 className="text-center text-sm font-medium">{type}</h6>
-                  </div>
-                ))}
+                {["business", "home", "property", "car", "personal"].map(
+                  (type) => (
+                    <Link
+                      key={type}
+                      to={`/loan/${type}`} // Assuming you have a route like "/loans/:loanType"
+                      className={`card hoverable jc-center ai-center gap-2 bg-white border border-gray-300 rounded-lg shadow-md transform transition duration-500 hover:scale-105 hover:bg-amber-100`}
+                    >
+                      <img
+                        src={loanTypeIcons[type]}
+                        alt={`${type} Icon`}
+                        className="icon w-10"
+                      />
+                      <h6 className="text-center text-sm font-medium capitalize">
+                        {type}
+                      </h6>
+                    </Link>
+                  )
+                )}
               </div>
-              <div className="mt-10">
+              {/* <div className="mt-10">
                 <h1 className="text-2xl font-bold mb-4">Loan List</h1>
                 {data1.loan1.length === 0 ? (
                   <p>No loans available</p>
@@ -266,7 +292,7 @@ export default function ApplyForLoan() {
                     </tbody>
                   </table>
                 )}
-              </div>
+              </div> */}
 
               <div className="flex justify-around align-center">
                 <div className="flex flex-col pt-20 w-80 text-center">

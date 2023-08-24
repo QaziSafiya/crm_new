@@ -19,9 +19,9 @@ export default function useUsers(pageNo) {
                     'Authorization': `Basic ${token}`,
                 })
             });
-
+            
             const { data } = await response.json();
-
+          
             setUsers(data.users);
            
             setCurrentPage(data?.page ? data.page : pageNo);

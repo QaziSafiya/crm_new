@@ -43,7 +43,9 @@ const handleClick = () => {
 
 export default function LoanIndex() {
   const [search, setSearch] = useSearchParams();
+  const [pendingC,setPendingC]=useState(0)
   const [fetchedData, setFetchedData] = useState([]);
+ 
  
   useEffect(() => {
     fetchData();
@@ -62,6 +64,7 @@ export default function LoanIndex() {
        
         console.log(response.data.data.applications)
         setFetchedData(response.data.data.applications); // Set fetched data in the state
+       
       } else {
         console.error('Failed to fetch data');
       }
@@ -72,6 +75,18 @@ export default function LoanIndex() {
   // if(user==="normal"){
   //  return <Navigate to="/loan/apply" />
   //  }
+
+  const countPendingDocuments = () => {
+    return fetchedData.filter(item => item.loanStatus === "pending").length;
+  };
+  
+  const countSuccessDocuments = () => {
+    return fetchedData.filter(item => item.loanStatus === "approved").length;
+  };
+
+  const countRejectedDocuments = () => {
+    return fetchedData.filter(item => item.loanStatus === "rejected").length;
+  };
   return (
     <div className="container">
       <Sidebar />
@@ -123,7 +138,7 @@ export default function LoanIndex() {
                 </div>
                 <div className="flex items-center justify-center w-20 h-10 bg-blue-200 rounded-3xl mt-2">
                   <span className="text-primary text-2xl font-bold animate-counting">
-                    0
+                  {countPendingDocuments()}
                   </span>
                 </div>
               </div>
@@ -147,7 +162,7 @@ export default function LoanIndex() {
                 </div>
                 <div className="flex items-center justify-center w-20 h-10 bg-blue-200 rounded-3xl mt-2">
                   <span className="text-primary text-2xl font-bold animate-counting">
-                    0
+                    {fetchedData.length}
                   </span>
                 </div>
               </div>
@@ -278,6 +293,7 @@ export default function LoanIndex() {
                 <thead className="bg-blue-300">
                   <tr>
                     <th>Sr no.</th>
+                    <th>Loan Type</th>
                     <th>Applied on</th>
                     <th>Status</th>
                     <th>Last Update</th>
@@ -295,6 +311,9 @@ export default function LoanIndex() {
                     >
                       <td>
                         <h6 className="title">{index+1}</h6>
+                      </td>
+                      <td>
+                        {loan.loanType}
                       </td>
                       <td>{postDateFormatter.format(loan.date_applied)}</td>
                       <td>

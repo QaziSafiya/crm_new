@@ -161,10 +161,17 @@ export default function Library() {
         <div className="inner-container w-full">
           <div>
             {loading ? (
-              <div className="fixed h-screen w-screen bg-white flex items-center justify-center">
-                {/* <img src="/loading.svg" alt="loading..." style={{ width: "100px" }} /> */}
-                <h1>Loading..</h1>
+              <div className="fixed inset-0 flex items-center justify-center bg-blue-200">
+              {/* <div className="flex flex-col items-center"> */}
+                {/* <div className="mb-4">
+                  <img src="/loading.svg" alt="loading..." style={{ width: "100px" }} />
+                </div> */}
+                <h1 className="text-gray-800 text-xl font-semibold">Loading...</h1>
+                {/* <div className="mt-4">
+                  <div className="w-16 h-1 bg-primary rounded-full animate-pulse"></div>
+                </div> */}
               </div>
+            // </div>  
             ) : (
               <div>
                 <div>
