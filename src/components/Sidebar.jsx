@@ -127,7 +127,12 @@ export default function Sidebar({ open }) {
             <SideNavLink icon={<GlobeIcon />} to="/" title="Form-2A" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Sehej" />
           </Menu>
-          <Menu icon={<BarGraphIcon />} title="Easy Investment" upcoming>
+          <Menu icon={<BarGraphIcon />} title="Easy Investment" >
+          <SideNavLink
+              icon={<HandshakeIcon />}
+              to="/insurance"
+              title="Insurance"
+            />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Mutual Fund" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="SIP" />
             <SideNavLink icon={<GlobeIcon />} to="/" title="Sell of Share" />
@@ -179,11 +184,7 @@ export default function Sidebar({ open }) {
          
            
           <Menu icon={<RupeeIcon />} title="Finance">
-          <SideNavLink
-              icon={<HandshakeIcon />}
-              to="/insurance"
-              title="Insurance"
-            />
+         
             <SideNavLink icon={<BankIcon />} to="/loan" title="Loan" />
             <SideNavLink
               icon={<ArrowLeftIcon />}

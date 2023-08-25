@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Document, Page, View, Text, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   page: {
@@ -178,6 +179,50 @@ const styles = StyleSheet.create({
 const Invoice = ({ invoiceData }) => {
   const [uploadedLogo, setUploadedLogo] = useState(null);
   const [uploadedSign, setUploadedSign] = useState(null);
+  const [invoiceData1, setInvoiceData1] = useState({});
+  const [itemDetails, setItemDetails] = useState({});
+
+  useEffect(() => {
+    // Fetch the invoice data and set it in the state
+    // You can replace this with your actual fetching logic
+    const fetchInvoiceData = async () => {
+      try {
+        const response = await axios.get('your-invoice-data-url');
+        setInvoiceData1(response.data);
+      } catch (error) {
+        console.error('Error fetching invoice data:', error);
+      }
+    };
+
+    fetchInvoiceData();
+  }, []);
+
+  useEffect(() => {
+    // Fetch item details for each item's ID and set them in the state
+    const fetchItemDetails = async () => {
+      const detailsPromises = invoiceData.items.map(async (item) => {
+        try {
+          const response = await axios.get(`${BASE_URL}/invoice/items/${item.id}`);
+          return { id: item.id, details: response.data };
+        } catch (error) {
+          console.error(`Error fetching details for item ID ${item.id}:`, error);
+          return { id: item.id, details: null };
+        }
+      });
+
+      Promise.all(detailsPromises).then((detailsArray) => {
+        const detailsMap = {};
+        detailsArray.forEach((detailsItem) => {
+          detailsMap[detailsItem.id] = detailsItem.details;
+        });
+        setItemDetails(detailsMap);
+      });
+    };
+
+    if (invoiceData.items) {
+      fetchItemDetails();
+    }
+  }, [invoiceData.items]);
 
 
   // Function to handle logo upload
@@ -299,14 +344,25 @@ const Invoice = ({ invoiceData }) => {
               <Text style={[styles.tableCell]}>Total</Text>
             </View>
             {/* Loop through invoiceData.items and render the table rows */}
-            {invoiceData.items && invoiceData.items.map((item) => (
-              <View style={styles.tableRow} key={item.id}>
-                <Text style={[styles.tableCell, { flex: 1 }]}>{item.id}</Text>
-                <Text style={[styles.tableCell]}>{item.quantity}</Text>
-                <Text style={[styles.tableCell]}>{item.price}</Text>
-                <Text style={[styles.tableCell]}>{item.quantity * item.price}</Text>
-              </View>
-            ))}
+            <div>
+      {invoiceData1.items && invoiceData1.items.map((item) => (
+        <div key={item.id}>
+          <p>ID: {item.id}</p>
+          <p>Quantity: {item.quantity}</p>
+          <p>Price: {item.price}</p>
+          <p>Total: {item.quantity * item.price}</p>
+          {itemDetails[item.id] && (
+            <div>
+              <p>Additional Details:</p>
+              <p>Name: {itemDetails[item.id].itemName}</p>
+              <p>Description: {itemDetails[item.id].price}</p>
+              {/* Add more fields as needed */}
+            </div>
+          )}
+          <hr />
+        </div>
+      ))}
+    </div>
           </View>
            
           <View style={styles.section3}>
