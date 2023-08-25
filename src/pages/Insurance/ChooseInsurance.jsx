@@ -52,11 +52,13 @@ function ChooseInsurance() {
                 <div className="column">
                   
                     {/* Rest of the card content */}
+                    <Link to="/insurance/lic/type">
                     <div className="card bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all border border-indigo-600 w-full h-full flex flex-col justify-between">
+                      
                       <div className="icon-wrapper bg-blue-100 p-4 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <img
                           src={`${lic_logo}`}
-                          alt=""
+                          alt="lic"
                           className="h-20 w-20 object-contain"
                         />
                       </div>
@@ -68,7 +70,10 @@ function ChooseInsurance() {
                           {`Life Insurance Corporation of India is an Indian multinational public sector life insurance company.. `}
                         </p>
                       </div>
+                     
                     </div>
+                    </Link>
+                    
                 </div>
 
                 <div className="column">

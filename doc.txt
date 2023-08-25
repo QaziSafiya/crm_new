@@ -51,4 +51,11 @@ Date - 19-08-2023
 -Made landing Page of billshill dynamic 
 -Updated Apply for loan ui and functionality , according to Updated Api
 -tried to resolve the upload documnet section in Loan 
--My account section Api need to be fixed , checked on postman
+-My account section Api need to be fixed , checked on postman 
+
+
+24-08-2023 
+
+-LIC section landing page ui and options
+-Health section of LIC all the fields and Ui done 
+-Working on Car Section 

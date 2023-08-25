@@ -112,6 +112,9 @@ import HomeLoan from './pages/loan/loan-types/home-loan'
 import PersonalLoan from './pages/loan/loan-types/personal-loan'
 import PropertyLoan from './pages/loan/loan-types/property-loan'
 import LoanApplication from './pages/loan/loan-types/loan-application'
+import LicInsuranceType from './pages/Insurance/lic-insurance/insurance-type'
+import PersonalDetails from './pages/Insurance/lic-insurance/personal-details'
+import LicHealthPlans from './pages/Insurance/lic-insurance/lic-health-plans'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -398,6 +401,30 @@ function App() {
             element={
               <PrivateRoute>
                 <ChooseInsurance />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/type"
+            element={
+              <PrivateRoute>
+                <LicInsuranceType  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/personal-details"
+            element={
+              <PrivateRoute>
+                <PersonalDetails  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/health"
+            element={
+              <PrivateRoute>
+                <LicHealthPlans  />
               </PrivateRoute>
             }
           />
