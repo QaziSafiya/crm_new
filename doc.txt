@@ -59,3 +59,9 @@ Date - 19-08-2023
 -LIC section landing page ui and options
 -Health section of LIC all the fields and Ui done 
 -Working on Car Section 
+
+25-08-2023
+
+-made LIC car insurance section UI all pages 
+-made LIC bike insurance section UI all pages 
+-Next to work on paymnet gateway

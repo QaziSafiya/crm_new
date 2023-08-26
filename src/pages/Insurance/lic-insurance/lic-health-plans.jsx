@@ -11,7 +11,7 @@ const LicHealthPlans = () => {
     <div className="main">
       <Topbar />
       <div className="inner-container">
-      <div className="w-full bg-blue-200 border border-gray-300 p-4 flex h-[50px] md:h-auto overflow-hidden">
+      <div className="w-full bg-blue-300 border border-gray-300 p-4 flex h-[50px] md:h-auto overflow-hidden">
       <div className="flex-1 text-center">
         <div className="mb-2 font-semibold">Sort By</div>
         <select
@@ -115,7 +115,7 @@ const LicHealthPlans = () => {
         <p className="text-base font-semibold">₹ per year</p>
       </div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        5393/Y
+      ₹5393/Y
       </button>
       
       
@@ -143,7 +143,7 @@ const LicHealthPlans = () => {
         <p className="text-base font-semibold">₹ per year</p>
       </div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        5393/Y
+      ₹5393/Y
       </button>
       
       
@@ -171,7 +171,7 @@ const LicHealthPlans = () => {
         <p className="text-base font-semibold">₹ per year</p>
       </div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        5393/Y
+      ₹5393/Y
       </button>
       
       
@@ -199,7 +199,7 @@ const LicHealthPlans = () => {
         <p className="text-base font-semibold">₹ per year</p>
       </div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-        5393/Y
+      ₹5393/Y
       </button>
       
       

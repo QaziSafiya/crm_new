@@ -19,10 +19,12 @@ const LicInsuranceType = () => {
 
     <div className='flex'>
     <div className="flex flex-col items-center w-40 h-40 bg-gray-200 rounded-lg shadow-md p-4 m-4">
+      <Link to={"/insurance/lic/car/info"}>
     <div className="w-24 h-24 rounded-full overflow-hidden">
       <img src={car} alt={"car"} className="w-full h-full object-cover object-center" />
     </div>
-    <p className="mt-2 text-lg font-semibold">Car</p>
+    <p className="flex justify-center mt-2 text-lg font-semibold">Car</p>
+    </Link>
   </div>
 
   <div className="flex flex-col items-center w-40 h-40 bg-gray-200 rounded-lg shadow-md p-4 m-4">
@@ -30,7 +32,7 @@ const LicInsuranceType = () => {
     <div className="w-24 h-24 rounded-full overflow-hidden">
       <img src={bike} alt={"bike"} className="w-full h-full object-cover object-center" />
     </div>
-    <p className="mt-2 text-lg font-semibold">Bike</p>
+    <p className="flex justify-center mt-2 text-lg font-semibold">Bike</p>
     </Link>
   </div>
 
@@ -39,7 +41,7 @@ const LicInsuranceType = () => {
     <div className="w-24 h-24 rounded-full overflow-hidden">
       <img src={health} alt={"health"} className="w-full h-full object-cover object-center" />
     </div>
-    <p className="mt-2 text-lg font-semibold">Health</p>
+    <p className="flex justify-center mt-2 text-lg font-semibold">Health</p>
     </Link>
   </div>
     </div>

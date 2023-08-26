@@ -64,7 +64,7 @@ const PersonalDetails = () => {
               <div
                 key={index}
                 className={`w-4 h-4 rounded-full mx-1 ${
-                  currentSection === index + 1 ? "bg-blue-500" : "bg-yellow-300" // Use a brighter color here
+                  currentSection === index + 1 ? "bg-blue-500" : "bg-gray-300" // Use a brighter color here
                 }`}
               ></div>
             ))}
@@ -77,8 +77,8 @@ const PersonalDetails = () => {
                 Section 1: Personal Details
               </p>
               
-              <div className="flex mb-4">
-                <div className="w-1/2 p-4 rounded-lg shadow-md ml-2 border-2">
+              <div className="flex mb-4 ">
+              <div className="w-1/2 p-4 rounded-lg shadow-md ml-2 bg-blue-300">
                 <label htmlFor="gender" className="text-sm ml-1">
                       Gender
                     </label>
@@ -123,7 +123,7 @@ const PersonalDetails = () => {
                       <input
                         type="text"
                         id="fullName"
-                        className="border rounded-lg p-3 mt-1 focus:outline-none focus:ring focus:border-blue-500 border-2"
+                        className="border rounded-lg p-3 mt-1 focus:outline-none focus:ring focus:border-blue-500 border-1 border-blue-500"
                         placeholder="Full Name"
                       />
                     </div>
@@ -134,7 +134,7 @@ const PersonalDetails = () => {
                       <input
                         type="text"
                         id="mobileNumber"
-                        className="border rounded-lg p-3 mt-1 focus:outline-none focus:ring focus:border-blue-500 border-2"
+                        className="border rounded-lg p-3 mt-1 focus:outline-none focus:ring focus:border-blue-500 border-1 border-blue-500"
                         placeholder="Mobile Number"
                       />
                     </div>
@@ -146,7 +146,7 @@ const PersonalDetails = () => {
                     <input
                       type="email"
                       id="email"
-                      className="border rounded-lg p-3 mt-2 focus:outline-none focus:ring focus:border-blue-500 h-24 border-2"
+                      className="border rounded-lg p-3 mt-2 focus:outline-none focus:ring focus:border-blue-500 h-24 border-1 border-blue-500"
                       placeholder="Email"
                     />
                   </div>
@@ -166,20 +166,20 @@ const PersonalDetails = () => {
               <p className="mb-4 text-lg font-semibold">
                 Section 2: Who would you like to insure?
               </p>
-              <div className="w-1/2 p-4  rounded-lg shadow-lg ml-2 border-2">
+              <div className="w-1/2 p-4  rounded-lg shadow-lg ml-2 border-1 border-blue-500 bg-blue-300">
                 <div className="flex flex-col space-y-2">
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
-                    <label className="flex items-center cursor-pointer">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
+                    <label className="flex items-center cursor-pointer ">
                       <input
                         type="radio"
                         name="self"
-                        className="form-radio text-blue-500 focus:ring focus:ring-blue-300 mr-2"
+                        className="form-radio text-blue-500 focus:ring focus:ring-blue-300 mr-2 "
                       />
                       <span className="text-lg text-gray-700">Self</span>
                     </label>
 
                     <div>
-                      <select className="border rounded-lg p-2 focus:outline-none focus:ring focus:border-blue-500">
+                      <select className="border rounded-lg p-2 focus:outline-none focus:ring focus:border-blue-500 ">
                       <option value="option1">Select Age</option>
                         <option value="option1">18 Years</option>
                         <option value="option2">19 Years</option>
@@ -187,7 +187,7 @@ const PersonalDetails = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
@@ -206,7 +206,7 @@ const PersonalDetails = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
@@ -225,7 +225,7 @@ const PersonalDetails = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
@@ -244,7 +244,7 @@ const PersonalDetails = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
@@ -263,7 +263,7 @@ const PersonalDetails = () => {
                       </select>
                     </div>
                   </div>
-                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center">
+                  <div className="mb-2 border rounded-lg p-2 flex justify-between items-center border-1 border-blue-500 bg-white">
                     <label className="flex items-center cursor-pointer">
                       <input
                         type="radio"
@@ -306,7 +306,7 @@ const PersonalDetails = () => {
                 Section 3: Tell us where you live
               </p>
               <div className="flex mb-4">
-            <div className=" p-4 border-2 rounded-lg shadow-md ml-2 border-2">
+            <div className=" p-4 border-2 rounded-lg shadow-md ml-2 border-2 bg-blue-300">
                 
               
               <label htmlFor="pinCode" className="text-sm mr-1">

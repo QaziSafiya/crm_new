@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Sidebar from "../../../components/Sidebar";
 import Topbar from "../../../components/Topbar";
-import bike from "../images/bike.png";
-import "./bikeInfo.css";
+import car from "../images/car.png"
+
+
 import { Link } from "react-router-dom";
 
-const BikeInfo = () => {
+const CarInfo = () => {
   const [currentSection, setCurrentSection] = useState(1); // Current visible section
   const [selectedFuelType, setSelectedFuelType] = useState("Petrol"); // Initial selection is 'Petrol'
   const [selectedCity, setSelectedCity] = useState(null); // State to track selected city
@@ -33,35 +34,35 @@ const BikeInfo = () => {
 
   const logoTitleArray = [
     {
-      logo: "https://e0.pxfuel.com/wallpapers/383/232/desktop-wallpaper-honda-logo-vector-honda-symbol.jpg",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbDmyKChlb7JVQn0DPQmGj0TiGGOcOok0lhgvA3gPoJg&s",
+      title: "AUDI",
+    },
+    {
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Fiat_Automobiles_logo.svg/2048px-Fiat_Automobiles_logo.svg.png",
+      title: "FIAT",
+    },
+    {
+      logo: "https://c4.wallpaperflare.com/wallpaper/762/50/535/cars-ford-wallpaper-preview.jpg",
+      title: "FORD",
+    },
+    {
+      logo: "https://logos-world.net/wp-content/uploads/2021/03/Honda-Logo.png",
       title: "HONDA",
     },
     {
-      logo: "https://1000logos.net/wp-content/uploads/2020/07/Hero-Logo-1984.jpg",
-      title: "HERO HONDA",
+      logo: "https://logos-world.net/wp-content/uploads/2021/03/Hyundai-Logo.png",
+      title: "HYUNDAI",
     },
     {
-      logo: "https://logos-world.net/wp-content/uploads/2020/10/Yamaha-Logo.png",
-      title: "YAMAHA",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/KIA_logo2.svg/2560px-KIA_logo2.svg.png",
+      title: "KIA",
     },
     {
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Hero_MotoCorp.svg/1200px-Hero_MotoCorp.svg.png",
-      title: "HERO MOTOCORP",
+      logo: "https://companieslogo.com/img/orig/MARUTI.NS-9974f2f4.png",
+      title: "MARUTI",
     },
     {
-      logo: "https://1000logos.net/wp-content/uploads/2020/07/TVS-Motor-Logo.jpg",
-      title: "TVS",
-    },
-    {
-      logo: "https://1000logos.net/wp-content/uploads/2020/06/Bajaj-Logo.png",
-      title: "BAJAJ",
-    },
-    {
-      logo: "https://m.media-amazon.com/images/I/61+gxqqO8LL.jpg",
-      title: "ROYAL ENFIELD",
-    },
-    {
-      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWvvpHNDxY2tv5BoCkodRu7lpAYIbxIXsKSErAhhGt&s",
+      logo: "https://www.carlogos.org/logo/Mahindra-logo.png",
       title: "MAHINDRA",
     },
     {
@@ -69,16 +70,16 @@ const BikeInfo = () => {
       title: "SUZUKI",
     },
     {
-      logo: "https://static.vecteezy.com/system/resources/previews/022/100/218/original/ktm-logo-transparent-free-png.png",
-      title: "KTM",
+      logo: "https://1000logos.net/wp-content/uploads/2018/04/Mercedes-Benz-Logo.png",
+      title: "MERCEDES",
     },
     {
-      logo: "https://1000logos.net/wp-content/uploads/2021/09/Ducati-Logo.png",
-      title: "DUCATI",
+      logo: "https://www.carlogos.org/logo/Renault-logo-2015-2048x2048.png",
+      title: "RENAULT",
     },
     {
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Harley-Davidson_logo.svg/1200px-Harley-Davidson_logo.svg.png",
-      title: "HARLEY DAVIDSON",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGyQIjXxAEFlKC-D2-8Z2OjbMgE389eJzEDm2vSvg&s",
+      title: "SKODA",
     },
     // Add more objects as needed
   ];
@@ -112,11 +113,11 @@ const BikeInfo = () => {
             </p>
             <div className="flex justify-center rounded-full mb-7">
               <div className="bg-gray-200 w-28 h-28 rounded-md flex items-center justify-center">
-                <img src={bike} alt="bike" className="w-24 h-24" />
+                <img src={car} alt="car" className="w-24 h-24" />
               </div>
             </div>
             <div className="flex justify-center text-2xl text-blue-500 mb-5">
-              <p>Now Buy fastest Two-wheeler Insurance online in India.</p>
+              <p>Now Buy fastest Four-wheeler Insurance online in India.</p>
             </div>
             <div className="flex justify-center">
               <div className="w-1/2 shadow-md rounded-lg p-4 bg-blue-300">
@@ -439,4 +440,4 @@ const BikeInfo = () => {
   );
 };
 
-export default BikeInfo;
+export default CarInfo;
