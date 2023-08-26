@@ -1,6 +1,8 @@
 import React from 'react';
 import Sidebar from '../../../components/Sidebar';
 import Topbar from '../../../components/Topbar';
+import girl from "../images/girl.png";
+
 
 const LicHealthPlans = () => {
   return (
@@ -97,6 +99,123 @@ const LicHealthPlans = () => {
 
         </select>
       </div>
+      
+    {/* cards of insurance */}
+
+    
+    </div>
+
+    <div className='grid grid-cols-2 gap-2'>
+    <div className=" bg-white shadow-md rounded-lg p-4  items-center">
+      <div className='flex justify-between'>
+      <img className="w-10 h-10 mr-4" src={girl} alt="Company Logo" />
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold mb-1">Insurance Company XYZ</h3>
+        <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
+        <p className="text-base font-semibold">₹ per year</p>
+      </div>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        5393/Y
+      </button>
+      
+      
+      </div>
+      <p className='text-blue-400 flex justify-end mr-2 mt-1'>Incl GST</p>
+      <div>
+      Room Rent Charges<span className='text-blue-400 ml-2'>All Categories</span> ||  No Claim Bonus <span className='text-blue-400 ml-2'>Upto 100%</span> <br></br>
+      Cash Less Hospitals<span className='text-blue-400 ml-2'>748</span> ||  Pre-existing Disease  <span className='text-blue-400 ml-2'>3 Years</span> || Co-Payment <span>No</span>
+    </div>
+    <div className='flex'>
+      <div>Short List</div>
+      <div>See Details</div>
+      <div>Compare</div>
+    </div>
+    </div>
+
+    {/* 2 */}
+
+    <div className=" bg-white shadow-md rounded-lg p-4  items-center">
+      <div className='flex justify-between'>
+      <img className="w-10 h-10 mr-4" src={girl} alt="Company Logo" />
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold mb-1">Insurance Company XYZ</h3>
+        <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
+        <p className="text-base font-semibold">₹ per year</p>
+      </div>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        5393/Y
+      </button>
+      
+      
+      </div>
+      <p className='text-blue-400 flex justify-end mr-2 mt-1'>Incl GST</p>
+      <div>
+      Room Rent Charges<span className='text-blue-400 ml-2'>All Categories</span> ||  No Claim Bonus <span className='text-blue-400 ml-2'>Upto 100%</span> <br></br>
+      Cash Less Hospitals<span className='text-blue-400 ml-2'>748</span> ||  Pre-existing Disease  <span className='text-blue-400 ml-2'>3 Years</span> || Co-Payment <span>No</span>
+    </div>
+    <div className='flex'>
+      <div>Short List</div>
+      <div>See Details</div>
+      <div>Compare</div>
+    </div>
+    </div>
+
+    {/* 3 */}
+
+    <div className="bg-white shadow-md rounded-lg p-4  items-center">
+      <div className='flex justify-between'>
+      <img className="w-10 h-10 mr-4" src={girl} alt="Company Logo" />
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold mb-1">Insurance Company XYZ</h3>
+        <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
+        <p className="text-base font-semibold">₹ per year</p>
+      </div>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        5393/Y
+      </button>
+      
+      
+      </div>
+      <p className='text-blue-400 flex justify-end mr-2 mt-1'>Incl GST</p>
+      <div>
+      Room Rent Charges<span className='text-blue-400 ml-2'>All Categories</span> ||  No Claim Bonus <span className='text-blue-400 ml-2'>Upto 100%</span> <br></br>
+      Cash Less Hospitals<span className='text-blue-400 ml-2'>748</span> ||  Pre-existing Disease  <span className='text-blue-400 ml-2'>3 Years</span> || Co-Payment <span>No</span>
+    </div>
+    <div className='flex'>
+      <div>Short List</div>
+      <div>See Details</div>
+      <div>Compare</div>
+    </div>
+    </div>
+
+    {/* 4 */}
+
+    <div className="bg-white shadow-md rounded-lg p-4  items-center">
+      <div className='flex justify-between'>
+      <img className="w-10 h-10 mr-4" src={girl} alt="Company Logo" />
+      <div className="flex-1">
+        <h3 className="text-lg font-semibold mb-1">Insurance Company XYZ</h3>
+        <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
+        <p className="text-base font-semibold">₹ per year</p>
+      </div>
+      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        5393/Y
+      </button>
+      
+      
+      </div>
+      <p className='text-blue-400 flex justify-end mr-2 mt-1'>Incl GST</p>
+      <div>
+      Room Rent Charges<span className='text-blue-400 ml-2'>All Categories</span> ||  No Claim Bonus <span className='text-blue-400 ml-2'>Upto 100%</span> <br></br>
+      Cash Less Hospitals<span className='text-blue-400 ml-2'>748</span> ||  Pre-existing Disease  <span className='text-blue-400 ml-2'>3 Years</span> || Co-Payment <span>No</span>
+    </div>
+    <div className='flex'>
+      <div>Short List</div>
+      <div>See Details</div>
+      <div>Compare</div>
+    </div>
+    </div>
+    
     </div>
     </div>
     </div>

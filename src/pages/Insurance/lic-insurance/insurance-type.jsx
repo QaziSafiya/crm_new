@@ -26,10 +26,12 @@ const LicInsuranceType = () => {
   </div>
 
   <div className="flex flex-col items-center w-40 h-40 bg-gray-200 rounded-lg shadow-md p-4 m-4">
+    <Link to={"/insurance/lic/info"}>
     <div className="w-24 h-24 rounded-full overflow-hidden">
       <img src={bike} alt={"bike"} className="w-full h-full object-cover object-center" />
     </div>
     <p className="mt-2 text-lg font-semibold">Bike</p>
+    </Link>
   </div>
 
   <div className="flex flex-col items-center w-40 h-40 bg-gray-200 rounded-lg shadow-md p-4 m-4">

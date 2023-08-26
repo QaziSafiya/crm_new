@@ -115,6 +115,7 @@ import LoanApplication from './pages/loan/loan-types/loan-application'
 import LicInsuranceType from './pages/Insurance/lic-insurance/insurance-type'
 import PersonalDetails from './pages/Insurance/lic-insurance/personal-details'
 import LicHealthPlans from './pages/Insurance/lic-insurance/lic-health-plans'
+import BikeInfo from './pages/Insurance/lic-insurance/bike-info'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -425,6 +426,14 @@ function App() {
             element={
               <PrivateRoute>
                 <LicHealthPlans  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/info"
+            element={
+              <PrivateRoute>
+                <BikeInfo />
               </PrivateRoute>
             }
           />
