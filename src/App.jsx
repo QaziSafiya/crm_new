@@ -116,6 +116,17 @@ import BajajCapital from './pages/Insurance/BajajCapital'
 import BajajBasicDetails from './pages/Insurance/BajajComponents/BajajBasicDetails'
 import BajajVehicleDetails from './pages/Insurance/BajajComponents/BajajVehicleDetails'
 import BajajCarInsurancePage from './pages/Insurance/BajajComponents/BajajCarInsurancePage'
+import LicInsuranceType from './pages/Insurance/lic-insurance/insurance-type'
+import PersonalDetails from './pages/Insurance/lic-insurance/personal-details'
+import LicHealthPlans from './pages/Insurance/lic-insurance/lic-health-plans'
+import BikeInfo from './pages/Insurance/lic-insurance/bike-info'
+import LicBikePlans from './pages/Insurance/lic-insurance/lic-bike-plans'
+import CarInfo from './pages/Insurance/lic-insurance/lic-car-info'
+import LicCarPlans from './pages/Insurance/lic-insurance/lic-car-plans'
+import PaymentGateway from './pages/Insurance/lic-insurance/payment-gateway'
+import LicHealthPlanNew from './pages/Insurance/lic-insurance/lic-health-plan-new'
+import SIIPCalculator from './pages/Insurance/lic-insurance/siip-calculator'
+import JeevanUmangPremiumCalculator from './pages/Insurance/lic-insurance/premium-calculator'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -405,6 +416,99 @@ function App() {
               </PrivateRoute>
             }
           />
+           <Route
+            path="/insurance/lic/type"
+            element={
+              <PrivateRoute>
+                <LicInsuranceType  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/personal-details"
+            element={
+              <PrivateRoute>
+                <PersonalDetails  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/health"
+            element={
+              <PrivateRoute>
+                <LicHealthPlans  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/info"
+            element={
+              <PrivateRoute>
+                <BikeInfo />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/insurance/lic/car/info"
+            element={
+              <PrivateRoute>
+                <CarInfo />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/insurance/lic/bike"
+            element={
+              <PrivateRoute>
+                <LicBikePlans  />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insurance/lic/car"
+            element={
+              <PrivateRoute>
+                <LicCarPlans  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/plan-new"
+            element={
+              <PrivateRoute>
+                <LicHealthPlanNew  />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insurance/payment-gateway"
+            element={
+              <PrivateRoute>
+                <PaymentGateway  />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insurance/siip-cal"
+            element={
+              <PrivateRoute>
+                <SIIPCalculator  />
+              </PrivateRoute>
+            }
+          />
+
+           <Route
+            path="/insurance/premium-cal"
+            element={
+              <PrivateRoute>
+                <JeevanUmangPremiumCalculator  />
+              </PrivateRoute>
+            }
+          />
+          
           <Route
             path="/insurance/form"
             element={

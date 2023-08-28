@@ -7,53 +7,47 @@ import axios from "axios";
 const getRequiredDocuments = (type, salaried) =>
   LOAN_TYPES[type][salaried === "true" ? "salaried" : "nonSalaried"].documents;
 
-
-
 const LoanDocumentsForm = ({ type, salaried }) => {
   const requiredDocuments = getRequiredDocuments(type, salaried);
   const [documents, setDocuments] = useState(
     Object.fromEntries(requiredDocuments.map((doc) => [doc, null]))
   );
-  const [selectedFiles, setSelectedFiles] = useState({});
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleClick = async () => {
     try {
-      // Retrieve the stored data from localStorage
-      const storedData = JSON.parse(localStorage.getItem('itaxData'));
+      const storedData = JSON.parse(localStorage.getItem("itaxData"));
 
-      // Create a new FormData object
       const formData = new FormData();
 
       // Append each selected file to the FormData
-      for (const docType in selectedFiles) {
-        if (selectedFiles.hasOwnProperty(docType)) {
-          const file = selectedFiles[docType];
-          if (file) {
-            console.log(file)
-            formData.append(docType, file);
-          }
-        }
-      }
-
-      console.log(formData)
-      // Make a POST request to the backend API using axios
-      const response = await axios.post(`${BASE_URL}/documents/upload`,formData, {
-        headers: {
-          'Authorization': `Bearer ${storedData.token}`,
-        },
+      selectedFiles.forEach((file) => {
+        formData.append("file", file);
       });
 
-      // Response data will be available in response.data
-      console.log('Response:', response.data);
+      console.log(formData);
+
+      const response = await axios.post(
+        `${BASE_URL}/documents/upload`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${storedData.token}`,
+          },
+        }
+      );
+
+      const uploadedFileIds = response.data.documents.map((fileObj) => fileObj.id);
+      console.log("Uploaded File IDs:", uploadedFileIds);
+
+      // Save uploadedFileIds in local storage or use it as needed
+      localStorage.setItem("uploadedFileIds", JSON.stringify(uploadedFileIds));
+
+      console.log("Response:", response.data);
     } catch (error) {
-      console.log('Error:', error);
+      console.log("Error:", error);
     }
   };
-
-  
-  
-  
-  
 
   const handleDocument = (e, docType) => {
     if (e.target.files.length === 0) {
@@ -61,15 +55,13 @@ const LoanDocumentsForm = ({ type, salaried }) => {
       return;
     }
 
-    // Update the selectedFiles state with the selected file
-    setSelectedFiles((prevSelectedFiles) => ({
+    const newFiles = [...e.target.files];
+
+    setSelectedFiles((prevSelectedFiles) => [
       ...prevSelectedFiles,
-      [docType]: e.target.files[0],
-    }));
+      ...newFiles,
+    ]);
   };
-  
-  
-  
 
   const handleRemoveDocument = (docType) => {
     setDocuments((prevDocuments) => {
@@ -91,8 +83,6 @@ const LoanDocumentsForm = ({ type, salaried }) => {
     }
   };
 
-
-
   useEffect(() => {
     // This effect will run whenever the 'documents' state changes
     console.log("Updated documents:", documents);
@@ -112,15 +102,14 @@ const LoanDocumentsForm = ({ type, salaried }) => {
           </label>
 
           <div className="flex items-center">
-          <input
-  onChange={(e) => handleDocument(e, docType)}
-  id={`requiredDocument_${idx}`}
-  type="file"
-  className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
-  accept="application/pdf"
-
-  multiple // Add this attribute to allow multiple file selection
-/>
+            <input
+              onChange={(e) => handleDocument(e)}
+              id={`requiredDocument_${idx}`}
+              type="file"
+              className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline"
+              accept="application/pdf"
+              multiple // Add this attribute to allow multiple file selection
+            />
 
             {documents[docType] && (
               <>
@@ -140,7 +129,6 @@ const LoanDocumentsForm = ({ type, salaried }) => {
               </>
             )}
           </div>
-          
         </div>
       ))}
       <button className="button is-primary" onClick={handleClick}>

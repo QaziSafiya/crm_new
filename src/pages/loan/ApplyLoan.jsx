@@ -3,32 +3,32 @@ import { BASE_URL } from '../../constants';
 import axios from 'axios';
 
 const ApplyLoan = ({ formData }) => {
-  
+  const storedUploadedFileIds = JSON.parse(localStorage.getItem("uploadedFileIds"))
   const [loanData, setLoanData] = useState({
     
     loanId: '',
-    amount:5000,
+    amount:null,
     loanType:"",
-    description: 'Business Loan',
-    documents: ["9de52c81-a78f-49fb-8368-5fbf7707ee15"],
+    description: '',
+    documents: [...storedUploadedFileIds],
     applicantDetails: {
-      applicantName:"Alok",
-      applicantAge: 25,
-      applicantGender: 'male',
-      nationality: 'resident',
+      applicantName:"",
+      applicantAge: null,
+      applicantGender: '',
+      nationality: '',
       salaried: true,
-      phone: "7275965874",
-      email: 'ab@gmail.com',
-      permanentAddress: 'Lucknow',
-      country: 'India',
-      address: 'Lucknow',
+      phone: "",
+      email: '',
+      permanentAddress: '',
+      country: '',
+      address: '',
       bankDetails: {
-        accountHolderName: 'Alok Kumar Verma',
-        bankName: 'ICIC',
-        bankAccountNo: '12365',
-        bankAccountType: 'savings',
-        bankIfsc: 'ICIC12563',
-        bankBranch: 'Lucknow',
+        accountHolderName: '',
+        bankName: '',
+        bankAccountNo: '',
+        bankAccountType: '',
+        bankIfsc: '',
+        bankBranch: '',
       },
     },
   });
@@ -37,28 +37,33 @@ const ApplyLoan = ({ formData }) => {
 const storedData = JSON.parse(localStorage.getItem('itaxData'));
 // console.log(storedData.token)
 
-  const handleLoanDataChange = (e) => {
-    const { name, value } = e.target;
-    setLoanData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+const handleLoanDataChange = (e) => {
+  const { name, value, type } = e.target;
 
-  const handleApplicantDetailsChange = (e) => {
-    const { name, value, type, checked } = e.target;
-  
-    // Convert the string value to a boolean if the input type is a checkbox
-    const newValue = type === 'checkbox' ? checked : value;
-  
-    setLoanData((prevData) => ({
-      ...prevData,
-      applicantDetails: {
-        ...prevData.applicantDetails,
-        [name]: name === 'salaried' ? (newValue === 'true') : newValue,
-      },
-    }));
-  };
+  // Parse value as a number if the input type is "number"
+  const parsedValue = type === "number" ? parseFloat(value) : value;
+
+  setLoanData((prevData) => ({
+    ...prevData,
+    [name]: parsedValue,
+  }));
+};
+
+const handleApplicantDetailsChange = (e) => {
+  const { name, value, type, checked } = e.target;
+
+  // Convert the string value to a boolean if the input type is a checkbox
+  const newValue = type === 'checkbox' ? checked : (type === 'number' ? parseFloat(value) : value);
+
+  setLoanData((prevData) => ({
+    ...prevData,
+    applicantDetails: {
+      ...prevData.applicantDetails,
+      [name]: name === 'salaried' ? (newValue === 'true') : newValue,
+    },
+  }));
+};
+
   
   
 
@@ -100,7 +105,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
           },
         });
 
-      console.log(response)
+      // console.log(response)
 
       if (response.ok) {
         // Handle success
@@ -191,6 +196,8 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
     onChange={handleLoanDataChange}
     className="block w-full p-2 text-base border border-gray-300 rounded transition duration-300 focus:outline-none focus:border-primary focus:shadow-outline h-10 bg-white"
   >
+    <option value="">Select Loan Type</option>
+
     <option value="personal">Personal</option>
     <option value="education">Education</option>
     <option value="home">Home</option>
@@ -224,7 +231,7 @@ const storedData = JSON.parse(localStorage.getItem('itaxData'));
 </div>
 
 <div className="mb-4">
-          <label className="block mb-2 text-primary font-bold">Applicant Age</label>
+          <label className="block mb-2 text-primary font-bold">Applicant Name</label>
           <input
             type="text"
             name="applicantName"
