@@ -119,6 +119,10 @@ import BikeInfo from './pages/Insurance/lic-insurance/bike-info'
 import LicBikePlans from './pages/Insurance/lic-insurance/lic-bike-plans'
 import CarInfo from './pages/Insurance/lic-insurance/lic-car-info'
 import LicCarPlans from './pages/Insurance/lic-insurance/lic-car-plans'
+import PaymentGateway from './pages/Insurance/lic-insurance/payment-gateway'
+import LicHealthPlanNew from './pages/Insurance/lic-insurance/lic-health-plan-new'
+import SIIPCalculator from './pages/Insurance/lic-insurance/siip-calculator'
+import JeevanUmangPremiumCalculator from './pages/Insurance/lic-insurance/premium-calculator'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -462,6 +466,41 @@ function App() {
             element={
               <PrivateRoute>
                 <LicCarPlans  />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/insurance/lic/plan-new"
+            element={
+              <PrivateRoute>
+                <LicHealthPlanNew  />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insurance/payment-gateway"
+            element={
+              <PrivateRoute>
+                <PaymentGateway  />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/insurance/siip-cal"
+            element={
+              <PrivateRoute>
+                <SIIPCalculator  />
+              </PrivateRoute>
+            }
+          />
+
+           <Route
+            path="/insurance/premium-cal"
+            element={
+              <PrivateRoute>
+                <JeevanUmangPremiumCalculator  />
               </PrivateRoute>
             }
           />

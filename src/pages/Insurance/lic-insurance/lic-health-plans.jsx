@@ -2,6 +2,8 @@ import React from 'react';
 import Sidebar from '../../../components/Sidebar';
 import Topbar from '../../../components/Topbar';
 import girl from "../images/girl.png";
+import { Link } from 'react-router-dom';
+
 
 
 const LicHealthPlans = () => {
@@ -114,9 +116,13 @@ const LicHealthPlans = () => {
         <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
         <p className="text-base font-semibold">₹ per year</p>
       </div>
+      <Link to="/insurance/payment-gateway">
+      <div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       ₹5393/Y
       </button>
+      </div>
+      </Link>
       
       
       </div>
@@ -142,9 +148,13 @@ const LicHealthPlans = () => {
         <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
         <p className="text-base font-semibold">₹ per year</p>
       </div>
+      <Link to="/insurance/payment-gateway">
+      <div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       ₹5393/Y
       </button>
+      </div>
+      </Link>
       
       
       </div>
@@ -170,9 +180,13 @@ const LicHealthPlans = () => {
         <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
         <p className="text-base font-semibold">₹ per year</p>
       </div>
+      <Link to="/insurance/payment-gateway">
+      <div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       ₹5393/Y
       </button>
+      </div>
+      </Link>
       
       
       </div>
@@ -198,9 +212,13 @@ const LicHealthPlans = () => {
         <p className="text-sm text-gray-500 mb-2">Cover: 5 Lakhs</p>
         <p className="text-base font-semibold">₹ per year</p>
       </div>
+      <Link to="/insurance/payment-gateway">
+      <div>
       <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
       ₹5393/Y
       </button>
+      </div>
+      </Link>
       
       
       </div>

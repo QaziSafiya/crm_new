@@ -82,39 +82,62 @@ const PersonalDetails = () => {
                 <label htmlFor="gender" className="text-sm ml-1">
                       Gender
                     </label>
-                  <div className="flex mb-4">
-                    <div
-                      className={`w-1/2 p-4 bg-gray-100 rounded-lg shadow-md mr-2 mt-2 flex items-center cursor-pointer ${
-                        selectedGender === "male"
-                          ? "bg-blue-500 text-blue-500"
-                          : ""
-                      }`}
-                      onClick={() => setSelectedGender("male")}
-                    >
-                      <img src={boy} alt="Male Logo" className="w-8 h-8 mr-2" />
-                      <label htmlFor="male" className="text-lg font-semibold">
-                        Male
-                      </label>
-                    </div>
-                    <div
-                      className={`w-1/2 p-4 bg-gray-100 rounded-lg shadow-md ml-2 mt-2 flex items-center cursor-pointer ${
-                        selectedGender === "female"
-                          ? "bg-blue-500 text-blue-500"
-                          : ""
-                      }`}
-                      onClick={() => setSelectedGender("female")}
-                    >
-                      <img
-                        src={girl}
-                        alt="Female Logo"
-                        className="w-8 h-8 mr-2"
-                      />
-                      <label htmlFor="female" className="text-lg font-semibold">
-                        Female
-                      </label>
-                    </div>
-                  </div>
-
+                    <div className="flex mb-4">
+        <div
+          className={`w-1/2 p-4 bg-gray-100 rounded-lg shadow-md mr-2 mt-2 flex items-center cursor-pointer ${
+            selectedGender === "male" ? "bg-blue-500 text-blue-400" : ""
+          }`}
+          onClick={() => setSelectedGender("male")}
+        >
+          <img src={boy} alt="Male Logo" className="w-8 h-8 mr-2" />
+          <label htmlFor="male" className="text-lg font-semibold">
+            Male
+          </label>
+          {selectedGender === "male" && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 ml-2 text-green-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          )}
+        </div>
+        <div
+          className={`w-1/2 p-4 bg-gray-100 rounded-lg shadow-md ml-2 mt-2 flex items-center cursor-pointer ${
+            selectedGender === "female" ? "bg-blue-500 text-blue-400" : ""
+          }`}
+          onClick={() => setSelectedGender("female")}
+        >
+          <img src={girl} alt="Female Logo" className="w-8 h-8 mr-2" />
+          <label htmlFor="female" className="text-lg font-semibold">
+            Female
+          </label>
+          {selectedGender === "female" && (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 ml-2 text-green-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+          )}
+        </div>
+      </div>
                   <div className="flex mt-2">
                     <div className="flex flex-col w-1/2 pr-2">
                       <label htmlFor="fullName" className="text-sm ml-1">
@@ -388,7 +411,7 @@ const PersonalDetails = () => {
                 Back
               </button>
               
-              <Link to="/insurance/lic/health">
+              <Link to="/insurance/lic/plan-new">
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
               >
