@@ -112,6 +112,10 @@ import HomeLoan from './pages/loan/loan-types/home-loan'
 import PersonalLoan from './pages/loan/loan-types/personal-loan'
 import PropertyLoan from './pages/loan/loan-types/property-loan'
 import LoanApplication from './pages/loan/loan-types/loan-application'
+import BajajCapital from './pages/Insurance/BajajCapital'
+import BajajBasicDetails from './pages/Insurance/BajajComponents/BajajBasicDetails'
+import BajajVehicleDetails from './pages/Insurance/BajajComponents/BajajVehicleDetails'
+import BajajCarInsurancePage from './pages/Insurance/BajajComponents/BajajCarInsurancePage'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -406,6 +410,38 @@ function App() {
             element={
               <PrivateRoute>
                 <InsForm />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/insurance/bajajCapital"
+            element={
+              <PrivateRoute>
+                <BajajCapital />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/insurance/bajajCapital/basicDetails'
+            element={
+              <PrivateRoute>
+                <BajajBasicDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/insurance/bajajCapital/vehicleDetails'
+            element={
+              <PrivateRoute>
+                <BajajVehicleDetails />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/insurance/bajajCapital/carInsurance'
+            element={
+              <PrivateRoute>
+                <BajajCarInsurancePage />
               </PrivateRoute>
             }
           />

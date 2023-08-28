@@ -74,7 +74,7 @@ function ChooseInsurance() {
                 <div className="column">
                  
                     {/* Rest of the card content */}
-                    <div className="card bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all border border-indigo-600 w-full h-full flex flex-col justify-between">
+                    <Link to={'/insurance/bajajCapital'} className="card bg-white p-6 rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all border border-indigo-600 w-full h-full flex flex-col justify-between cursor-pointer">
                       <div className="icon-wrapper bg-blue-100 p-4 rounded-full mx-auto mb-4 flex items-center justify-center">
                         <img
                           src={`${bajaj_capital}`}
@@ -90,7 +90,7 @@ function ChooseInsurance() {
                           {`Bajaj Capital with over 59 years of experience is your one-stop solution for Mutual Funds...`}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                 </div>
                 
                 <div className="column">
