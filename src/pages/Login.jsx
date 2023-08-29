@@ -94,9 +94,9 @@ export default function Login() {
 
             const { data: userData = {} } = (await userProfileRequest?.json()) || {};
 
-           // console.log(data, token);
+            // console.log(data, token);
             //  localStorage.setItem("itaxToken",JSON.stringify(token))
-            localStorage.setItem("itaxData",JSON.stringify(data))
+            // localStorage.setItem("itaxData",JSON.stringify(data))
 
 
             dispatch({

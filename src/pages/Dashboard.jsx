@@ -8,107 +8,14 @@ import useDashboard from "../hooks/useDashboard.js";
 import { Pie } from "react-chartjs-2";
 import { BASE_URL } from "../constants.js";
 import axios from "axios";
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-
-// import { Bar } from "react-chartjs-2";
-// ChartJS.register(ArcElement, Tooltip, Legend);
+import useAuth from "../hooks/useAuth.js";
 
 export default function Dashboard() {
+  const { currentUser: { token } } = useAuth((store) => store.auth);
   const [data, loading, error] = useDashboard();
-  const [invoices,setInvoices]=useState([])
+  const [invoices, setInvoices] = useState([])
   const [fetchedData, setFetchedData] = useState([]);
   const [insuranceList, setInsuranceList] = useState([]);
-
-
-  const insuranceChartData = {
-    labels: [
-      "Policies Sold",
-      "Premium Collections",
-      "Top Products",
-      "Claims Processed",
-      "Customer Satisfaction",
-    ],
-    datasets: [
-      {
-        data: [300, 500, 200, 150, 400],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#FF8C00",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#FF8C00",
-        ],
-      },
-    ],
-  };
-
-  const loanChartData = {
-    labels: [
-      "Applications Received",
-      "Approval Rate",
-      "Average Loan Amount",
-      "Top Loan Types",
-      "Repayment Status",
-    ],
-    datasets: [
-      {
-        data: [100, 80, 5000, 200, 90],
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#FF8C00",
-        ],
-        hoverBackgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#FFCE56",
-          "#4BC0C0",
-          "#FF8C00",
-        ],
-      },
-    ],
-  };
-
-  const ITRChart = {
-    labels: [
-      "Filed Tax Returns",
-      "Average Refund/Amount",
-      "Deductions Claimed",
-      "Compliance Rate",
-    ],
-    datasets: [
-      {
-        data: [1000, 2500, 80, 3, 95],
-        backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0", "#FF8C00"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0", "#FF8C00"],
-      },
-    ],
-  };
-
-  const BillPaymentPieChart = {
-    labels: [
-      "Bills Processed",
-      "Average Payment Amount",
-      "Popular Categories",
-      "Payment Success Rate",
-    ],
-    datasets: [
-      {
-        data: [500, 120, 150, 250, 80],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF8C00"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF8C00"],
-      },
-    ],
-  };
 
   const statsData = [
     { category: "Insurance", totalApplications: `${insuranceList.length}` },
@@ -117,56 +24,39 @@ export default function Dashboard() {
     { category: "Electricity Bill", totalApplications: 0 },
   ];
 
-  //   const labels = Utils.months({count: 7});
-
   const getInvoices = async () => {
-    let token = JSON.parse(localStorage.getItem("itaxData"));
-    console.log(token.token);
 
-    // Replace 'your-api-endpoint' with your actual API endpoint
     await fetch(`${BASE_URL}/invoice/invoices`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setInvoices(data.invoices);
-        // Do something with the response data if needed
       })
       .catch((error) => {
         console.error(error);
-        // Handle error if needed
       });
   };
 
-  useEffect(()=>{
-    getInvoices()
-  },[])
-
- 
- 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   const fetchData = async () => {
-    const storedData = JSON.parse(localStorage.getItem('itaxData'));
+
     try {
       const response = await axios.get(`${BASE_URL}/loan/applications`, {
         headers: {
-          Authorization: `Bearer ${storedData.token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (response.status === 200) {
-       
-        console.log(response.data.data.applications)
+
+        // console.log(response.data.data.applications)
         setFetchedData(response.data.data.applications); // Set fetched data in the state
-       
+
       } else {
         console.error('Failed to fetch data');
       }
@@ -175,28 +65,21 @@ export default function Dashboard() {
     }
   }
 
-
-  useEffect(() => {
-    fetchInsuranceList();
-  }, []);
-
   const fetchInsuranceList = async () => {
-    let token = JSON.parse(localStorage.getItem("itaxData"));
-    console.log(token.token);
 
     // Replace 'your-api-endpoint' with your actual API endpoint
     await fetch(`${BASE_URL}/insourance/getAll`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setInsuranceList(data.applications
-          );
+        );
         // Do something with the response data if needed
       })
       .catch((error) => {
@@ -204,6 +87,12 @@ export default function Dashboard() {
         // Handle error if needed
       });
   };
+
+  useEffect(() => {
+    getInvoices()
+    fetchData();
+    fetchInsuranceList();
+  }, []);
   return (
     <div className="container">
       <Sidebar />
@@ -243,7 +132,7 @@ export default function Dashboard() {
                     </span>
                   </div>
                   <div className="card-body">
-                    <h5>{invoices.length+fetchedData.length+insuranceList.length}</h5>
+                    <h5>{invoices.length + fetchedData.length + insuranceList.length}</h5>
                   </div>
                 </div>
               </div>
@@ -329,36 +218,36 @@ export default function Dashboard() {
               </div>
               <h1 className="text-secondary mt-10">Financial Statistics</h1>
               {/* <div className="flex justify-center items-center h-screen mt-10 ml-0"> */}
-      <div className="grid grid-cols-3 gap-4 mt-10">
-        <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <h1 className="text-center text-xl font-bold mb-4">Insurance Statistics</h1>
-          <div className="h-80 w-full flex justify-center items-center">
-            <Pie data={insuranceChartData} />
-          </div>
-        </div>
+              <div className="grid grid-cols-3 gap-4 mt-10">
+                <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                  <h1 className="text-center text-xl font-bold mb-4">Insurance Statistics</h1>
+                  <div className="h-80 w-full flex justify-center items-center">
+                    <Pie data={insuranceChartData} />
+                  </div>
+                </div>
 
-        <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <h1 className="text-center text-xl font-bold mb-4">Loan Statistics</h1>
-          <div className="h-80 w-full flex justify-center items-center">
-            <Pie data={loanChartData} />
-          </div>
-        </div>
+                <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                  <h1 className="text-center text-xl font-bold mb-4">Loan Statistics</h1>
+                  <div className="h-80 w-full flex justify-center items-center">
+                    <Pie data={loanChartData} />
+                  </div>
+                </div>
 
-        <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <h1 className="text-center text-xl font-bold mb-4">ITR Statistics</h1>
-          <div className="h-80 w-full flex justify-center items-center">
-            <Pie data={ITRChart} />
-          </div>
-        </div>
+                <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                  <h1 className="text-center text-xl font-bold mb-4">ITR Statistics</h1>
+                  <div className="h-80 w-full flex justify-center items-center">
+                    <Pie data={ITRChart} />
+                  </div>
+                </div>
 
-        <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <h1 className="text-center text-xl font-bold mb-4">Bill Payment Statistics</h1>
-          <div className="h-80 w-full flex justify-center items-center">
-            <Pie data={BillPaymentPieChart} />
-          </div>
-        </div>
-      </div>
-    </div>
+                <div className="chart-container bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                  <h1 className="text-center text-xl font-bold mb-4">Bill Payment Statistics</h1>
+                  <div className="h-80 w-full flex justify-center items-center">
+                    <Pie data={BillPaymentPieChart} />
+                  </div>
+                </div>
+              </div>
+            </div>
             // </div>
           )}
         </div>
@@ -367,3 +256,95 @@ export default function Dashboard() {
     </div>
   );
 }
+
+
+
+const insuranceChartData = {
+  labels: [
+    "Policies Sold",
+    "Premium Collections",
+    "Top Products",
+    "Claims Processed",
+    "Customer Satisfaction",
+  ],
+  datasets: [
+    {
+      data: [300, 500, 200, 150, 400],
+      backgroundColor: [
+        "#FF6384",
+        "#36A2EB",
+        "#FFCE56",
+        "#4BC0C0",
+        "#FF8C00",
+      ],
+      hoverBackgroundColor: [
+        "#FF6384",
+        "#36A2EB",
+        "#FFCE56",
+        "#4BC0C0",
+        "#FF8C00",
+      ],
+    },
+  ],
+};
+
+const loanChartData = {
+  labels: [
+    "Applications Received",
+    "Approval Rate",
+    "Average Loan Amount",
+    "Top Loan Types",
+    "Repayment Status",
+  ],
+  datasets: [
+    {
+      data: [100, 80, 5000, 200, 90],
+      backgroundColor: [
+        "#FF6384",
+        "#36A2EB",
+        "#FFCE56",
+        "#4BC0C0",
+        "#FF8C00",
+      ],
+      hoverBackgroundColor: [
+        "#FF6384",
+        "#36A2EB",
+        "#FFCE56",
+        "#4BC0C0",
+        "#FF8C00",
+      ],
+    },
+  ],
+};
+
+const ITRChart = {
+  labels: [
+    "Filed Tax Returns",
+    "Average Refund/Amount",
+    "Deductions Claimed",
+    "Compliance Rate",
+  ],
+  datasets: [
+    {
+      data: [1000, 2500, 80, 3, 95],
+      backgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0", "#FF8C00"],
+      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#4BC0C0", "#FF8C00"],
+    },
+  ],
+};
+
+const BillPaymentPieChart = {
+  labels: [
+    "Bills Processed",
+    "Average Payment Amount",
+    "Popular Categories",
+    "Payment Success Rate",
+  ],
+  datasets: [
+    {
+      data: [500, 120, 150, 250, 80],
+      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF8C00"],
+      hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF8C00"],
+    },
+  ],
+};
