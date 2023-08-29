@@ -18,9 +18,9 @@ export const getCurrentQuarter = () => {
   return Math.floor(currentMonth / 3);
 };
 
-export const getMonthsByCurrentQuarter = (quarter) => {
+export const getMonthsByCurrentQuarter = () => {
   // const quarter = getCurrentQuarter();
-  return QUARTERS[quarter];
+  return QUARTERS;
 };
 
 export const getMonthsByPreviousQuarter = () => {
