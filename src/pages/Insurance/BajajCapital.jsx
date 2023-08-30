@@ -20,7 +20,7 @@ const BajajCapital = () => {
             {
               icon: "m_home_mediclaim.png",
               title: "Health",
-              path: "/insurance/bajajCapital/healthInsurance/basic_details",
+              path: "/insurance/bajajCapital/healthInsurance_basicDetails",
             },
           ].map((item, index) => (
             <Link

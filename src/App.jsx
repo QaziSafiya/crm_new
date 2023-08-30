@@ -116,6 +116,7 @@ import BajajCapital from './pages/Insurance/BajajCapital'
 import BajajBasicDetails from './pages/Insurance/BajajComponents/BajajBasicDetails'
 import BajajVehicleDetails from './pages/Insurance/BajajComponents/BajajVehicleDetails'
 import BajajCarInsurancePage from './pages/Insurance/BajajComponents/BajajCarInsurancePage'
+import BajajHealthBasicDetail from './pages/Insurance/BajajComponents/HealthInsurence/BajajHealthBasicDetail'
 import LicInsuranceType from './pages/Insurance/lic-insurance/insurance-type'
 import PersonalDetails from './pages/Insurance/lic-insurance/personal-details'
 import LicHealthPlans from './pages/Insurance/lic-insurance/lic-health-plans'
@@ -127,6 +128,7 @@ import PaymentGateway from './pages/Insurance/lic-insurance/payment-gateway'
 import LicHealthPlanNew from './pages/Insurance/lic-insurance/lic-health-plan-new'
 import SIIPCalculator from './pages/Insurance/lic-insurance/siip-calculator'
 import JeevanUmangPremiumCalculator from './pages/Insurance/lic-insurance/premium-calculator'
+import AgeCaptureForm from './pages/Insurance/BajajComponents/HealthInsurence/AgeCaptureForm'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -546,6 +548,22 @@ function App() {
             element={
               <PrivateRoute>
                 <BajajCarInsurancePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/insurance/bajajCapital/healthInsurance_basicDetails'
+            element={
+              <PrivateRoute>
+                <BajajHealthBasicDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/insurance/bajajCapital/healthInsurance_ageCaptureForm'
+            element={
+              <PrivateRoute>
+                <AgeCaptureForm />
               </PrivateRoute>
             }
           />
