@@ -19,10 +19,16 @@ export default function useUsers(pageNo) {
                     'Authorization': `Basic ${token}`,
                 })
             });
+
+            if (!response.ok) {
+                throw new Error(
+                  "Unauthorized Access. You must be an admin to perform this operation."
+                );
+            }
             
-            const { data } = await response.json();
+            const data = await response.json();
           
-            setUsers(data.users);
+            setUsers(data);
            
             setCurrentPage(data?.page ? data.page : pageNo);
             setTotalPages(data?.page ? data.totalPage : 1);
