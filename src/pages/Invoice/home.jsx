@@ -13,9 +13,12 @@ import InvoiceForm from "./forms/InvoiceForm";
 import { Link } from "react-router-dom";
 import ArrowDownIcon from "../../components/icons/ArrowDownIcon";
 import ArrowUpIcon from "../../components/icons/ArrowUpIcon";
+import useAuth from "../../hooks/useAuth";
 // import Invoice from "./download/Invoice";
 
 export default function HomeInvoice() {
+  const { currentUser,token } = useAuth();
+
   const [invoices, setInvoices] = useState([]);
 
   const [showForm, setShowForm] = useState(false);
@@ -27,28 +30,29 @@ export default function HomeInvoice() {
   }, []);
 
   const getInvoices = async () => {
-    let token = JSON.parse(localStorage.getItem("itaxData"));
-    console.log(token.token);
-
-    // Replace 'your-api-endpoint' with your actual API endpoint
-    await fetch(`${BASE_URL}/invoice/invoices`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token.token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setInvoices(data.invoices);
-        // Do something with the response data if needed
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error if needed
+    try {
+      const response = await fetch(`${BASE_URL}/invoice/invoices`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch invoices - HTTP Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setInvoices(data.invoices);
+      // Do something with the response data if needed
+    } catch (error) {
+      console.error(error);
+      // Handle error if needed
+    }
   };
+
   
   const handleBillingPeriodChange = (e) => {
     setBillingPeriod(e.target.value);
@@ -58,7 +62,6 @@ export default function HomeInvoice() {
     setShowForm(true);
   };
 
-  let businessName = JSON.parse(localStorage.getItem("itaxData"));
 
   const totalSalePrice = invoices
   .filter(invoice => invoice.type === 'sales') // Filter invoices with type 'sale'
@@ -81,7 +84,7 @@ export default function HomeInvoice() {
             {!showForm && (
               <div className="p-4 rounded shadow mb-4 w-52 bg-blue-500 text-white">
                 <p>Business Name</p>
-                <h2 className="text-lg font-bold mb-2">{`${businessName.user.firstName} ${businessName.user.lastName}`}</h2>
+                <h2 className="text-lg font-bold mb-2">{`${currentUser.user.firstName} ${currentUser.user.lastName}`}</h2>
                 {/* Add additional information or functionality related to the business name block */}
               </div>
             )}

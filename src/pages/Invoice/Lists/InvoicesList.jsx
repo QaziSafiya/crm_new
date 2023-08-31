@@ -5,16 +5,17 @@ import { BASE_URL } from "../../../constants.js";
 import { RiBillLine, RiInformationFill } from "react-icons/ri";
 import ViewIcon from "../../../components/icons/ViewIcon.jsx";
 import { Link } from "react-router-dom";
-
+import useAuth from "../../../hooks/useAuth.js";
 // Replace with your actual base URL
 
 const InvoicesList = () => {
+  const { currentUser, token } = useAuth();
+
   const [invoices, setInvoices] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
   useEffect(() => {
-    // Fetch all invoices when the component mounts
     getInvoices();
   }, []);
 
@@ -23,15 +24,13 @@ const InvoicesList = () => {
   }, [currentPage]);
 
   const getInvoices = async () => {
-    let token = JSON.parse(localStorage.getItem("itaxData"));
-    console.log(token.token);
 
     // Replace 'your-api-endpoint' with your actual API endpoint
     await fetch(`${BASE_URL}/invoice/invoices`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token.token}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -48,7 +47,6 @@ const InvoicesList = () => {
 
   const handleDeleteInvoice = async (deletedInvoiceId) => {
     try {
-      const token = JSON.parse(localStorage.getItem("itaxData")).token;
       await axios.delete(`${BASE_URL}/invoice/invoices/${deletedInvoiceId}`, {
         headers: {
           "Content-Type": "application/json",
