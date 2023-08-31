@@ -57,17 +57,15 @@ export default function Payments() {
                                 : (
                                     <>
                                         {
-                                            !data.transactions.length
-                                                ? (
-                                                    <div className="section ai-center jc-center">
-                                                        <h6>No Payments</h6>
-                                                        <span className="text-secondary">
-                                                            You have not made any payments yet.
-                                                        </span>
-                                                    </div>
-                                                )
-                                                : (
-                                                    <>
+                                            !data?.transactions?.length ? (
+                                                <div className="section ai-center jc-center">
+                                                    <h6>No Payments</h6>
+                                                    <span className="text-secondary">
+                                                        You have not made any payments yet.
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                <>
                                                     <div className="section p-0">
                                                         <div className="scrollable">
                                                             <table>
@@ -79,25 +77,22 @@ export default function Payments() {
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    {
-                                                                        data.transactions.map(payment => {
-                                                                            return (
-                                                                                <tr key={payment.razorpay_order_id}>
-                                                                                    <td>{payment.razorpay_order_id}</td>
-                                                                                    <td>{dateFormatter.format(new Date(payment.createdAt))}</td>
-                                                                                    <td>{payment.status}</td>
-                                                                                </tr>
-                                                                            )
-                                                                        })
-                                                                    }
+                                                                    {data.transactions.map(payment => (
+                                                                        <tr key={payment.razorpay_order_id}>
+                                                                            <td>{payment.razorpay_order_id}</td>
+                                                                            <td>{dateFormatter.format(new Date(payment.createdAt))}</td>
+                                                                            <td>{payment.status}</td>
+                                                                        </tr>
+                                                                    ))}
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                     <Pagination totalPages={data.total_pages} currentPage={page} />
-                                                    </>
-                                                )
+                                                </>
+                                            )
                                         }
+
                                     </>
                                 )
                     }
