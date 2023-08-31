@@ -13,18 +13,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textDecoration: 'underline',
   },
-  brdr:{
-  //  border:"1px solid grey",
-   padding:10,
-  //  display:"flex",
-  //  flexDirection:"column",
-  textAlign:"left",
-  alignItems:"flex-start",
-  border: "0.8px solid black", // Add a border
+  brdr: {
+    border: "0.8px solid black", // Add a border
     padding: "10px", // Add padding for spacing
     borderRadius: "5px", // Add rounded corners
     boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
-
   },
   section: {
     marginBottom: 10,
