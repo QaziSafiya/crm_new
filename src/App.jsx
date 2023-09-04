@@ -129,6 +129,15 @@ import LicHealthPlanNew from './pages/Insurance/lic-insurance/lic-health-plan-ne
 import SIIPCalculator from './pages/Insurance/lic-insurance/siip-calculator'
 import JeevanUmangPremiumCalculator from './pages/Insurance/lic-insurance/premium-calculator'
 import AgeCaptureForm from './pages/Insurance/BajajComponents/HealthInsurence/AgeCaptureForm'
+// ITR
+import ITRForm_16 from './pages/ITR/ITRForm-16'
+import ITR_WithoutForm_16 from './pages/ITR/ITR-WithoutFom-16'
+import ITRUploadForm16 from './pages/ITR/components/UploadForm16'
+import ITRForm16 from './pages/ITR/components/Form16Page'
+import ITRDeductions from './pages/ITR/components/ITRDeductions'
+import ITRTaxPayable from './pages/ITR/components/Tax-payable'
+import ITRTaxPaid from './pages/ITR/components/ITRTaxPaid'
+import TaxFilling from './pages/ITR/components/Tax-Filling'
 
 const ITAX_URL = 'https://itaxeasy.com';
 
@@ -799,6 +808,24 @@ function App() {
           <Route path='/project-report' element={
             <PrivateRoute>
               <ProjectReport />
+            </PrivateRoute>
+          } />
+          <Route path='/form-16' element={
+            <PrivateRoute>
+              <ITRForm_16 />
+            </PrivateRoute>
+          } >
+            {/* <Route  element={<ITRPersionalInfo />}/> */}
+            <Route index element={<ITRUploadForm16 />}/>
+            <Route path='itrForm-filling' element={<ITRForm16 />}/>
+            <Route path='deductions' element={<ITRDeductions />}/>
+            <Route path='tax-payable' element={<ITRTaxPayable />}/>
+            <Route path='taxes-paid' element={<ITRTaxPaid />}/>
+            <Route path='taxes-filing' element={<TaxFilling />}/>
+          </Route>
+          <Route path='/withoutFrom-16' element={
+            <PrivateRoute>
+              <ITR_WithoutForm_16 />
             </PrivateRoute>
           } />
           <Route path='/login' element={<Login />} />

@@ -121,11 +121,9 @@ export default function Sidebar({ open }) {
             to="/gst/gstr"
             title="Easy GST Return"
           />
-          <Menu icon={<PercentageIcon />} title="ITR" upcoming>
-            <SideNavLink icon={<GlobeIcon />} to="/" title="Form-16" />
-            <SideNavLink icon={<GlobeIcon />} to="/" title="Form-2" />
-            <SideNavLink icon={<GlobeIcon />} to="/" title="Form-2A" />
-            <SideNavLink icon={<GlobeIcon />} to="/" title="Sehej" />
+          <Menu icon={<PercentageIcon />} title="ITR" >
+            <SideNavLink icon={<GlobeIcon />} to="/form-16" title="Form-16" />
+            <SideNavLink icon={<GlobeIcon />} to="/withoutFrom-16" title="Without Form-16" />
           </Menu>
           <Menu icon={<BarGraphIcon />} title="Easy Investment" >
           <SideNavLink
