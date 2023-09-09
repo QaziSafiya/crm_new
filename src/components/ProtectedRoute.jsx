@@ -37,7 +37,7 @@ export default function ProtectedRoute({ children }) {
         return <Navigate to='/login' replace />
     }
 
-    if(!(['admin', 'developer', 'normal'].includes(currentUser?.user?.userType))) {
+    if(!(['admin', 'developer'].includes(currentUser?.user?.userType))) {
         return <Navigate to='/' replace />
     }
 
