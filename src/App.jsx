@@ -139,6 +139,11 @@ import ITRTaxPayable from './pages/ITR/components/Tax-payable'
 import ITRTaxPaid from './pages/ITR/components/ITRTaxPaid'
 import TaxFilling from './pages/ITR/components/Tax-Filling'
 
+import SaleRegister from './pages/Easy_Audit/SaleRegister.jsx'
+import Purchase_Register from './pages/Easy_Audit/purchase_register'
+import Bank_Statement from './pages/Easy_Audit/Bank_Statement'
+import DetailForm from './pages/Easy_Audit/DetailForm'
+
 const ITAX_URL = 'https://itaxeasy.com';
 
 export const queryClient = new QueryClient();
@@ -208,6 +213,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+ 
         <Routes>
           <Route path='/' element={
             <PrivateRoute>
@@ -277,6 +283,34 @@ function App() {
               <ChangePassword />
             </PrivateRoute>
           } />
+
+ {/* Easy  Audit*/}
+
+ <Route path='/easy_audit' element={
+  <PrivateRoute>
+    <SaleRegister/>
+  </PrivateRoute>
+} />
+
+<Route path='/easy_audit/purchase_register' element={
+  <PrivateRoute>
+    <Purchase_Register/>
+  </PrivateRoute>
+} />
+
+<Route path='/easy_audit/bank_statement' element={
+  <PrivateRoute>
+    <Bank_Statement/>
+  </PrivateRoute>
+} />
+
+<Route path='/easy_audit/detailform' element={
+  <PrivateRoute>
+    <DetailForm/>
+  </PrivateRoute>
+} />
+
+
            <Route path='/invoice' element={
             <PrivateRoute>
               <HomeInvoice />
@@ -810,6 +844,33 @@ function App() {
               <ProjectReport />
             </PrivateRoute>
           } />
+
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <Route path='/form-16' element={
             <PrivateRoute>
               <ITRForm_16 />

@@ -36,6 +36,14 @@ import HandshakeIcon from "./icons/HandshakeIcon.jsx";
 import MenuIcon from "./icons/MenuIcon.jsx";
 import FileTransferIcon from "./icons/FileTransferIcon.jsx";
 import BookIcon from "./icons/BookIcon.jsx";
+
+
+import { AiOutlineFilePdf } from 'react-icons/ai';
+import { BiSolidPurchaseTag, BiDetail, BiSolidRegistered } from 'react-icons/bi';
+import { SiEasyeda } from 'react-icons/si';
+import { RiWaterPercentLine } from 'react-icons/ri';
+import { FaFileInvoice} from 'react-icons/fa';
+
 // import OrderedListIcon from "./icons/OrderedListIcon.jsx";
 
 export default function Sidebar({ open }) {
@@ -76,6 +84,7 @@ export default function Sidebar({ open }) {
           <div className="icon-box"></div>
         </div>
         <nav className="side-nav">
+
           <SideNavLink to="/" icon={<DashboardIcon />} title="Dashboard" />
           <ProtectedMenu>
             <Menu icon={<UserIcon />} title="Users">
@@ -150,7 +159,39 @@ export default function Sidebar({ open }) {
             external
             withToken
           /> */}
-          <Menu icon={<BillIcon />} title="Invoice">
+
+          <Menu icon={<SiEasyeda className="w-6 h-6 mr-2" />} title="Easy Audit">
+          <SideNavLink
+              icon={<BiSolidRegistered  className="w-6 h-6 mr-2"/>}
+              to="/easy_audit"
+              title="Sale Register"
+            />
+             <SideNavLink
+              icon={<BiSolidPurchaseTag className="w-6 h-6 mr-2" />}
+              to="/easy_audit/purchase_register"
+              title="Purchase Register"
+            />
+             <SideNavLink
+              icon={<AiOutlineFilePdf className="w-6 h-6 mr-2"/>}
+              to="/easy_audit/bank_statement"
+              title="Bank Statement"
+            />
+
+            <SideNavLink
+              icon={<BiDetail className="w-6 h-6 mr-2"/>}
+              to="/easy_audit/detailform"
+              title="Detail Form"
+            />
+            
+            </Menu>
+
+            <SideNavLink to="/withoutFrom-16" icon={<RiWaterPercentLine className="w-6 h-6 mr-2"/>} title="Easy TDS" upcoming />
+
+            <SideNavLink to="/withoutFrom-16" icon={<FaFileInvoice className="w-6 h-6 mr-2"/>} title="Easy E-Invoice" upcoming />
+
+
+
+            <Menu icon={<BillIcon />} title="Invoice">
           <SideNavLink
               icon={<HandshakeIcon />}
               to="/invoice"
@@ -231,6 +272,12 @@ export default function Sidebar({ open }) {
               title="Mobile Recharge"
               upcoming
             />
+
+           
+
+
+
+
             <SideNavLink
               icon={<GlobeIcon />}
               to="/"
